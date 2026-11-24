@@ -22,3 +22,5 @@ Edit `experiences` in `app.js` to replace sample evidence. Update the school sel
 ## Hosting
 
 Serve the repository root as a static site. It is compatible with GitHub Pages (Settings → Pages → Deploy from a branch → `main` / root) or any static hosting service. No hosting has been enabled by this source change.
+
+The “Show What You Can Do” tile uses an AI-generated illustrative image of a fictional male student presenting his BPI artifact portfolio (`assets/student-bpi-portfolio.png`). Built-in image generation prompt: “Keep the student and classroom unchanged; replace only the monitor website with My BPI Portfolio, showcasing writing, science, and digital design artifacts alongside reflections and growth.”
