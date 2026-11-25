@@ -100,3 +100,6 @@ dialog.purpose-dialog{max-width:1320px;padding:10px 16px 16px}
 .photo-collage .collage-photo-2{object-position:43% center}
 .photo-collage .collage-photo-3{object-position:55% center}
 .photo-collage .collage-photo-4{object-position:58% center}
+
+.photo.photo-reading-growth{width:48%;clip-path:none}
+.photo-reading-growth .standalone-photo{width:100%;object-position:50% center}

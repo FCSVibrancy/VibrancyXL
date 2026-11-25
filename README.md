@@ -102,4 +102,4 @@ Additional validation: `node tests/alignment.cjs` verifies all seven KPI groups,
 
 ### Updated Thriving Learner imagery
 
-The Thriving Learner overview tile now shows a 2×2 collage of four real Pexels photos of children running and jumping at school. It replaces the generated library portrait. Credits, source URLs, and license details are in `assets/PHOTO-CREDITS.md`. The photos are illustrative stock imagery; the dashboard’s existing illustrative-imagery label still applies.
+The Thriving Learner overview tile now uses `assets/student-reading-growth.png`: the requested AI-generated elementary student holding a Reading Growth Award certificate. The earlier library portrait and four-photo activity collage are retained as unused assets. Credits for the earlier stock photos are in `assets/PHOTO-CREDITS.md`. The dashboard’s illustrative-imagery label still applies.

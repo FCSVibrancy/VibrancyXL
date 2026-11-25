@@ -1,6 +1,6 @@
 # Thriving Learner activity photo credits
 
-The Thriving Learner tile uses four real stock photographs as illustrative imagery, not photographs of Fleming County students. Source: Pexels. Downloaded November 25, 2026. Each image is used under the [Pexels License](https://www.pexels.com/license/), which permits free website use and modifications, with no required attribution. No Adobe Stock assets were licensed or purchased.
+These four stock photographs were previously used in the Thriving Learner tile as illustrative imagery. The tile now displays the generated reading-growth certificate image; these photos remain unused project assets. Source: Pexels. Downloaded November 25, 2026. Each image is used under the [Pexels License](https://www.pexels.com/license/), which permits free website use and modifications, with no required attribution. No Adobe Stock assets were licensed or purchased.
 
 | Local asset | Exact source title | Photographer / contributor | Source |
 | --- | --- | --- | --- |
