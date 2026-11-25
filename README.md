@@ -48,3 +48,7 @@ To add a reporting window, add a `window` row with a unique `id`, then copy the 
 If the sheet cannot be loaded or its required structure is missing, the window clearly identifies the bundled November 25, 2026 sheet snapshot as potentially out of date. The snapshot is not automatically updated; updating it requires a repository change. The other five experiences retain their existing evidence panels.
 
 Validation: `node tests/purpose-data.cjs` and `node --check purpose-dashboard.js`.
+
+## Entrance animations
+
+The overview tiles and Learning with Purpose KPI tiles fade in once as they enter their scrolling viewport. Each KPI's meter then fades in and fills from the left to its sheet-controlled value. Unknown ratings retain an empty bar. Opening, refreshing, or selecting a reporting window starts a fresh entrance sequence. Reduced-motion users see the completed state immediately; browsers without IntersectionObserver retain visible content.

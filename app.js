@@ -14,9 +14,12 @@ const cards = document.querySelector('#cards');
 const dialog = document.querySelector('#detail');
 const content = document.querySelector('#detail-content');
 for (const item of experiences) { const option = document.createElement('option'); option.value=item.id; option.textContent=item.title; experience.append(option); }
+let clearCardEntrance=()=>{};
 function render(){
+ clearCardEntrance();
  const filtered=experiences.filter(item=>(school.value==='all'||item.groups.includes(school.value))&&(experience.value==='all'||item.id===experience.value));
  cards.innerHTML=filtered.map(item=>`<article class="card"><div class="photo" aria-hidden="true">${item.image ? `<img src="${item.image}" alt="" class="standalone-photo">` : `<svg viewBox="${item.crop}" preserveAspectRatio="xMidYMid slice"><image href="assets/dashboard-reference.png" width="1586" height="992"/></svg>`}</div><div class="card-copy"><h2>${item.title}</h2><p>${item.question}</p><button data-id="${item.id}" aria-label="Explore Learning: ${item.title}">Explore Learning</button></div></article>`).join('');
+ clearCardEntrance=animateEntrance(cards);
  document.querySelector('#results').textContent=school.value==='all'&&experience.value==='all'?'Six ways to see learning in action':`${filtered.length} illustrative experience${filtered.length===1?'':'s'} · ${school.options[school.selectedIndex].text}`;
  document.querySelector('#empty').hidden=filtered.length>0;
  document.querySelector('#reset').hidden=school.value==='all'&&experience.value==='all';
