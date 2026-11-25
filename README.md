@@ -27,7 +27,7 @@ The “Show What You Can Do” tile uses an AI-generated illustrative image of a
 
 ## Learning with Purpose: Google Sheet controls
 
-Click **Explore Learning** under Learning with Purpose to open the status dashboard. It reads `Sheet1!A1:L250` from [the control sheet](https://docs.google.com/spreadsheets/d/1NJTD9kym-A6BeEFsEXm8bsCVG5jSE0EAjYuR5lAXpAU/edit) each time the window opens or **Refresh data** is clicked. Google may briefly cache changes. No API keys or visitor sign-in are required while the sheet remains viewable to anyone with its link.
+Click **Explore Learning** under Learning with Purpose to open the status dashboard. It reads `Sheet1!A1:X250` from [the control sheet](https://docs.google.com/spreadsheets/d/1NJTD9kym-A6BeEFsEXm8bsCVG5jSE0EAjYuR5lAXpAU/edit) each time the window opens or **Refresh data** is clicked. Google may briefly cache changes. No API keys or visitor sign-in are required while the sheet remains viewable to anyone with its link.
 
 Keep the first-row headers and `type` / `id` values intact. Edit these fields:
 
@@ -52,3 +52,25 @@ Validation: `node tests/purpose-data.cjs` and `node --check purpose-dashboard.js
 ## Entrance animations
 
 The overview tiles and Learning with Purpose KPI tiles fade in once as they enter their scrolling viewport. Each KPI's meter then fades in and fills from the left to its sheet-controlled value. Unknown ratings retain an empty bar. Opening, refreshing, or selecting a reporting window starts a fresh entrance sequence. Reduced-motion users see the completed state immediately; browsers without IntersectionObserver retain visible content.
+
+
+## Evidence of Practice
+
+Each KPI tile grows to fit its title, description, Why It Matters text, and evidence section. Add up to six evidence items in the existing KPI rows (20–23 in the initial sheet). Columns **M:X** alternate button label and Google Drive sharing URL:
+
+| Slot | Label | URL |
+| --- | --- | --- |
+| 1 | M | N |
+| 2 | O | P |
+| 3 | Q | R |
+| 4 | S | T |
+| 5 | U | V |
+| 6 | W | X |
+
+Paste URLs as plain cell values. Rename the prefilled “Evidence 1” through “Evidence 6” labels as desired. Empty URLs are hidden. All evidence buttons use the same rounded gold style and form a two-row, three-column grid when all six links are present. Rows 32–33 control the evidence section heading and empty-state text. Keep the header names intact. For a new reporting window, copy these columns with the KPI rows, then replace the evidence URLs for that period.
+
+Supported URLs include Drive file links, Google Docs, Sheets, Slides, and published Docs/Sheets/Slides links. Drive folder links offer an “Open in Google Drive” link because folders do not provide a document preview. Only HTTPS URLs on drive.google.com or docs.google.com are accepted. The popup uses Google’s own viewer, retains resource keys and sheet tab IDs, and scrolls within its viewport. It does not bypass file access restrictions. Files must be accessible to the intended viewers; see [Google’s sharing guidance](https://support.google.com/drive/answer/7166529). The popup also provides an original-file link if preview access is unavailable.
+
+Clicking the popup backdrop, its close button, or Escape closes only the evidence viewer. The Learning with Purpose dashboard remains open with its current reporting window and scroll position. Keyboard focus returns to the evidence button.
+
+Validation: `node tests/evidence.cjs` checks URL handling, retained resource keys, invalid URLs, six-link limits, empty slots, and escaped labels. Browser QA covered long tile content, six buttons in a 3×2 grid, an actual Google Sheets preview, backdrop dismissal, Escape dismissal, and mobile overflow. No test evidence URLs were added to the live control sheet.

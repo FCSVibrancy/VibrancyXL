@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
+require('../evidence-viewer.js');
 const {parseCSV,records,percentage,markup}=require('../purpose-dashboard.js');
 assert.deepEqual(parseCSV('a,b\r\n"a, b","line 1\nline 2 ""quoted"""\r\n'),[['a','b'],['a, b','line 1\nline 2 "quoted"']]);
 assert.throws(()=>parseCSV('"unfinished'));
