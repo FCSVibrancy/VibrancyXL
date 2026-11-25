@@ -10,30 +10,17 @@ const experiences = [
  {id:'support',title:'Support to Take the Next Step',question:'When learning gets tough, what helps me move forward?',action:'See support in action',crop:'1060 614 238 305',groups:['elementary','middle','high'],example:'During a check-in, a student identifies where they are stuck. A teacher offers a prompt and a worked example, then the student applies the strategy independently.',lookFor:['Support responds to an identified learning need.','The student remains responsible for the thinking.','The next attempt shows increasing independence.'],next:'Return to the student’s next attempt. Look for how they use the strategy without the same level of support.'}
 ];
 experiences.push(experiences.splice(experiences.findIndex(item=>item.id==='thriving'),1)[0]);
-const school = document.querySelector('#school');
-const experience = document.querySelector('#experience');
 const cards = document.querySelector('#cards');
 const dialog = document.querySelector('#detail');
 const content = document.querySelector('#detail-content');
-for (const item of experiences) { const option = document.createElement('option'); option.value=item.id; option.textContent=item.title; experience.append(option); }
 let clearCardEntrance=()=>{};
 function render(){
  clearCardEntrance();
- const filtered=experiences.filter(item=>(school.value==='all'||item.groups.includes(school.value))&&(experience.value==='all'||item.id===experience.value));
- cards.innerHTML=filtered.map(item=>`<article class="card card-${item.id}"><div class="photo ${item.images?'photo-collage':''}" aria-hidden="true">${item.images ? item.images.map((src,i)=>`<img src="${src}" alt="" class="collage-photo collage-photo-${i+1}" loading="lazy">`).join('') : item.image ? `<img src="${item.image}" alt="" class="standalone-photo">` : `<svg viewBox="${item.crop}" preserveAspectRatio="xMidYMid slice"><image href="assets/dashboard-reference.png" width="1586" height="992"/></svg>`}</div><div class="card-copy"><h2>${item.title}</h2><p>${item.question}</p><button data-id="${item.id}" aria-label="Explore Learning: ${item.title}">Explore Learning</button></div></article>`).join('');
+ cards.innerHTML=experiences.map(item=>`<article class="card card-${item.id}"><div class="photo ${item.images?'photo-collage':''}" aria-hidden="true">${item.images ? item.images.map((src,i)=>`<img src="${src}" alt="" class="collage-photo collage-photo-${i+1}" loading="lazy">`).join('') : item.image ? `<img src="${item.image}" alt="" class="standalone-photo">` : `<svg viewBox="${item.crop}" preserveAspectRatio="xMidYMid slice"><image href="assets/dashboard-reference.png" width="1586" height="992"/></svg>`}</div><div class="card-copy"><h2>${item.title}</h2><p>${item.question}</p><button data-id="${item.id}" aria-label="Explore Learning: ${item.title}">Explore Learning</button></div></article>`).join('');
  clearCardEntrance=animateEntrance(cards);
- document.querySelector('#results').textContent=school.value==='all'&&experience.value==='all'?'Seven ways to see learning in action':`${filtered.length} illustrative experience${filtered.length===1?'':'s'} · ${school.options[school.selectedIndex].text}`;
- document.querySelector('#empty').hidden=filtered.length>0;
- document.querySelector('#reset').hidden=school.value==='all'&&experience.value==='all';
- const params=new URLSearchParams(); if(school.value!=='all')params.set('school',school.value); if(experience.value!=='all')params.set('experience',experience.value);
- history.replaceState(null,'',location.pathname+(params.size?'?'+params:'')+location.hash);
+
 }
 function openDetail(item){if(!item)return;openPurposeDashboard(id=>openDetail(experiences.find(item=>item.id===id)),item.id);}
-const params=new URLSearchParams(location.search);
-if([...school.options].some(o=>o.value===params.get('school')))school.value=params.get('school');
-if(experiences.some(item=>item.id===params.get('experience')))experience.value=params.get('experience');
-school.addEventListener('change',render);experience.addEventListener('change',render);
-document.querySelector('#reset').addEventListener('click',()=>{school.value='all';experience.value='all';render();});
 cards.addEventListener('click',event=>{const button=event.target.closest('button[data-id]');if(button)openDetail(experiences.find(item=>item.id===button.dataset.id));});
 dialog.addEventListener('close',()=>{dialog.classList.remove('purpose-dialog');openPurposeDashboard.requestId=null;});
 document.querySelector('.close').addEventListener('click',()=>dialog.close());

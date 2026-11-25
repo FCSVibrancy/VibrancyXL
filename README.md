@@ -9,7 +9,7 @@ From this directory, run `python3 -m http.server 8000`, then open http://localho
 ## Features
 
 - Seven learning experience cards with reference imagery and black-and-gold branding.
-- Combined school-group and experience filters, clear filters, empty state, and shareable URL parameters.
+- Seven learning experiences displayed together on the landing page, with direct Explore Learning buttons.
 - Evidence dialogs and a proposed evidence-review process, with native keyboard focus handling and Escape dismissal.
 - Responsive layouts and reduced-motion support.
 
@@ -103,3 +103,5 @@ Additional validation: `node tests/alignment.cjs` verifies all seven KPI groups,
 ### Updated Thriving Learner imagery
 
 The Thriving Learner overview tile now uses `assets/student-reading-growth.png`: the requested AI-generated elementary student holding a Reading Growth Award certificate. The earlier library portrait and four-photo activity collage are retained as unused assets. Credits for the earlier stock photos are in `assets/PHOTO-CREDITS.md`. The dashboard’s illustrative-imagery label still applies.
+
+The landing-page School Group and Learning Experience dropdowns have been removed. All seven overview tiles remain visible, including when an older URL contains school or experience filter parameters. Reporting-window selectors inside each learning dashboard are retained.
