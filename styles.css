@@ -101,3 +101,12 @@ dialog.purpose-dialog{max-width:1320px;padding:10px 16px 16px}
 .photo-collage .collage-photo-3{object-position:55% center}
 .photo-collage .collage-photo-4{object-position:58% center}
 
+
+/* Light learning-area tints, consistent with the indicator dashboards. */
+.card.card-purpose{background:#f8f4e4}
+.card.card-thinking{background:#e9eef2}
+.card.card-voice{background:#eaf2ec}
+.card.card-work{background:#efedf5}
+.card.card-feedback{background:#f5ece6}
+.card.card-support{background:#edf0e5}
+.card.card-thriving{background:#f4eaf0}
