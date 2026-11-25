@@ -1,5 +1,16 @@
 'use strict';
 window.VibrancyMedia={
+ areaNavigation(root,page){
+ const areas={learning:'Vibrant Learning',ecosystem:'Vibrant Ecosystem',logistics:'Vibrant Logistics of Learning',accountability:'Vibrant Accountability','culture-community':'Vibrant Culture and Community',journey:'The Journey to Local Accountability'};
+ if(!areas[page])return;
+ root.querySelectorAll('dialog').forEach(dialog=>{
+ if(dialog.querySelector('.area-return'))return;
+ const nav=document.createElement('nav');nav.className='area-return';nav.setAttribute('aria-label','Return to area homepage');
+ const link=document.createElement('a');link.href=page+'.html';link.textContent='← Back to '+areas[page]+' Homepage';
+ link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();dialog.close();});
+ nav.append(link);dialog.prepend(nav);
+ });
+ },
  source(value){if(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value||'')&&value.length<=45000)return value;if(!/^(https:\/\/|\/?assets\/|\/?[a-z0-9-]+\.html(?:[?#]|$))/.test(value||''))return '';try{const u=new URL(value,document.baseURI);return value&&(u.protocol==='https:'||u.origin===location.origin&&u.protocol===location.protocol)?u.href:'';}catch{return '';}},
  image(frame,src,alt=''){src=this.source(src);if(!frame||!src)return;const img=document.createElement('img');img.src=src;img.alt=alt;img.className=frame.classList.contains('photo')?'standalone-photo':'tile-image';frame.replaceChildren(img);},
  icon(frame,value){if(!frame)return;if(this.source(value)){this.image(frame,value);return;}frame.textContent=({book:'▤',network:'✦',grid:'▦',chart:'▥',people:'♟',star:'★'})[value]||value||'✦';},

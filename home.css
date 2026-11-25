@@ -4,7 +4,6 @@
 /* Six homepage destinations and live content controls. */
 .pathways{grid-template-columns:repeat(3,minmax(0,1fr))}.pathway{min-height:285px}.home-source{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;padding:0 5% 30px;color:var(--muted);font-size:14px}.home-source button{font:inherit;color:var(--gold);background:transparent;border:1px solid #756331;border-radius:6px;padding:8px 14px;cursor:pointer}.home-source button:focus-visible{outline:3px solid var(--gold);outline-offset:4px}@media(max-width:700px){.pathways{grid-template-columns:repeat(2,minmax(0,1fr))}.pathway:last-child{grid-column:auto;min-height:285px}}@media(max-width:400px){.pathways{grid-template-columns:1fr}}
 
-
 /* Public layouts: readable cards and touch targets from 320px upward. */
 .masthead>*{min-width:0}.wordmark{flex-shrink:0}
 .section-page,.pathway,footer{overflow-wrap:anywhere}
@@ -17,3 +16,8 @@
  .section-page{padding:28px 20px 48px}.coming{padding:24px 20px}
  .masthead{gap:12px}.district-name{overflow-wrap:normal}
 }
+
+/* Lead with Learning; unpublished areas remain readable and subdued. */
+@media(min-width:1101px){.pathways{grid-template-columns:1.15fr 1fr 1fr}}
+.pathway-featured{border-color:#a28a49;background:linear-gradient(145deg,#303323,#1c2119);padding:30px 27px}.pathway-featured h3{font-size:24px}.pathway-featured .icon{width:60px;height:60px}
+.pathway-pending,.pathway-pending:hover{background:#1d201e;border-color:#383d39;transform:none;cursor:default}.pathway-pending .icon{color:#a9afaa;border-color:#606661;filter:grayscale(1)}.pathway-pending h3{color:#bdc2bd}.pathway-pending p{color:#a0a7a1}.pathway-pending .explore{color:#a9afaa;border-color:#606661}

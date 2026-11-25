@@ -166,3 +166,6 @@ Select a tile in the preview to show **Move up**, **Move down**, and **Delete ti
 ### Welcome entrance
 
 The root `index.html` is a black welcome screen with the supplied Fleming County Schools seal, Vibrancy wordmark, and welcome quote. Logos, text, and the Enter Vibrancy button fade in in sequence. After 14 seconds (starting once the logos load), the screen fades out over 900 ms and opens `home.html`, the original Google Sheets-driven tile homepage. The Enter Vibrancy link can continue sooner. Returning to the root during the same tab session goes straight to the homepage; a new session shows the entrance again. Reduced-motion preferences skip the animation. The plain link still works without JavaScript.
+
+### Homepage availability
+Vibrant Learning is featured first. Other areas remain gray until SiteContent contains a visible @tile: row for that area with a title and supported destination URL. Refresh the homepage after publishing the first indicator tile. Detail dialogs include a return link to their area homepage.
