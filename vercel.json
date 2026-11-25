@@ -1,0 +1,1 @@
+{"rewrites":[{"source":"/admin","destination":"/admin/index.html"},{"source":"/api/control","destination":"/api/control.js"}],"headers":[{"source":"/admin(.*)","headers":[{"key":"Cache-Control","value":"no-store"},{"key":"X-Robots-Tag","value":"noindex, nofollow"},{"key":"Referrer-Policy","value":"same-origin"}]}]}

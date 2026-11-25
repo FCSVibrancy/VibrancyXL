@@ -105,3 +105,38 @@ Additional validation: `node tests/alignment.cjs` verifies all seven KPI groups,
 The Thriving Learner overview tile now uses `assets/student-reading-growth.png`: the requested AI-generated elementary student holding a Reading Growth Award certificate. The earlier library portrait and four-photo activity collage are retained as unused assets. Credits for the earlier stock photos are in `assets/PHOTO-CREDITS.md`. The dashboard’s illustrative-imagery label still applies.
 
 The landing-page School Group and Learning Experience dropdowns have been removed. All seven overview tiles remain visible, including when an older URL contains school or experience filter parameters. Reporting-window selectors inside each learning dashboard are retained.
+
+
+## Vibrancy homepage
+
+The root homepage now introduces all five Vibrancy areas using the supplied `assets/vibrancy-header.png` banner in its original proportions. The existing dashboard is preserved at `learning.html`, with a return link to the main homepage. The other four areas have dedicated placeholder pages clearly marked as awaiting resources and dashboards. Homepage styles are isolated in `home.css`.
+
+### Edit the homepage in Google Sheets
+
+Use the **Homepage** tab in the existing control spreadsheet. The homepage reads `Homepage!A1:I200` on each visit and when **Refresh homepage** is clicked. Google may briefly cache edits. Keep row 1 headers and the page/label/image IDs intact.
+
+- Row 2: main heading (`title`) and introductory sentence (`description`).
+- Rows 3–6: eyebrow, district, closing sentence, and footer text (`title`).
+- Row 7: header image URL (`url`) and accessible image description (`title`). Use a directly accessible HTTPS image URL, or an existing local asset path.
+- Rows 8–13: six tiles. Edit `title`, `description`, destination `url`, button text `button`, and numeric `sort_order`. Set `visible` to FALSE to hide a tile. Available icons: network, grid, chart, people, book. Add more tile rows within row 200 if needed.
+- Keep `learning.html` as the Learning destination to retain the existing seven-experience dashboard. `journey.html` is the new Journey destination, ready for content; its link can be changed in the sheet.
+
+Local relative links and HTTPS links are supported. Homepage text is rendered as plain text. A visible source notice identifies live loading or the saved November 25, 2026 fallback (`data/homepage.json`). The fallback does not automatically update when the sheet changes. The Learning dashboard's existing Sheet1 and Alignment controls are unchanged.
+
+## Private web control board (Vercel)
+
+The new `/admin` screen edits existing records in **Homepage**, **Sheet1**, **Alignment**, and **SiteContent** in the existing spreadsheet. It provides search, labeled fields, draft content previews, and explicit Publish. Navigating away with drafts prompts before discarding them. Identity fields and formulas are protected. Percentages are validated; saves use RAW values so entered text is never executed as a formula. Every data read and publish validates Google's signed ID token, client audience and expiration, verified email, and Brian's exact Google account ID. The sign-in shell is publicly reachable; content and writes require Brian's identity. No other district account can edit through this API.
+
+The new SiteContent tab controls current section-page headings and body copy plus learning overview titles and questions. Homepage images and links remain in Homepage; indicator descriptions, reporting windows, status, maturity, notes, examples, and evidence links remain in Sheet1. Alignment supplies the definitions that override five dashboards, so edit those definitions in Alignment. Existing records are editable; adding new page layouts, new indicators, changing visual design, and uploading assets still require development. The preview displays draft text, not a full public dashboard rendering.
+
+### Activate on your Vercel project
+
+1. Create a Google Cloud **Web application** OAuth client. Add your exact Vercel production origin to **Authorized JavaScript origins** (and any stable preview origin you intend to use). Configure the consent screen for your district account. Google Identity Services handles sign-in; no OAuth client secret is needed for this ID-token flow.
+2. Enable **Google Sheets API** in that Cloud project. Create a service account and share this control spreadsheet with its email as **Editor**. Create its private key.
+3. Set Vercel server environment variables `GOOGLE_CLIENT_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, and `GOOGLE_PRIVATE_KEY` using `.env.example` as the field guide. Keep the key out of Git and browser code. The server fixes the spreadsheet ID and owner account in `lib/control.cjs`.
+4. Import/link `FCSVibrancy/VibrancyXL` in Vercel, select **Other**, leave the build command empty, and serve the repository root. Vercel installs package dependencies and deploys `api/control.js` as a Node function. Redeploy after adding the environment variables.
+5. Visit `/admin`, sign in as `brian.creasman@fleming.kyschools.us`, and test one edit. Refresh its public page to verify. Google may briefly cache the public CSV/JSON reads.
+
+Public pages retain the current public-read Google Sheets integration and saved fallbacks, so the sheet must remain readable by public visitors. Only publishable content should go in it. Server credentials are never sent to the browser. The revision check detects a change between loading and publishing; Google Sheets does not offer an atomic compare-and-swap, so simultaneous direct spreadsheet edits can still race with a publish. Reload before editing after making direct sheet changes.
+
+Run `node --test tests/admin.cjs` plus the three existing content tests. Live sign-in and publishing require the Vercel/Google configuration above and have not been verified by local tests.

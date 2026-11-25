@@ -1,0 +1,314 @@
+[
+  [
+    "page",
+    "selector",
+    "value",
+    "description",
+    "url",
+    "visible"
+  ],
+  [
+    "ecosystem",
+    "h1",
+    "Vibrant Ecosystem",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "ecosystem",
+    ".description",
+    "Connect the people, partnerships, and systems that help every learner thrive.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "ecosystem",
+    ".coming h2",
+    "This area is taking shape.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "ecosystem",
+    ".coming p",
+    "Resources and dashboards for Vibrant Ecosystem will be added here.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "logistics",
+    "h1",
+    "Vibrant Logistics of Learning",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "logistics",
+    ".description",
+    "Explore how time, spaces, and resources create the conditions for learning.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "logistics",
+    ".coming h2",
+    "This area is taking shape.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "logistics",
+    ".coming p",
+    "Resources and dashboards for Vibrant Logistics of Learning will be added here.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "accountability",
+    "h1",
+    "Vibrant Accountability",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "accountability",
+    ".description",
+    "Make progress visible through meaningful evidence, reflection, and shared responsibility.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "accountability",
+    ".coming h2",
+    "This area is taking shape.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "accountability",
+    ".coming p",
+    "Resources and dashboards for Vibrant Accountability will be added here.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "culture-community",
+    "h1",
+    "Vibrant Culture and Community",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "culture-community",
+    ".description",
+    "Strengthen belonging, relationships, and a shared commitment to our learners.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "culture-community",
+    ".coming h2",
+    "This area is taking shape.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "culture-community",
+    ".coming p",
+    "Resources and dashboards for Vibrant Culture and Community will be added here.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "journey",
+    "h1",
+    "The Journey to Local Accountability",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "journey",
+    ".description",
+    "Explore the journey toward meaningful, community-centered accountability.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "journey",
+    ".coming h2",
+    "This area is taking shape.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "journey",
+    ".coming p",
+    "Resources and dashboards for The Journey to Local Accountability will be added here.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    "#page-title",
+    "Vibrant Learning",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".subtitle",
+    "See what students experience and how their learning changes.",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".eyebrow",
+    "THE STUDENT EXPERIENCE",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    "#results",
+    "Seven ways to see learning in action",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-purpose h2",
+    "Learning with Purpose",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-purpose .card-copy p",
+    "What am I learning, and why does it matter?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-thinking h2",
+    "Big Thinking, Real Problems",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-thinking .card-copy p",
+    "How am I using what I know to tackle a real problem?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-voice h2",
+    "My Voice, My Choices",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-voice .card-copy p",
+    "Where can I shape what I explore or how I show what I know?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-work h2",
+    "Show What You Can Do",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-work .card-copy p",
+    "What have I written, made, or presented?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-feedback h2",
+    "Feedback That Moves Me Forward",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-feedback .card-copy p",
+    "How do I know where I stand and how to improve?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-thriving h2",
+    "Thriving Learner",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-thriving .card-copy p",
+    "How am I growing, showing mastery, preparing for what comes next, and feeling supported?",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-support h2",
+    "Support to Take the Next Step",
+    "",
+    "",
+    "TRUE"
+  ],
+  [
+    "learning",
+    ".card-support .card-copy p",
+    "When learning gets tough, what helps me move forward?",
+    "",
+    "",
+    "TRUE"
+  ]
+]

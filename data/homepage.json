@@ -1,0 +1,145 @@
+[
+  [
+    "type",
+    "id",
+    "title",
+    "description",
+    "url",
+    "button",
+    "icon",
+    "sort_order",
+    "visible"
+  ],
+  [
+    "page",
+    "home",
+    "A vibrant future starts here.",
+    "Six connected areas. One shared purpose: helping every learner thrive.",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "label",
+    "eyebrow",
+    "OUR SHARED VISION",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "label",
+    "district",
+    "FLEMING COUNTY SCHOOLS",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "label",
+    "closing",
+    "Every connection strengthens the learning experience.",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "label",
+    "footer",
+    "Connected by purpose. Centered on learners.",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "image",
+    "header",
+    "Students collaborate on a classroom building challenge beside the Vibrancy wordmark",
+    "",
+    "assets/vibrancy-header.png",
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    "tile",
+    "ecosystem",
+    "Vibrant Ecosystem",
+    "Connect the people, partnerships, and systems that help every learner thrive.",
+    "ecosystem.html",
+    "Explore this area",
+    "network",
+    "1",
+    "TRUE"
+  ],
+  [
+    "tile",
+    "logistics",
+    "Vibrant Logistics of Learning",
+    "Explore how time, spaces, and resources create the conditions for learning.",
+    "logistics.html",
+    "Explore this area",
+    "grid",
+    "2",
+    "TRUE"
+  ],
+  [
+    "tile",
+    "accountability",
+    "Vibrant Accountability",
+    "Make progress visible through meaningful evidence, reflection, and shared responsibility.",
+    "accountability.html",
+    "Explore this area",
+    "chart",
+    "3",
+    "TRUE"
+  ],
+  [
+    "tile",
+    "culture-community",
+    "Vibrant Culture and Community",
+    "Strengthen belonging, relationships, and a shared commitment to our learners.",
+    "culture-community.html",
+    "Explore this area",
+    "people",
+    "4",
+    "TRUE"
+  ],
+  [
+    "tile",
+    "learning",
+    "Vibrant Learning",
+    "See what students experience and how their learning changes.",
+    "learning.html",
+    "Explore Learning",
+    "book",
+    "5",
+    "TRUE"
+  ],
+  [
+    "tile",
+    "journey",
+    "The Journey to Local Accountability",
+    "Explore the journey toward meaningful, community-centered accountability.",
+    "journey.html",
+    "Explore the journey",
+    "chart",
+    "6",
+    "TRUE"
+  ]
+]

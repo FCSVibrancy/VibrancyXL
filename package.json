@@ -1,0 +1,1 @@
+{"name":"vibrancy-control-board","private":true,"scripts":{"test":"node --test tests/admin.cjs"},"dependencies":{"google-auth-library":"^10.5.0"}}
