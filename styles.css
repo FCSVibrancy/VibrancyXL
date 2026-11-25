@@ -12,9 +12,14 @@ dialog.purpose-dialog{max-width:1536px;width:calc(100vw - 28px);max-height:96vh;
 }
 
 .purpose-status>div>strong.purpose-status-pending{font-size:18px;font-weight:400;letter-spacing:normal;line-height:1.35}
-/* Content determines tile height; no fixed description or evidence height. */
-.purpose-kpis{align-items:start}
-.purpose-kpi{min-width:0;align-self:start}
+/* The tallest tile sets each row height; shorter tiles stretch to match. */
+.purpose-kpis{align-items:stretch}
+.purpose-kpi{min-width:0;align-self:stretch;display:flex;flex-direction:column;border:1px solid #d8d5ca;box-shadow:0 3px 10px #22251c0b;transition:border-color 180ms ease,box-shadow 180ms ease}
+.purpose-kpi>.purpose-kpi-intro{flex:1}
+.purpose-kpi>.purpose-status,.purpose-kpi>.purpose-evidence{flex-shrink:0}
+.purpose-kpi:focus-within{border-color:#bca44e;box-shadow:0 0 0 2px #d7c77233,0 6px 18px #22251c12}
+@media(hover:hover){.purpose-kpi:hover{border-color:#bca44e;box-shadow:0 7px 20px #22251c16}}
+.purpose-kpi:active{border-color:#a48a2b;box-shadow:inset 0 0 0 1px #d7c77288,0 2px 6px #22251c12}
 .purpose-kpi-intro{min-height:0}
 .purpose-kpi-intro>div:last-child{min-width:0;flex:1}
 .purpose-kpi h3,.purpose-kpi p,.purpose-heading h2,.purpose-heading p{overflow-wrap:anywhere;white-space:pre-line}
