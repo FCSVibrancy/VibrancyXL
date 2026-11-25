@@ -158,3 +158,7 @@ Validation includes model tests for stable Alignment matching and duplicate indi
 In `/admin`, select an image, homepage tile, or learning overview card and choose **Upload replacement image**. Existing pictures stay in place until replaced; learning pictures keep their shaped frames. JPEG, PNG, and WebP files up to 20 MB are optimized in the browser into JPEG images that fit Google Sheets cells (45,000 characters). The optimized image is saved with the content, so no separate storage setup is needed.
 
 Use **Add to this page** and **Add tile** in Homepage or Pages & learning tiles. Select the destination page first. Choose Image tile or Icon / medallion; edit its title, description, destination, and image. Click a medallion in the preview to edit its symbol or upload its picture. Homepage tiles accept existing icon names, plain symbols, or uploaded images. New section-page tiles appear after existing content in insertion order. All additions and uploads remain private drafts until **Publish changes**. Each content area supports up to 200 rows.
+
+### Delete and rearrange tiles
+
+Select a tile in the preview to show **Move up**, **Move down**, and **Delete tile**. These actions update the private draft; publish to apply them to the public page. A deleted tile stays dimmed and selectable in the editor, where **Restore tile** brings it back. Homepage tiles, original learning overview cards, and custom tiles all support these controls. Positions are saved per page. Icon tiles and medallion tiles are separate choices in the add menu.
