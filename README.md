@@ -140,3 +140,14 @@ The new SiteContent tab controls current section-page headings and body copy plu
 Public pages retain the current public-read Google Sheets integration and saved fallbacks, so the sheet must remain readable by public visitors. Only publishable content should go in it. Server credentials are never sent to the browser. The revision check detects a change between loading and publishing; Google Sheets does not offer an atomic compare-and-swap, so simultaneous direct spreadsheet edits can still race with a publish. Reload before editing after making direct sheet changes.
 
 Run `node --test tests/admin.cjs` plus the three existing content tests. Live sign-in and publishing require the Vercel/Google configuration above and have not been verified by local tests.
+
+
+## Visual editing workspace
+
+The private `/admin` control board now shows an interactive draft of the homepage tiles, section pages, learning overview cards, and all seven indicator dashboards. Select a tile or outlined text in the preview to edit it in the adjacent panel. Changes update the private preview as you type. Choose the dashboard and reporting window above the preview; numeric indicators, maturity ratings, descriptions, examples, and evidence buttons use the public dashboard renderer and styles. Hidden homepage tiles remain dimmed in the editor so they can be selected again.
+
+**Publish changes** explicitly writes drafts from the current content area to Google Sheets. The public site does not receive typing or preview changes. Switching content areas with unpublished changes asks before discarding them; changing the dashboard or reporting window within one area retains its drafts. Conflicting direct sheet changes still require reloading before publishing.
+
+For the five Alignment-based dashboards, indicator titles and descriptions are read-only in the ratings panel. **Edit this indicator’s wording** opens the matching Alignment record, whose draft is shown in the actual indicator card. The public layout adapts to the preview width. Editing is available only after the existing owner-only Google sign-in; the preview receives content, never the sign-in token.
+
+Validation includes model tests for stable Alignment matching and duplicate indicator IDs across reporting windows, plus browser checks of tile selection, unpublished text and meters, explicit publishing against a local fixture, overview cards, section-page copy, and indicator-definition previews.

@@ -69,6 +69,7 @@
   dialog.addEventListener('close',()=>openPurposeDashboard.clearEntrance?.(),{once:true});
   draw();
  }
+ root.VibrancyDashboard={markup,applyAlignment};
  root.openPurposeDashboard=openPurposeDashboard;
  if(typeof module!=='undefined')module.exports={parseCSV,records,percentage,markup,applyAlignment};
 })(typeof window==='undefined'?globalThis:window);
