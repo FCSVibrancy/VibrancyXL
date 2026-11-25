@@ -17,7 +17,12 @@
  .masthead{gap:12px}.district-name{overflow-wrap:normal}
 }
 
-/* Lead with Learning; unpublished areas remain readable and subdued. */
-@media(min-width:1101px){.pathways{grid-template-columns:1.15fr 1fr 1fr}}
-.pathway-featured{border-color:#a28a49;background:linear-gradient(145deg,#303323,#1c2119);padding:30px 27px}.pathway-featured h3{font-size:24px}.pathway-featured .icon{width:60px;height:60px}
-.pathway-pending,.pathway-pending:hover{background:#1d201e;border-color:#383d39;transform:none;cursor:default}.pathway-pending .icon{color:#a9afaa;border-color:#606661;filter:grayscale(1)}.pathway-pending h3{color:#bdc2bd}.pathway-pending p{color:#a0a7a1}.pathway-pending .explore{color:#a9afaa;border-color:#606661}
+/* Make Learning visibly larger at the widths used by the desktop app. */
+.pathways{align-items:start}
+.pathway-featured{min-height:370px;border:2px solid #d9b85c;background:linear-gradient(145deg,#3b3823,#20271a);padding:34px 28px;box-shadow:0 6px 22px #d9b85c16}
+.pathway-featured h3{font-size:26px}.pathway-featured .icon{width:64px;height:64px;border-color:#b39547}.pathway-featured .icon svg{width:32px;height:32px}
+.pathway-pending,.pathway-pending:hover{background:#292929;border-color:#4d4d4d;transform:none;cursor:default;filter:grayscale(1);opacity:.7}
+.pathway-pending .icon{color:#bdbdbd;border-color:#737373}.pathway-pending h3{color:#dedede}.pathway-pending p{color:#cecece}.pathway-pending .explore{color:#cecece;border-color:#838383}
+@media(min-width:701px){.pathways{grid-template-columns:1.25fr 1fr 1fr}.pathway:not(.pathway-featured){padding:24px 20px;min-height:285px}.pathway:not(.pathway-featured) h3{font-size:19px}.pathway:not(.pathway-featured) p{font-size:14px;line-height:1.5}}
+@media(min-width:601px) and (max-width:700px){.pathway-featured{min-height:380px}}
+@media(max-width:600px){.pathway-featured{min-height:320px;padding:32px 28px}.pathway-featured h3{font-size:26px}}
