@@ -162,3 +162,7 @@ Use **Add to this page** and **Add tile** in Homepage or Pages & learning tiles.
 ### Delete and rearrange tiles
 
 Select a tile in the preview to show **Move up**, **Move down**, and **Delete tile**. These actions update the private draft; publish to apply them to the public page. A deleted tile stays dimmed and selectable in the editor, where **Restore tile** brings it back. Homepage tiles, original learning overview cards, and custom tiles all support these controls. Positions are saved per page. Icon tiles and medallion tiles are separate choices in the add menu.
+
+### Welcome entrance
+
+The root `index.html` is a black welcome screen with the supplied Fleming County Schools seal, Vibrancy wordmark, and welcome quote. Logos, text, and the Enter Vibrancy button fade in in sequence. After 14 seconds (starting once the logos load), the screen fades out over 900 ms and opens `home.html`, the original Google Sheets-driven tile homepage. The Enter Vibrancy link can continue sooner. Returning to the root during the same tab session goes straight to the homepage; a new session shows the entrance again. Reduced-motion preferences skip the animation. The plain link still works without JavaScript.
