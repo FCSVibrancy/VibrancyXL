@@ -1,4 +1,4 @@
-const {tabs,revision,validate,validateAdditions,authorize,sheets}=require('../lib/control.cjs');
+const {tabs,revision,validate,validateAdditions,validateAreaTable,authorize,sheets}=require('../lib/control.cjs');
 module.exports=async(req,res)=>{
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
  try{
@@ -15,6 +15,7 @@ module.exports=async(req,res)=>{
  validateAdditions(additions,tab,values);
  if(req.body.changes?.length)validate(req.body.changes,values);
  else if(!additions.length)throw Error('No changes.');
+ if(tab==='AreaIndicators'){const next=values.map(row=>[...row]);for(const c of req.body.changes||[])next[c.row][c.col]=c.value;validateAreaTable([...next,...additions]);}
  const offset=tab==='Alignment'?4:1;
  const data=(req.body.changes||[]).map(c=>({range:`'${tab}'!${String.fromCharCode(65+c.col)}${c.row+offset}`,values:[[c.value]]}));
  additions.forEach((row,i)=>data.push({range:`'${tab}'!A${values.length+i+offset}`,values:[row]}));
