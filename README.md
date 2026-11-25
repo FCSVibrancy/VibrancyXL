@@ -127,7 +127,7 @@ Local relative links and HTTPS links are supported. Homepage text is rendered as
 
 The new `/admin` screen edits existing records in **Homepage**, **Sheet1**, **Alignment**, and **SiteContent** in the existing spreadsheet. It provides search, labeled fields, draft content previews, and explicit Publish. Navigating away with drafts prompts before discarding them. Identity fields and formulas are protected. Percentages are validated; saves use RAW values so entered text is never executed as a formula. Every data read and publish validates Google's signed ID token, client audience and expiration, verified email, and Brian's exact Google account ID. The sign-in shell is publicly reachable; content and writes require Brian's identity. No other district account can edit through this API.
 
-The new SiteContent tab controls current section-page headings and body copy plus learning overview titles and questions. Homepage images and links remain in Homepage; indicator descriptions, reporting windows, status, maturity, notes, examples, and evidence links remain in Sheet1. Alignment supplies the definitions that override five dashboards, so edit those definitions in Alignment. Existing records are editable; adding new page layouts, new indicators, changing visual design, and uploading assets still require development. The preview displays draft text, not a full public dashboard rendering.
+The new SiteContent tab controls current section-page headings and body copy plus learning overview titles and questions. Homepage images and links remain in Homepage; indicator descriptions, reporting windows, status, maturity, notes, examples, and evidence links remain in Sheet1. Alignment supplies the definitions that override five dashboards, so edit those definitions in Alignment. The control board supports adding tiles to the homepage and every section page, including the learning overview, and uploading images or medallions. New indicator definitions and page layouts still require development.
 
 ### Activate on your Vercel project
 
@@ -151,3 +151,10 @@ The private `/admin` control board now shows an interactive draft of the homepag
 For the five Alignment-based dashboards, indicator titles and descriptions are read-only in the ratings panel. **Edit this indicator’s wording** opens the matching Alignment record, whose draft is shown in the actual indicator card. The public layout adapts to the preview width. Editing is available only after the existing owner-only Google sign-in; the preview receives content, never the sign-in token.
 
 Validation includes model tests for stable Alignment matching and duplicate indicator IDs across reporting windows, plus browser checks of tile selection, unpublished text and meters, explicit publishing against a local fixture, overview cards, section-page copy, and indicator-definition previews.
+
+
+### Image uploads and new tiles
+
+In `/admin`, select an image, homepage tile, or learning overview card and choose **Upload replacement image**. Existing pictures stay in place until replaced; learning pictures keep their shaped frames. JPEG, PNG, and WebP files up to 20 MB are optimized in the browser into JPEG images that fit Google Sheets cells (45,000 characters). The optimized image is saved with the content, so no separate storage setup is needed.
+
+Use **Add to this page** and **Add tile** in Homepage or Pages & learning tiles. Select the destination page first. Choose Image tile or Icon / medallion; edit its title, description, destination, and image. Click a medallion in the preview to edit its symbol or upload its picture. Homepage tiles accept existing icon names, plain symbols, or uploaded images. New section-page tiles appear after existing content in insertion order. All additions and uploads remain private drafts until **Publish changes**. Each content area supports up to 200 rows.
