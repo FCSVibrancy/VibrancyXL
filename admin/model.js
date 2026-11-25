@@ -1,7 +1,7 @@
 (function(root){
  const names={purpose:'Learning with Purpose',thinking:'Big Thinking, Real Problems',voice:'My Voice, My Choices',work:'Show What You Can Do',feedback:'Feedback That Moves Me Forward',support:'Support to Take the Next Step',thriving:'Thriving Learner'};
  const areas={learning:'Vibrant Learning',ecosystem:'Vibrant Ecosystem',logistics:'Vibrant Logistics of Learning',accountability:'Vibrant Accountability','culture-community':'Vibrant Culture and Community',journey:'The Journey to Local Accountability'};
- function newAreaIndicator(area,id,order){if(!Object.hasOwn(areas,area))throw Error('Choose an area.');return {id,area_id:area,title:'',description:'',percent:'',status:'',evidence_url:'',visible:'TRUE',sort_order:String(order)};}
+ function newAreaIndicator(area,id,order){if(!Object.hasOwn(areas,area))throw Error('Choose an area.');return {id,area_id:area,title:'',description:'',percent:'',status:'',evidence_url:'',visible:'TRUE',sort_order:String(order),icon:'target',reporting_window:'current'};}
  const code=v=>String(v||'').match(/\b[A-G]\d+\b/)?.[0];
  const records=table=>(table||[]).slice(1).map((r,i)=>Object.fromEntries([...(table[0]||[]).map((h,c)=>[h,String(r[c]??'')]),['_row',i+1]]));
  const experience=name=>Object.keys(names).find(id=>names[id]===name)||'purpose';

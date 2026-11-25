@@ -10,7 +10,7 @@ test('public projection excludes private metadata and filters invalid records',(
 
 // Exercise real API handlers against a local in-memory Sheets transport.
 const Module=require('node:module'),load=Module._load;let stored=[A.headers],authorized=true;
-async function sheets(path,options){if(path==='/values:batchUpdate'){for(const entry of options.data.data){const match=entry.range.match(/!([A-Z]+)(\d+)$/);const ri=Number(match[2])-1,ci=match[1].charCodeAt(0)-65;stored[ri]||=Array(9).fill('');entry.values[0].forEach((v,i)=>stored[ri][ci+i]=v);}return {};}return {values:structuredClone(stored)};}
+async function sheets(path,options){if(path==='/values:batchUpdate'){for(const entry of options.data.data){const match=entry.range.match(/!([A-Z]+)(\d+)$/);const ri=Number(match[2])-1,ci=match[1].charCodeAt(0)-65;stored[ri]||=Array(A.headers.length).fill('');entry.values[0].forEach((v,i)=>stored[ri][ci+i]=v);}return {};}return {values:structuredClone(stored)};}
 Module._load=function(id,...args){if(id==='../lib/control.cjs')return {...C,sheets,authorize:async()=>{if(!authorized){const e=Error('Sign in');e.status=401;throw e;}}};return load.call(this,id,...args);};
 const control=require('../api/control.js'),publicAPI=require('../api/indicators.js');Module._load=load;
 async function call(handler,req){const res={code:200,headers:{},setHeader(k,v){this.headers[k]=v;},status(code){this.code=code;return this;},json(body){this.body=body;return this;}};await handler(req,res);return res;}
@@ -27,3 +27,15 @@ test('publish, reload, activate, edit, hide, and stale-write checks work through
  authorized=false;assert.equal((await call(control,{method:'GET',query:{tab:'AreaIndicators'},headers:{}})).code,401);authorized=true;
  assert.equal((await call(publicAPI,{method:'POST'})).code,405);
 });
+
+test('full Learning controls survive publishing and render for every area',async()=>{
+ for(const area of Object.keys(A.areas)){
+  const fields={...M.newAreaIndicator(area,'indicator-controls',1),title:'Real indicator',description:'Published indicator description',why_it_matters:'A meaningful reason',maturity:'Developing',note:'Reviewed evidence',walkthrough_alignment:'B1',icon:'heart',percent:'25',evidence_1_label:'First source'};
+  for(let n=1;n<=6;n++){fields[n===1?'evidence_url':`evidence_${n}_url`]=`https://example.org/source-${n}`;fields[`evidence_${n}_label`]=`Source ${n}`;}
+  stored=[A.headers];const result=await call(control,{method:'POST',headers:{},body:{tab:'AreaIndicators',revision:C.revision(stored),changes:[],additions:[A.headers.map(h=>fields[h]||'')]}});assert.equal(result.code,200);
+  const live=(await call(publicAPI,{method:'GET'})).body.indicators[0];for(const h of A.headers)assert.equal(live[h],fields[h]||'');
+  require('../evidence-viewer.js');const {markup}=require('../purpose-dashboard.js');const html=markup(A.dashboardData([live],area),'current',area);assert.ok(html.includes('A meaningful reason'));assert.ok(html.includes('Reviewed evidence'));assert.ok(html.includes('Developing'));assert.ok(html.includes('B1'));for(let n=1;n<=6;n++)assert.ok(html.includes(`https://example.org/source-${n}`));
+  const invalid=await call(control,{method:'POST',headers:{},body:{tab:'AreaIndicators',revision:result.body.revision,changes:[{row:1,col:A.headers.indexOf('evidence_6_url'),value:'javascript:bad()'}]}});assert.equal(invalid.code,400);
+ }
+});
+test('legacy indicator records preserve their data under the extended schema',()=>{const legacy=A.headers.slice(0,9);const parsed=A.records([legacy,['indicator-old','ecosystem','Original title','Original description','0','','https://example.org','TRUE','1']])[0];assert.equal(parsed.title,'Original title');assert.equal(parsed.percent,'0');assert.equal(parsed.evidence_url,'https://example.org');assert.equal(parsed.maturity,'');});

@@ -13,3 +13,7 @@ test('area dashboards preserve Drive preview buttons, missing data, and escaping
  const html=markup(A.dashboardData([row],'ecosystem'),'current','ecosystem');assert.ok(html.includes('&lt;img'));assert.ok(!html.includes('<img src=x'));assert.ok(html.includes('data-evidence-id="indicator-test"'));assert.ok(html.includes('Awaiting data'));assert.ok(!html.includes('role="progressbar"'));
  row.evidence_url='javascript:alert(1)';assert.ok(!markup(A.dashboardData([row],'ecosystem'),'current','ecosystem').includes('javascript:'));
 });
+
+test('reporting windows show only their own indicators and retain all evidence slots',()=>{
+ const items=[{id:'indicator-current',title:'Current indicator',description:'Current',reporting_window:'current',percent:'0'},{id:'indicator-next',title:'Future indicator',description:'Future',reporting_window:'next',percent:'50',evidence_6_label:'Sixth source',evidence_6_url:'https://drive.google.com/file/d/slot6/view'}];const data=A.dashboardData(items,'ecosystem');const current=markup(data,'current','ecosystem'),next=markup(data,'next','ecosystem');assert.ok(current.includes('Current indicator'));assert.ok(!current.includes('Future indicator'));assert.ok(next.includes('Future indicator'));assert.ok(!next.includes('Current indicator'));assert.ok(next.includes('data-evidence-slot="6"'));assert.ok(next.includes('Sixth source'));
+});
