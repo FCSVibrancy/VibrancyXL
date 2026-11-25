@@ -10,3 +10,5 @@ dialog.purpose-dialog{max-width:1536px;width:calc(100vw - 28px);max-height:96vh;
  .purpose-meter-wrap.entrance-ready .purpose-meter>span{transform:scaleX(0);transform-origin:left center}
  .purpose-meter-wrap.entrance-visible .purpose-meter>span{transform:scaleX(1)}
 }
+
+.purpose-status>div>strong.purpose-status-pending{font-size:clamp(20px,1.7vw,26px);letter-spacing:-.3px;line-height:1.2}
