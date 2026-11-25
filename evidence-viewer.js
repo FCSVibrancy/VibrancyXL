@@ -18,12 +18,12 @@
  function evidenceLinks(row){
   return Array.from({length:6},(_,i)=>{const slot=i+1;const link=driveEvidence(row[`evidence_${slot}_url`]);return link?{...link,slot,label:row[`evidence_${slot}_label`]?.trim()||`Evidence ${slot}`}:null;}).filter(Boolean);
  }
- function openEvidence(link,trigger){
-  const old=document.querySelector('#evidence-dialog');if(old)old.close();
+ function openEvidence(link,trigger,scope=document){
+  const old=scope.querySelector('#evidence-dialog');if(old)old.close();
   const dialog=document.createElement('dialog');dialog.id='evidence-dialog';dialog.className='evidence-dialog';dialog.setAttribute('aria-labelledby','evidence-title');
   const header=document.createElement('header');header.className='evidence-toolbar';
   const title=document.createElement('h2');title.id='evidence-title';title.textContent=link.label;
-  const close=document.createElement('button');close.type='button';close.className='evidence-close';close.setAttribute('aria-label',`Close evidence and return to ${document.querySelector('#detail-title')?.textContent||'the learning dashboard'}`);close.textContent='×';close.addEventListener('click',()=>dialog.close());
+  const close=document.createElement('button');close.type='button';close.className='evidence-close';close.setAttribute('aria-label',`Close evidence and return to ${scope.querySelector('#detail-title')?.textContent||'the learning dashboard'}`);close.textContent='×';close.addEventListener('click',()=>dialog.close());
   header.append(title,close);dialog.append(header);
   const note=document.createElement('p');note.className='evidence-help';note.append(document.createTextNode(link.preview?'Scroll inside the preview to see the full evidence. ':'This Drive item does not offer an embedded preview. '));
   const original=document.createElement('a');original.href=link.original;original.target='_blank';original.rel='noopener noreferrer';original.textContent='Open in Google Drive';note.append(original);dialog.append(note);
@@ -33,7 +33,7 @@
   dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const bounds=dialog.getBoundingClientRect();if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)dialog.close();});
   dialog.addEventListener('cancel',event=>event.stopPropagation());
   dialog.addEventListener('close',()=>{dialog.querySelector('iframe')?.remove();dialog.remove();if(trigger?.isConnected)trigger.focus({preventScroll:true});},{once:true});
-  document.body.append(dialog);dialog.showModal();
+  (scope===document?document.body:scope).append(dialog);dialog.showModal();
  }
  root.driveEvidence=driveEvidence;root.evidenceLinks=evidenceLinks;root.openEvidence=openEvidence;
  if(typeof module!=='undefined')module.exports={driveEvidence,evidenceLinks};
