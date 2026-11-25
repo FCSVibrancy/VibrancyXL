@@ -92,3 +92,11 @@ dialog.purpose-dialog{max-width:1320px;padding:10px 16px 16px}
 .purpose-kpi .purpose-alignment{font-size:14px;line-height:1.45;color:#575b52;margin:14px 0 0;flex-shrink:0}
 .purpose-alignment strong{font-weight:600}
 .purpose-nav{scrollbar-width:thin}
+
+/* Four real activity photos replace the Thriving Learner portrait. */
+.photo.photo-collage{width:48%;clip-path:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3px;background:#f5f3ef}
+.photo-collage .collage-photo{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;display:block}
+.photo-collage .collage-photo-1{object-position:60% center}
+.photo-collage .collage-photo-2{object-position:43% center}
+.photo-collage .collage-photo-3{object-position:55% center}
+.photo-collage .collage-photo-4{object-position:58% center}

@@ -99,3 +99,7 @@ New page introductions are in rows 35–40; new illustrative examples are in 58�
 The new fictional Thriving Learner photo is `assets/thriving-learner.png`, generated with the built-in image tool. Prompt: “A candid school-library photograph of a teenage female student in a muted blue cardigan sharing a learning portfolio with a classmate; natural light, engaged expressions, belonging and confidence, portrait framing, no overlay text or logos.”
 
 Additional validation: `node tests/alignment.cjs` verifies all seven KPI groups, current navigation, rating isolation, live Alignment edits, and reporting-window scoping. Browser QA checked each experience’s live sheet content and cross-dashboard navigation.
+
+### Updated Thriving Learner imagery
+
+The Thriving Learner overview tile now shows a 2×2 collage of four real Pexels photos of children running and jumping at school. It replaces the generated library portrait. Credits, source URLs, and license details are in `assets/PHOTO-CREDITS.md`. The photos are illustrative stock imagery; the dashboard’s existing illustrative-imagery label still applies.
