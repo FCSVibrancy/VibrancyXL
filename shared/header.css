@@ -1,0 +1,9 @@
+/* One artwork size contract for page, component, and indicator headers. */
+.site-header .header-mark,.brand .header-mark,.purpose-brand .header-mark{display:block;width:90px;height:75px;flex:0 0 auto;border-radius:4px;overflow:hidden}
+header.site-header{box-sizing:border-box;width:100%;min-height:91px;padding:8px 3.6%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#050605;color:#fff;font-family:Arial,Helvetica,sans-serif}
+.site-header a{color:inherit;text-decoration:none}.site-header a:focus-visible{outline:3px solid #d7c772;outline-offset:5px}.site-header .site-header-identity{display:flex;align-items:center;gap:18px;min-width:0}
+.site-header .site-header-name{display:block;border-left:2px solid #d7c772;padding-left:18px;min-width:0}
+.site-header-name strong{display:block;font-size:34px;font-weight:700;line-height:1.1;letter-spacing:1px}.site-header-name small{display:block;font-size:15px;line-height:1.4;letter-spacing:2px;margin-top:4px}
+.site-header-home{font-size:13px;letter-spacing:1px;text-transform:uppercase}.site-header-tools{display:flex;align-items:center;gap:16px;font-size:13px}
+@media(max-width:760px){.site-header .header-mark,.brand .header-mark,.purpose-brand .header-mark{width:62px;height:52px}header.site-header{min-height:70px;padding:8px 16px;gap:12px}.site-header .site-header-identity{gap:12px}.site-header .site-header-name{padding-left:12px}.site-header-name strong{font-size:24px}.site-header-name small{font-size:10px;letter-spacing:1.4px}.site-header-home{display:none}.site-header-tools{flex-wrap:wrap;font-size:11px}}
+@media(max-width:380px){.site-header .header-mark,.brand .header-mark,.purpose-brand .header-mark{width:48px;height:40px}.site-header-name strong{font-size:21px}.site-header-name small{font-size:9px;letter-spacing:1px}header.site-header:has(.site-header-tools){flex-wrap:wrap}}
