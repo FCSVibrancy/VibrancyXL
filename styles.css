@@ -168,3 +168,8 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-measurement{padding:18px 22px;border-top:1px solid #ddd}.purpose-measurement dl,.purpose-examples dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.purpose-measurement dt,.purpose-examples dt{font-weight:700}.purpose-measurement dd,.purpose-examples dd{margin:6px 0;line-height:1.5}.purpose-examples summary{cursor:pointer;font-size:1.15rem;font-weight:700;min-height:44px}.purpose-measurement p{line-height:1.5}
 
 .purpose-heading .purpose-belief-label{margin:16px 0 6px;font-size:16px;line-height:1.4}
+
+/* The district's supplied Measures of Quality artwork is shared by every dashboard. */
+.brand .header-mark,.purpose-brand .header-mark{display:block;width:90px;height:75px;flex:0 0 auto;border-radius:4px;overflow:hidden}
+@media(max-width:760px){.brand .header-mark,.purpose-brand .header-mark{width:62px;height:52px}}
+@media(max-width:380px){.brand .header-mark,.purpose-brand .header-mark{width:48px;height:40px}}
