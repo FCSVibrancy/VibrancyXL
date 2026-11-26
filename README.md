@@ -127,7 +127,7 @@ Local relative links and HTTPS links are supported. Homepage text is rendered as
 
 The new `/admin` screen edits existing records in **Homepage**, **Sheet1**, **Alignment**, and **SiteContent** in the existing spreadsheet. It provides search, labeled fields, draft content previews, and explicit Publish. Navigating away with drafts prompts before discarding them. Identity fields and formulas are protected. Percentages are validated; saves use RAW values so entered text is never executed as a formula. Every data read and publish validates Google's signed ID token, client audience and expiration, verified email, and Brian's exact Google account ID. The sign-in shell is publicly reachable; content and writes require Brian's identity. No other district account can edit through this API.
 
-The new SiteContent tab controls current section-page headings and body copy plus learning overview titles and questions. Homepage images and links remain in Homepage; indicator descriptions, reporting windows, status, maturity, notes, examples, and evidence links remain in Sheet1. Alignment supplies the definitions that override five dashboards, so edit those definitions in Alignment. Existing records are editable; adding new page layouts, new indicators, changing visual design, and uploading assets still require development. The preview displays draft text, not a full public dashboard rendering.
+The new SiteContent tab controls current section-page headings and body copy plus learning overview titles and questions. Homepage images and links remain in Homepage; indicator descriptions, reporting windows, status, maturity, notes, examples, and evidence links remain in Sheet1. Alignment supplies the definitions that override five dashboards, so edit those definitions in Alignment. The control board supports adding tiles to the homepage and every section page, including the learning overview, and uploading images or medallions. New indicator definitions and page layouts still require development.
 
 ### Activate on your Vercel project
 
@@ -151,3 +151,27 @@ The private `/admin` control board now shows an interactive draft of the homepag
 For the five Alignment-based dashboards, indicator titles and descriptions are read-only in the ratings panel. **Edit this indicator’s wording** opens the matching Alignment record, whose draft is shown in the actual indicator card. The public layout adapts to the preview width. Editing is available only after the existing owner-only Google sign-in; the preview receives content, never the sign-in token.
 
 Validation includes model tests for stable Alignment matching and duplicate indicator IDs across reporting windows, plus browser checks of tile selection, unpublished text and meters, explicit publishing against a local fixture, overview cards, section-page copy, and indicator-definition previews.
+
+
+### Image uploads and new tiles
+
+In `/admin`, select an image, homepage tile, or learning overview card and choose **Upload replacement image**. Existing pictures stay in place until replaced; learning pictures keep their shaped frames. JPEG, PNG, and WebP files up to 20 MB are optimized in the browser into JPEG images that fit Google Sheets cells (45,000 characters). The optimized image is saved with the content, so no separate storage setup is needed.
+
+Use **Add to this page** and **Add tile** in Homepage or Pages & learning tiles. Select the destination page first. Choose Image tile or Icon / medallion; edit its title, description, destination, and image. Click a medallion in the preview to edit its symbol or upload its picture. Homepage tiles accept existing icon names, plain symbols, or uploaded images. New section-page tiles appear after existing content in insertion order. All additions and uploads remain private drafts until **Publish changes**. Each content area supports up to 200 rows.
+
+### Delete and rearrange tiles
+
+Select a tile in the preview to show **Move up**, **Move down**, and **Delete tile**. These actions update the private draft; publish to apply them to the public page. A deleted tile stays dimmed and selectable in the editor, where **Restore tile** brings it back. Homepage tiles, original learning overview cards, and custom tiles all support these controls. Positions are saved per page. Icon tiles and medallion tiles are separate choices in the add menu.
+
+### Welcome entrance
+
+The root `index.html` is a black welcome screen with the supplied Fleming County Schools seal, Vibrancy wordmark, and welcome quote. Logos, text, and the Enter Vibrancy button fade in in sequence. After 14 seconds (starting once the logos load), the screen fades out over 900 ms and opens `home.html`, the original Google Sheets-driven tile homepage. The Enter Vibrancy link can continue sooner. Returning to the root during the same tab session goes straight to the homepage; a new session shows the entrance again. Reduced-motion preferences skip the animation. The plain link still works without JavaScript.
+
+### Area indicators and automatic homepage activation
+Open **Area indicators** in the private control board, choose any of the six areas, and click **Add indicator**. Enter an actual indicator title and description, optionally enter a percentage, status, and HTTPS evidence link, and leave visibility set to Visible. The private preview shows whether the area will activate. Publish changes to save. An empty or incomplete indicator never activates an area. Hide all complete indicators to return that area's tile to gray; Learning remains active through its existing seven dashboards.
+
+AreaIndicators!A1:Z200 stores these records separately from Learning's existing Sheet1 and Alignment data. Its headers are id, area_id, title, description, percent, status, evidence_url, visible, sort_order. IDs and area assignments are protected after creation. Existing owner-only authorization and revision checks protect publishing. The public GET /api/indicators endpoint exposes only complete, visible indicator fields, reads Google Sheets without caching, and supplies both the area pages and homepage availability. General SiteContent tiles, headings, images, and ordinary links never activate an area. Pending homepage tiles have no navigable link. Open or refresh the public homepage after publishing; returning via browser Back also refreshes availability. No deployment is needed to publish subsequent indicators.
+
+All area indicator dashboards and their private previews use Vibrant Learning’s shared markup renderer and styles.css. Area dashboard styles are isolated from the landing page through a shadow root. Drive evidence uses the same preview window; other HTTPS evidence opens in a new tab. The displayed cards come only from that area’s own published indicators.
+
+Every area indicator exposes the Learning KPI controls: title, description, Why It Matters, status, percentage, implementation maturity, public note, six evidence labels and URLs, walkthrough alignment, icon, display order, reporting window, and visibility. The original evidence_url column is retained as Evidence 1 URL to preserve existing content. Clicking a rendered KPI selects the corresponding record; drafts use the same dashboard renderer as published pages. Reporting-window selectors in the workspace and dashboard preview stay synchronized.
