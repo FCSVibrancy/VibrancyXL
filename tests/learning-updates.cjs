@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+require('../evidence-viewer.js');
+const {records,markup,mergeDefinitions}=require('../purpose-dashboard.js');
+const snapshot=require('../data/learning-purpose.json');
+const data=records([snapshot.headers,...snapshot.rows]);
+const purpose=markup(data,'current','purpose');
+assert.equal(data.filter(r=>r.type==='kpi'&&r.target==='100%').length,3);
+for(const title of ['Analyze Examples','Check Work in Progress','WHAT baseline','WHY baseline','Evidence coverage','Baseline numerator / denominator'])assert.ok(purpose.includes(title),title);
+const feedback=markup(data,'current','feedback');
+assert.ok(feedback.includes('data-purpose-nav="purpose"'));
+assert.ok(feedback.includes('counted once'));
+const bridge=markup(data,'current','thinking');
+for(const text of ['Families: who','Local communities: who','Local workforce: who','Personalized demonstration','Qualification review','Participation','Quality of work','Illustrative'])assert.ok(bridge.includes(text),text);
+const merged=mergeDefinitions([{...data.find(r=>r.id==='standards'&&r.type==='kpi'),percent:'50',description:'Outdated'}],data);
+assert.equal(merged.find(r=>r.id==='standards'&&r.type==='kpi').percent,'');
+assert.ok(markup(data,'future','purpose').includes('KPIs'));
+console.log('Learning acceptance checks passed.');
