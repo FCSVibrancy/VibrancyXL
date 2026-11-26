@@ -8,6 +8,16 @@ test('every area renders through the Learning dashboard with its own data',()=>{
   assert.equal(data.filter(row=>row.type==='kpi').length,1);assert.match(html,/class="purpose-brand"/);assert.match(html,/class="purpose-kpis"/);assert.match(html,/class="purpose-kpi purpose-tone-0"/);assert.ok(html.includes('Awaiting Evidence'));assert.ok(!html.includes('aria-valuenow="0"'));assert.ok(html.includes(A.areas[area]));assert.ok(html.includes('Area-specific indicator description'));assert.ok(html.includes('href="https://example.org/evidence"'));assert.ok(!html.includes('class="purpose-examples"'));assert.ok(!html.includes('class="purpose-why"'));
  }
 });
+test('new indicators in every component inherit the shared dial renderer and tone classes',()=>{
+ for(const area of Object.keys(A.areas)){
+  const items=Array.from({length:5},(_,i)=>({id:`indicator-new-${i}`,area_id:area,title:`New indicator ${i}`,description:'Newly added indicator',visible:'TRUE',sort_order:String(i+1)}));
+  const terms=items.map(r=>({id:`area:${area}:${r.id}`,term_1_percent:'0',term_2_percent:'50',term_3_percent:'100'}));
+  const html=markup(A.dashboardData(items,area,'',terms),'current',area);
+  assert.equal((html.match(/class="purpose-dial"/g)||[]).length,15);
+  for(let i=0;i<5;i++)assert.ok(html.includes(`class="purpose-kpi purpose-tone-${i%4}" data-indicator-id="indicator-new-${i}"`));
+  for(const n of [0,50,100])assert.equal((html.match(new RegExp(`aria-valuenow="${n}"`,'g'))||[]).length,5);
+ }
+});
 test('area dashboards preserve Drive preview buttons, missing data, and escaping',()=>{
  const row={id:'indicator-test',area_id:'ecosystem',title:'<img src=x onerror=alert(1)>',description:'Actual indicator',percent:'',status:'',evidence_url:'https://drive.google.com/file/d/abc123/view'};
  const html=markup(A.dashboardData([row],'ecosystem'),'current','ecosystem');assert.ok(html.includes('&lt;img'));assert.ok(!html.includes('<img src=x'));assert.ok(html.includes('data-evidence-id="indicator-test"'));assert.ok(html.includes('Awaiting Evidence'));assert.ok(!html.includes('role="progressbar"'));
