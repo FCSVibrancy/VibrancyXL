@@ -1,0 +1,10 @@
+body:has(> .site-footer){min-height:100svh;display:flex;flex-direction:column}
+body:has(> .site-footer)>main{flex:1}
+footer.site-footer{box-sizing:border-box;width:100%;margin-top:auto;display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:16px 32px;padding:28px max(24px,5vw);border-top:1px solid #333;background:#000;color:#c6c6c0;font:400 14px/1.6 Arial,Helvetica,sans-serif;text-align:left}
+.site-footer p{margin:0}.site-footer a{color:inherit;text-decoration:none}.site-footer a:hover{text-decoration:underline;text-underline-offset:4px}.site-footer a:focus-visible{outline:2px solid #e5bb54;outline-offset:6px}
+.site-footer .site-footer-brand{font-size:20px;font-weight:700;letter-spacing:2px;color:#e5bb54}
+.site-footer .site-footer-network{text-align:right}.site-footer .site-footer-vision{grid-column:1/-1;text-align:center;font-size:16px;color:#eee4bd}
+.site-footer .site-footer-extra{grid-column:1/-1;text-align:center}.site-footer .site-footer-extra button{color:#c6c6c0;font:inherit;background:none;border:0;text-decoration:underline;cursor:pointer;min-height:44px}
+@media(max-width:700px){footer.site-footer{grid-template-columns:1fr;text-align:center;gap:12px;padding:28px 22px}.site-footer .site-footer-network{text-align:center}.site-footer .site-footer-vision{max-width:440px;margin:auto}}
+
+.site-footer .site-footer-district{font-weight:400;letter-spacing:0}

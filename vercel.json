@@ -1,1 +1,46 @@
-{"rewrites":[{"source":"/admin","destination":"/admin/index.html"},{"source":"/api/control","destination":"/api/control.js"},{"source":"/api/indicators","destination":"/api/indicators.js"}],"headers":[{"source":"/admin(.*)","headers":[{"key":"Cache-Control","value":"no-store"},{"key":"X-Robots-Tag","value":"noindex, nofollow"},{"key":"Referrer-Policy","value":"same-origin"}]},{"source":"/api/indicators","headers":[{"key":"Cache-Control","value":"no-store"}]}]}
+{
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/api/control",
+      "destination": "/api/control.js"
+    },
+    {
+      "source": "/api/indicators",
+      "destination": "/api/indicators.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
+        }
+      ]
+    },
+    {
+      "source": "/api/indicators",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "buildCommand": "node scripts/prepare-site.cjs",
+  "outputDirectory": "."
+}
