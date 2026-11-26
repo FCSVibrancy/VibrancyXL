@@ -170,3 +170,8 @@ dialog.purpose-dialog{max-height:96dvh}
 
 .purpose-heading .purpose-belief-label{margin:16px 0 6px;font-size:16px;line-height:1.4}
 
+
+.purpose-dialog .purpose-belief{margin:0 0 22px;padding:22px 26px;background:#fbf5df;border:1px solid #e1cf8b;border-left:5px solid #b99b37;border-radius:10px;color:#171910}
+.purpose-dialog .purpose-belief h3{font:700 17px/1.4 Arial,Helvetica,sans-serif;margin:0 0 10px;letter-spacing:.02em;color:#645016}
+.purpose-dialog .purpose-belief-content{font-size:clamp(17px,1.4vw,20px);line-height:1.6;margin:0;max-width:100ch;white-space:pre-line}
+@media(max-width:600px){.purpose-dialog .purpose-belief{padding:18px 17px;margin-bottom:18px}.purpose-dialog .purpose-belief-content{font-size:17px}}

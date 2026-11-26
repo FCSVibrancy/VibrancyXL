@@ -8,10 +8,18 @@ module.exports=async(req,res)=>{
  await authorize(req);
  const tab=req.method==='GET'?req.query.tab:req.body?.tab;
  if(!Object.hasOwn(tabs,tab))return res.status(400).json({error:'Unknown content area'});
- const range=`'${tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
- if(req.method==='GET')return res.json({values,revision:revision(values)});
+ const range=`'${tab==='Beliefs'?'SiteContent':tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
+ if(req.method==='GET')return res.json({values:tab==='Beliefs'?require('../lib/beliefs.cjs').project(values):values,revision:revision(values)});
  if(req.body.revision!==revision(values))return res.status(409).json({error:'The sheet changed. Reload this area before publishing.'});
  const additions=req.body.additions||[];
+ if(tab==='Beliefs'){
+  const beliefs=require('../lib/beliefs.cjs');beliefs.validate(req.body.changes,beliefs.project(values),additions);
+  const data=beliefs.writes(values,req.body.changes);
+  await sheets('/values:batchUpdate',{method:'POST',data:{valueInputOption:'RAW',data}});
+  const saved=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');
+  return res.json({values:beliefs.project(saved.values||[]),revision:revision(saved.values||[])});
+ }
+
  validateAdditions(additions,tab,values);
  if(req.body.changes?.length)validate(req.body.changes,values);
  else if(!additions.length)throw Error('No changes.');

@@ -11,6 +11,10 @@
     {
       "source": "/api/indicators",
       "destination": "/api/indicators.js"
+    },
+    {
+      "source": "/api/beliefs",
+      "destination": "/api/beliefs.js"
     }
   ],
   "headers": [
@@ -33,6 +37,15 @@
     },
     {
       "source": "/api/indicators",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/beliefs",
       "headers": [
         {
           "key": "Cache-Control",
