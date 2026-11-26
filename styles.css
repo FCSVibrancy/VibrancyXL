@@ -180,19 +180,22 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:20px 0 10px}
 .purpose-term{min-width:0;text-align:center;padding:0 12px}.purpose-term+.purpose-term{border-left:1px solid #c8c9c5}
 .purpose-dialog .purpose-term h4{font:700 15px/1.4 Arial,Helvetica,sans-serif;margin:0 0 8px}
-.purpose-dial{max-width:210px;margin:auto}.purpose-dial svg{display:block;width:100%;height:auto;overflow:visible}
-.dial-track,.dial-value{fill:none;stroke-width:13;stroke-linecap:round}.dial-track{stroke:#e1e3e5}.dial-value{stroke:#c5b358}.dial-tick{fill:none;stroke:#6b6d65;stroke-width:1.3}
-.dial-marker{font:400 18px Arial,Helvetica,sans-serif;fill:#55584f}.dial-number{font:500 26px Arial,Helvetica,sans-serif;fill:#171910}.dial-pending{font:500 18px Arial,Helvetica,sans-serif;fill:#55584f}
+.purpose-dial{max-width:176px;margin:auto}.purpose-dial svg{display:block;width:100%;height:auto;overflow:visible}
+.dial-track,.dial-value{fill:none;stroke-width:13;stroke-linecap:round}.dial-track{stroke:#d5d8dc}.dial-value{stroke:var(--dial-accent,#94751f)}.dial-tick{fill:none;stroke:#6b6d65;stroke-width:1.3}
+.dial-marker{font:400 20px Arial,Helvetica,sans-serif;fill:#55584f}.dial-number{font:500 30px Arial,Helvetica,sans-serif;fill:#171910}.dial-pending{font:500 20px Arial,Helvetica,sans-serif;fill:#55584f}
 .purpose-dialog .purpose-term-maturity{font-size:13px;line-height:1.4;margin:3px 0}.purpose-dialog .purpose-term-note{font-size:13px;line-height:1.4;margin:5px 0}.purpose-dialog .purpose-indicator-note,.purpose-dialog .purpose-term-reference{font-size:14px;line-height:1.5;margin:12px 0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:600px){.purpose-term{padding:0 8px}.purpose-dialog .purpose-term h4{font-size:14px}.purpose-terms{margin-top:18px}}
-@media(max-width:420px){.purpose-terms{grid-template-columns:1fr}.purpose-term{padding:16px 0}.purpose-term+.purpose-term{border-left:0;border-top:1px solid #c8c9c5}.purpose-dial{max-width:200px}}
+@media(max-width:420px){.purpose-terms{grid-template-columns:1fr}.purpose-term{padding:16px 0}.purpose-term+.purpose-term{border-left:0;border-top:1px solid #c8c9c5}.purpose-dial{max-width:176px}}
 
 .purpose-kpi:has(.purpose-terms){container-type:inline-size}
-@container(max-width:500px){.purpose-terms{grid-template-columns:1fr}.purpose-term{padding:16px 0}.purpose-term+.purpose-term{border-left:0;border-top:1px solid #c8c9c5}.purpose-dial{max-width:200px}}
+@container(max-width:500px){.purpose-terms{grid-template-columns:1fr}.purpose-term{padding:16px 0}.purpose-term+.purpose-term{border-left:0;border-top:1px solid #c8c9c5}.purpose-dial{max-width:176px}}
 
 .purpose-term .purpose-evidence{padding:14px 0 0;margin-top:14px;text-align:left;border-top:1px solid #d5d5cd}
 .purpose-term .purpose-evidence h4{font:700 14px/1.4 Arial,Helvetica,sans-serif;margin:0 0 8px;text-align:left}
 .purpose-term .purpose-evidence-empty{font-size:14px!important;line-height:1.5!important;margin:0!important}
 .purpose-term .purpose-evidence-links{display:flex;flex-direction:column;align-items:stretch;gap:8px}.purpose-term .purpose-evidence-links a,.purpose-term .purpose-evidence-links button{font-size:14px;text-align:left;overflow-wrap:anywhere}
 .purpose-dialog .purpose-term-note{text-align:left;font-size:14px;line-height:1.55;margin:14px 0 0}.purpose-term-note h5{font:700 14px/1.4 Arial,Helvetica,sans-serif;margin:0 0 5px}.purpose-dialog .purpose-term-note p{font-size:14px;line-height:1.55;white-space:pre-line;margin:0}
+
+/* Cool neutral tiles use slate arcs; warm tiles retain a deeper Vegas Gold. */
+.purpose-tone-2,.purpose-tone-3{--dial-accent:#344f64}

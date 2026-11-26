@@ -18,3 +18,13 @@ test('evidence links retain their reporting term identity',()=>{
  const row={...data.find(r=>r.type==='kpi'&&r.id==='scales'),reporting_window:'term-2',percent:'50',status:'',evidence_1_label:'Term 2 draft',evidence_1_url:'https://drive.google.com/file/d/term2/view'};
  const html=D.markup([...data,row],'current','purpose');assert.ok(html.includes('data-evidence-window="term-2"'));const card=html.split('data-indicator-id="scales"')[1].split('</article>')[0];const term2=card.split('<h4>Reporting Term 2</h4>')[1].split('<section class="purpose-term"')[0];assert.ok(term2.includes('Term 2 draft'));assert.ok(term2.includes('Evidence of Practice'));
 });
+test('zero displays as zero and clearing a result keeps its notes and evidence visible',()=>{
+ for(const term of [1,2,3])for(const value of ['0','']){
+  const record={id:'learning:purpose:standards',[`term_${term}_percent`]:value,[`term_${term}_notes`]:'Retained term note',[`term_${term}_evidence_1_label`]:'Retained student work',[`term_${term}_evidence_1_url`]:'https://example.org/student-work'};
+  const row=D.applyTermResults(data,[record]).find(r=>r.id==='standards'&&r.reporting_window===`term-${term}`);
+  const html=D.termDial(row,term,'Test');
+  assert.ok(html.includes('Retained term note'));assert.ok(html.includes('Retained student work'));assert.ok(html.includes('href="https://example.org/student-work"'));
+  if(value==='0'){assert.ok(html.includes('class="dial-number" x="100" y="99" text-anchor="middle">0%</text>'));assert.ok(html.includes('aria-valuenow="0"'));}
+  else {assert.ok(html.includes(`Reporting Term ${term}: Awaiting Evidence`));assert.ok(!html.includes('class="dial-number"'));assert.ok(!html.includes('aria-valuenow'));}
+ }
+});
