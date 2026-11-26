@@ -9,3 +9,5 @@ header{padding:.7rem 2vw}main{padding:1rem 2vw}.page-heading .eyebrow{display:no
 @media(max-width:759px){.visual-layout{grid-template-columns:1fr}.edit-panel{max-height:none;border-left:0}.publish{position:static}.page-heading{gap:.5rem}.visual-layout iframe{min-height:420px}.page-heading h1{font-size:25px}}
 
 .term-editor-group{min-width:0;border:1px solid #d4c685;border-radius:8px;padding:16px;margin:0 0 18px}.term-editor-group legend{font-size:16px;font-weight:700;padding:0 8px}.term-editor-group>label{margin-top:12px}.term-editor-group details{margin-top:16px}.term-editor-group summary{font-size:14px;font-weight:600;cursor:pointer}.term-editor-group textarea{min-height:110px}
+
+.preview-toolbar .professional-toggle{display:flex;align-items:center;gap:8px;font-size:14px}.professional-toggle input{width:18px;height:18px;margin:0}
