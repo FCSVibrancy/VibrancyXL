@@ -62,7 +62,10 @@
  function mergeDefinitions(live,saved){
   const fields=['status','percent','maturity','note',...Array.from({length:6},(_,i)=>[`evidence_${i+1}_label`,`evidence_${i+1}_url`]).flat(),'baseline','baseline_numerator','baseline_denominator','numerator','denominator','coverage','learner_outcomes','what_numerator','why_numerator','what_baseline','why_baseline'];
   const result=saved.map(def=>{if(def.type==='qualification')return {...def,...live.find(r=>r.type==='qualification'&&r.id===def.id&&r.reporting_window===def.reporting_window)};if(def.type!=='kpi')return def;const current=live.find(r=>r.type==='kpi'&&r.id===def.id&&r.reporting_window===def.reporting_window);if(!current||['feedback-1','feedback-2'].includes(def.id)||(['standards','scales'].includes(def.id)&&current.description!==def.description))return def;return {...def,...Object.fromEntries(fields.filter(k=>current[k]!==undefined&&current[k]!=='').map(k=>[k,current[k]]))};});
-  return [...result,...live.filter(r=>!saved.some(d=>d.type===r.type&&d.id===r.id&&d.reporting_window===r.reporting_window))].map(r=>({...r,status:/^Awaiting (data|evidence)$/i.test(r.status)?'Awaiting Evidence':r.status,maturity:/^Awaiting evidence$/i.test(r.maturity)?'Awaiting Evidence':r.maturity}));
+  return [...result,...live.filter(r=>!saved.some(d=>d.type===r.type&&d.id===r.id&&d.reporting_window===r.reporting_window))].map(r=>{const current=live.find(c=>c.type==='kpi'&&r.type==='kpi'&&c.id===r.id&&(c.experience_id||'purpose')===(r.experience_id||'purpose')&&c.reporting_window===r.reporting_window);return {...r,...(current?Object.fromEntries(['title','description','_row'].filter(k=>current[k]!==undefined).map(k=>[k,current[k]])):{}),status:/^Awaiting (data|evidence)$/i.test(r.status)?'Awaiting Evidence':r.status,maturity:/^Awaiting evidence$/i.test(r.maturity)?'Awaiting Evidence':r.maturity};});
+ }
+ function applyPublishedWording(data,indicators){
+  return data.map(row=>{const wording=indicators.find(r=>row.type==='kpi'&&r.id===row.id&&(r.experience_id||'purpose')===(row.experience_id||'purpose')&&(r.reporting_window||'')===(row.reporting_window||''));return wording?{...row,title:String(wording.title??''),description:String(wording.description??'')}:row;});
  }
  function applyBeliefs(data,beliefs){
   const rows=Array.isArray(beliefs?.[0])?beliefs.slice(1).map((row,i)=>({...Object.fromEntries(beliefs[0].map((key,j)=>[key,row[j]])),_beliefRow:i+1})):beliefs;
@@ -139,6 +142,8 @@
   try{const response=await fetch('data/learning-purpose.json',{cache:'no-store'});if(!response.ok)throw Error('Definitions unavailable');const saved=await response.json();data=mergeDefinitions(data,records([saved.headers,...saved.rows]));}
   catch{if(source==='live'){content.innerHTML='<h2 id="detail-title">Updated learning definitions are unavailable</h2><p>Please refresh to load the current measures.</p>';return;}}
   if(openPurposeDashboard.requestId!==requestId||!dialog.open||!dialog.classList.contains('purpose-dialog'))return;
+  try{const response=await fetch('/api/learning-wording',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();data=applyPublishedWording(data,(await response.json()).indicators);}
+  catch{alignmentNotice+=' · Published indicator wording temporarily unavailable; showing saved wording.';}
   try{const response=await fetch('/api/beliefs',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();const published=await response.json();data=applyBeliefs(data,published.beliefs);}
   catch{alignmentNotice+=' · Published belief updates unavailable; showing saved statements.';}
   try{const response=await fetch('/api/term-results',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();data=applyTermResults(data,(await response.json()).results);}
@@ -152,7 +157,7 @@
   dialog.addEventListener('close',()=>openPurposeDashboard.clearEntrance?.(),{once:true});
   draw();
  }
- root.VibrancyDashboard={markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
+ root.VibrancyDashboard={markup,applyAlignment,mergeDefinitions,applyPublishedWording,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
  root.openPurposeDashboard=openPurposeDashboard;
- if(typeof module!=='undefined')module.exports={parseCSV,records,percentage,markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
+ if(typeof module!=='undefined')module.exports={parseCSV,records,percentage,markup,applyAlignment,mergeDefinitions,applyPublishedWording,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
 })(typeof window==='undefined'?globalThis:window);
