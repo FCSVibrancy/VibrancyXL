@@ -190,3 +190,9 @@ dialog.purpose-dialog{max-height:96dvh}
 
 .purpose-kpi:has(.purpose-terms){container-type:inline-size}
 @container(max-width:500px){.purpose-terms{grid-template-columns:1fr}.purpose-term{padding:16px 0}.purpose-term+.purpose-term{border-left:0;border-top:1px solid #c8c9c5}.purpose-dial{max-width:200px}}
+
+.purpose-term .purpose-evidence{padding:14px 0 0;margin-top:14px;text-align:left;border-top:1px solid #d5d5cd}
+.purpose-term .purpose-evidence h4{font:700 14px/1.4 Arial,Helvetica,sans-serif;margin:0 0 8px;text-align:left}
+.purpose-term .purpose-evidence-empty{font-size:14px!important;line-height:1.5!important;margin:0!important}
+.purpose-term .purpose-evidence-links{display:flex;flex-direction:column;align-items:stretch;gap:8px}.purpose-term .purpose-evidence-links a,.purpose-term .purpose-evidence-links button{font-size:14px;text-align:left;overflow-wrap:anywhere}
+.purpose-dialog .purpose-term-note{text-align:left;font-size:14px;line-height:1.55;margin:14px 0 0}.purpose-term-note h5{font:700 14px/1.4 Arial,Helvetica,sans-serif;margin:0 0 5px}.purpose-dialog .purpose-term-note p{font-size:14px;line-height:1.55;white-space:pre-line;margin:0}

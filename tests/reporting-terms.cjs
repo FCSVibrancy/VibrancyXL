@@ -16,5 +16,5 @@ test('pending results never show numeric completion; feedback does not duplicate
 });
 test('evidence links retain their reporting term identity',()=>{
  const row={...data.find(r=>r.type==='kpi'&&r.id==='scales'),reporting_window:'term-2',percent:'50',status:'',evidence_1_label:'Term 2 draft',evidence_1_url:'https://drive.google.com/file/d/term2/view'};
- const html=D.markup([...data,row],'current','purpose');assert.ok(html.includes('data-evidence-window="term-2"'));assert.ok(html.includes('Evidence of Practice · Reporting Term 2'));
+ const html=D.markup([...data,row],'current','purpose');assert.ok(html.includes('data-evidence-window="term-2"'));const card=html.split('data-indicator-id="scales"')[1].split('</article>')[0];const term2=card.split('<h4>Reporting Term 2</h4>')[1].split('<section class="purpose-term"')[0];assert.ok(term2.includes('Term 2 draft'));assert.ok(term2.includes('Evidence of Practice'));
 });
