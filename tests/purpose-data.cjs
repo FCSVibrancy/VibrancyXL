@@ -16,7 +16,7 @@ assert.ok(html.includes('Awaiting Evidence'));
 assert.ok(html.includes('100% commitment'));
 const extra={type:'kpi',id:'later',reporting_window:'future',title:'Future-only KPI',percent:'0',sort_order:'5'};
 assert.ok(!markup([...data,extra],'current').includes('Future-only KPI'));
-assert.ok(markup([...data,extra],'future').includes('aria-valuenow="0"'));
+assert.ok(markup([...data,extra],'future','purpose',{termView:false}).includes('aria-valuenow="0"'));
 const malicious=data.map(row=>row.type==='page'?{...row,title:'<img src=x onerror=alert(1)>'}:row);
 assert.ok(!markup(malicious,'current').includes('<img src=x'));
 assert.ok(markup(malicious,'current').includes('&lt;img'));
