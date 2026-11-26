@@ -13,5 +13,6 @@
  for(const r of local.filter(r=>r.selector.startsWith('@tile:')))list.push({key:r.selector.slice(6),row:r._row,title:r.value});
  return list.map((r,i)=>{const visibility=local.find(x=>x.selector==='@visibility:'+r.key),order=local.find(x=>x.selector==='@order:'+r.key),tile=local.find(x=>x._row===r.row);return {...r,visible:! /^(false|no|0)$/i.test(visibility?.visible||tile?.visible||''),order:order&&order.value.trim()&&Number.isFinite(Number(order.value))?Number(order.value):i+1,index:i};}).sort((a,b)=>a.order-b.order||a.index-b.index);
  }
- const api={tileList,names,areas,newAreaIndicator,code,records,experience,alignmentRow,numeric};root.VibrancyEditorModel=api;if(typeof module!=='undefined')module.exports=api;
+ const termContexts={...names,...Object.fromEntries(Object.entries(areas).map(([id,name])=>['area-'+id,name+' · indicators']))};
+ const api={termContexts,tileList,names,areas,newAreaIndicator,code,records,experience,alignmentRow,numeric};root.VibrancyEditorModel=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

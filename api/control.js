@@ -8,7 +8,19 @@ module.exports=async(req,res)=>{
  await authorize(req);
  const tab=req.method==='GET'?req.query.tab:req.body?.tab;
  if(!Object.hasOwn(tabs,tab))return res.status(400).json({error:'Unknown content area'});
- const range=`'${tab==='Beliefs'?'SiteContent':tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
+ const range=`'${['Beliefs','TermResults'].includes(tab)?'SiteContent':tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
+ let termSources;
+ if(tab==='TermResults')termSources=await Promise.all(['Sheet1','AreaIndicators'].map(async name=>(await sheets('/values/'+encodeURIComponent(`'${name}'!${tabs[name]}`)+'?valueRenderOption=FORMULA')).values||[]));
+ const versionValues=tab==='TermResults'?[values,...termSources]:values;
+ if(tab==='TermResults'){
+  const T=require('../lib/term-results.cjs');const table=T.project(values,...termSources);
+  if(req.method==='GET')return res.json({values:table,revision:revision(versionValues)});
+  if(req.body.revision!==revision(versionValues))return res.status(409).json({error:'The indicators or term results changed. Reload before publishing.'});
+  T.validate(req.body.changes,table,req.body.additions||[]);const data=T.writes(values,table,req.body.changes);
+  await sheets('/values:batchUpdate',{method:'POST',data:{valueInputOption:'RAW',data}});
+  const saved=(await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA')).values||[];
+  return res.json({values:T.project(saved,...termSources),revision:revision([saved,...termSources])});
+ }
  if(req.method==='GET')return res.json({values:tab==='Beliefs'?require('../lib/beliefs.cjs').project(values):values,revision:revision(values)});
  if(req.body.revision!==revision(values))return res.status(409).json({error:'The sheet changed. Reload this area before publishing.'});
  const additions=req.body.additions||[];

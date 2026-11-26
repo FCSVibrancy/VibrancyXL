@@ -15,6 +15,10 @@
     {
       "source": "/api/beliefs",
       "destination": "/api/beliefs.js"
+    },
+    {
+      "source": "/api/term-results",
+      "destination": "/api/term-results.js"
     }
   ],
   "headers": [
@@ -46,6 +50,15 @@
     },
     {
       "source": "/api/beliefs",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/term-results",
       "headers": [
         {
           "key": "Cache-Control",

@@ -74,6 +74,22 @@
  }
  const icons={heart:'<path d="M40 67 13 40C-3 22 20 4 40 24 60 4 83 22 67 40Z"/>',book:'<path d="M10 18q14-7 27 0v39q-13-7-27 0zm27 0q13-7 27 0v39q-13-7-27 0z"/><path d="M5 22v41h57M16 22v29m43-29v24"/><circle cx="58" cy="56" r="15"/><path d="m65 49-5 10-10 5 5-10z"/>',target:'<circle cx="38" cy="40" r="26"/><circle cx="38" cy="40" r="16"/><circle cx="38" cy="40" r="5"/><path d="m38 40 29-29m-10 0 10-1-1 10"/>',checklist:'<rect x="13" y="9" width="51" height="62" rx="3"/><path d="m21 24 4 4 7-8m7 5h17M21 40l4 4 7-8m7 5h17M21 56l4 4 7-8m7 5h17"/>',steps:'<path d="M9 66V49h20V33h20V17h21v49z"/>'};
  function icon(name){return `<svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">${icons[name]||icons.book}</svg>`;}
+ function termRecords(input){
+  if(!Array.isArray(input))return [];
+  const rows=Array.isArray(input[0])?input.slice(1).map((row,i)=>({...Object.fromEntries(input[0].map((h,j)=>[h,row[j]])),_row:i+1})):input;
+  return rows.flatMap(row=>{if(row.scope&&row.context&&row.indicator_id)return [row];const m=String(row.id||'').match(/^(learning|area):([a-z0-9-]+):([a-z0-9-]+)$/);return m?[{...row,scope:m[1],context:m[2],indicator_id:m[3]}]:[];});
+ }
+ function applyTermResults(data,input,scope='learning'){
+  let result=[...data];
+  for(const item of termRecords(input).filter(r=>r.scope===scope)){
+   const source=result.filter(r=>r.type==='kpi'&&r.id===item.indicator_id&&(r.experience_id||'purpose')===item.context);
+   const base=source.find(r=>!r.reporting_window||r.reporting_window==='current')||source[0];if(!base)continue;
+   const additions=[1,2,3].map(term=>{const existing=source.find(r=>reportingTerm(r,result)===term);const raw=item[`term_${term}_percent`];const n=percentage(raw);const evidence=Object.fromEntries(Array.from({length:6},(_,i)=>[`evidence_${i+1}_label`,`evidence_${i+1}_url`]).flat().map(k=>[k,existing?.[k]||'']));return {...base,...existing,...evidence,reporting_window:'term-'+term,percent:n===null?'':String(n),status:n===null?'Awaiting Evidence':'',maturity:existing?.maturity||'',note:existing?.note||'',external_evidence_links:existing?.external_evidence_links||[]};});
+   result=result.filter(r=>!(r.type==='kpi'&&r.id===item.indicator_id&&(r.experience_id||'purpose')===item.context&&reportingTerm(r,result)!==null));
+   result.push(...additions);
+  }
+  return result;
+ }
  const REPORTING_TERMS=[1,2,3];
  function reportingTerm(row,data=[]){
   const raw=String(row.reporting_window||'').trim().toLowerCase();
@@ -125,6 +141,9 @@
   if(openPurposeDashboard.requestId!==requestId||!dialog.open||!dialog.classList.contains('purpose-dialog'))return;
   try{const response=await fetch('/api/beliefs',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();const published=await response.json();data=applyBeliefs(data,published.beliefs);}
   catch{alignmentNotice+=' · Published belief updates unavailable; showing saved statements.';}
+  try{const response=await fetch('/api/term-results',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();data=applyTermResults(data,(await response.json()).results);}
+  catch{alignmentNotice+=' · Published term results temporarily unavailable.';}
+  if(openPurposeDashboard.requestId!==requestId||!dialog.open||!dialog.classList.contains('purpose-dialog'))return;
   const windows=data.filter(r=>r.type==='window').sort((a,b)=>(a.sort_order.trim()?Number(a.sort_order):999)-(b.sort_order.trim()?Number(b.sort_order):999));let selected=windows[0]?.id||'current';
   function draw(){openPurposeDashboard.clearEntrance?.();content.innerHTML=markup(data,selected,experienceId)+`<div class="purpose-source" role="status">${source==='live'?'Current definitions with matching Google Sheets results':'Live sheet unavailable — showing the saved sheet definitions and snapshot from November 26, 2026. Ratings may be out of date.'}${alignmentNotice} · <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank" rel="noopener">View source sheet</a> <button id="purpose-refresh">Refresh data</button></div>`;content.querySelector('#purpose-window')?.addEventListener('change',event=>{selected=event.target.value;draw();content.querySelector('#purpose-window').focus();});content.querySelector('#purpose-refresh').addEventListener('click',()=>openPurposeDashboard(onNavigate,experienceId));content.querySelectorAll('[data-purpose-nav]').forEach(button=>button.addEventListener('click',()=>{if(button.dataset.purposeNav!==experienceId){openPurposeDashboard.requestId=null;dialog.classList.remove('purpose-dialog');openPurposeDashboard.clearEntrance?.();onNavigate(button.dataset.purposeNav);}}));content.querySelectorAll('[data-evidence-id]').forEach(button=>button.addEventListener('click',()=>{
    const row=data.find(r=>['kpi','qualification'].includes(r.type)&&r.id===button.dataset.evidenceId&&r.reporting_window===button.dataset.evidenceWindow);
@@ -133,7 +152,7 @@
   dialog.addEventListener('close',()=>openPurposeDashboard.clearEntrance?.(),{once:true});
   draw();
  }
- root.VibrancyDashboard={markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial};
+ root.VibrancyDashboard={markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
  root.openPurposeDashboard=openPurposeDashboard;
- if(typeof module!=='undefined')module.exports={parseCSV,records,percentage,markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial};
+ if(typeof module!=='undefined')module.exports={parseCSV,records,percentage,markup,applyAlignment,mergeDefinitions,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
 })(typeof window==='undefined'?globalThis:window);
