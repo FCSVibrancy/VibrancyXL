@@ -37,9 +37,9 @@ test('every profile explicitly explains the next-level requirement for its indic
  const row=fixture(),h=M.details(row,[row]);assert.equal((h.match(/aria-current="step"/g)||[]).length,1);assert.equal((h.match(/data-maturity-step=/g)||[]).length,5);assert.ok(!h.includes('<dialog'));assert.ok(!h.includes('**'));
 });
 
-test('the current-rating arrow matches each reviewed stage and stays absent when unrated',()=>{
+test('the arrow marks reviewed stages and an explicitly unrated Level 1 starting point',()=>{
  for(const [index,label] of M.stages.entries()){const row=fixture(label,label==='Sustaining and Advancing'?{priorPeriods:['previous'],improvement:'Revised prompts',followUp:'Checked student explanations'}:{});const html=M.details(row,[row]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,1);assert.match(html,new RegExp('data-maturity-step="'+index+'"[^>]+aria-current="step"'));assert.match(html,/maturity-current-note/);}
- const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,0);assert.match(html,/Current rating · Not Yet Rated/);
+ const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,1);assert.match(html,/Starting point · Not Yet Rated/);assert.equal((html.match(/aria-current="step"/g)||[]).length,0);
 });
 
 test('all 24 reporting indicators explain their own accountability maturity below the heading',()=>{

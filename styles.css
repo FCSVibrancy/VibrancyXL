@@ -303,7 +303,7 @@ dialog.purpose-dialog{max-height:96dvh}
 
 .maturity-path-step.maturity-expectation[aria-current="step"] .maturity-path-dot{outline:1px dotted #88752c;outline-offset:7px;box-shadow:0 0 0 3px #a48b3b}
 
-/* Only a reviewed current stage receives the arrow; previews never move it. */
+/* The arrow marks the reviewed current stage, or Level 1 as the unrated starting point; previews never move it. */
 .maturity-path-current{top:-2px;font:700 22px/1 Arial,Helvetica,sans-serif;letter-spacing:0;color:#67571c}
 .maturity-path-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin:0 0 16px}
 .purpose-dialog .maturity-path-legend>.maturity-current-note,.maturity-path-legend>.maturity-current-note{display:flex;align-items:center;gap:6px;margin:0;color:#67571c;font:500 12px/1.4 Arial,Helvetica,sans-serif}
