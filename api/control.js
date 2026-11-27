@@ -8,7 +8,7 @@ module.exports=async(req,res)=>{
  await authorize(req);
  const tab=req.method==='GET'?req.query.tab:req.body?.tab;
  if(!Object.hasOwn(tabs,tab))return res.status(400).json({error:'Unknown content area'});
- const range=`'${['Beliefs','TermResults'].includes(tab)?'SiteContent':tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
+ const range=`'${['Loading','Beliefs','TermResults'].includes(tab)?'SiteContent':tab}'!${tabs[tab]}`;const current=await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA');const values=current.values||[];
  let termSources;
  if(tab==='TermResults')termSources=await Promise.all(['Sheet1','AreaIndicators'].map(async name=>(await sheets('/values/'+encodeURIComponent(`'${name}'!${tabs[name]}`)+'?valueRenderOption=FORMULA')).values||[]));
  const versionValues=tab==='TermResults'?[values,...termSources]:values;
@@ -21,6 +21,7 @@ module.exports=async(req,res)=>{
   const saved=(await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA')).values||[];
   return res.json({values:T.project(saved,...termSources),revision:revision([saved,...termSources])});
  }
+ if(tab==='Loading'){const L=require('../lib/loading.cjs');if(req.method==='GET')return res.json({values:L.project(values),revision:revision(values)});if(req.body.revision!==revision(values))return res.status(409).json({error:'Content changed. Reload before publishing.'});L.validate(req.body.changes,req.body.additions||[]);await sheets('/values:batchUpdate',{method:'POST',data:{valueInputOption:'RAW',data:L.writes(values,req.body.changes)}});const saved=(await sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=FORMULA')).values||[];return res.json({values:L.project(saved),revision:revision(saved)});}
  if(req.method==='GET')return res.json({values:tab==='Beliefs'?require('../lib/beliefs.cjs').project(values):values,revision:revision(values)});
  if(req.body.revision!==revision(values))return res.status(409).json({error:'The sheet changed. Reload this area before publishing.'});
  const additions=req.body.additions||[];

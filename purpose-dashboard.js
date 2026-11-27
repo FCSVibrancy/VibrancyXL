@@ -1,4 +1,5 @@
 'use strict';
+if(typeof module==='object'&&module.exports)require('./shared/loading.js');
 (function(root){
  const SHEET_ID='1NJTD9kym-A6BeEFsEXm8bsCVG5jSE0EAjYuR5lAXpAU';
  const SHEET_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1&range=A1%3AAN250&headers=1`;
@@ -158,13 +159,13 @@
   ${examples.length?`<section class="purpose-examples"><h3>${escape(label('examples'))}</h3>${examples.map(r=>`<div><h4>${escape(r.title)}</h4><p>${escape(r.description)}</p></div>`).join('')}</section>`:''}
   <section class="purpose-legend"><h3>${escape(label('maturity'))}</h3><ul>${sorted('maturity').map((r,i)=>`<li class="maturity-${i}">${escape(r.title)}</li>`).join('')}</ul></section>`;
  }
- function loadingMarkup(){return "<section class=\"vibrancy-loading\" aria-labelledby=\"detail-title\"><div class=\"vibrancy-loading-top\"><svg class=\"vibrancy-loading-logo\" viewBox=\"190 250 1660 290\" role=\"img\" aria-label=\"Vibrancy\"><image href=\"/assets/vibrancy-loading-logo.png\" width=\"2048\" height=\"1152\"/></svg></div><h2 id=\"detail-title\" class=\"vibrancy-loading-quote\">“In Fleming County Schools, we believe that to reach the next horizon of vibrant learning, we must be willing to lose sight of the shoreline.”</h2><div class=\"vibrancy-loading-status\" role=\"status\">Accessing the Vibrancy Database</div><div class=\"vibrancy-loading-progress\" role=\"progressbar\" aria-label=\"Accessing the Vibrancy Database\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\" aria-valuetext=\"Connecting to the Vibrancy Database\"><span class=\"vibrancy-loading-segment\" data-loading-step=\"1\"><i></i></span><span class=\"vibrancy-loading-segment\" data-loading-step=\"2\"><i></i></span><span class=\"vibrancy-loading-segment\" data-loading-step=\"3\"><i></i></span><span class=\"vibrancy-loading-segment\" data-loading-step=\"4\"><i></i></span><span class=\"vibrancy-loading-segment\" data-loading-step=\"5\"><i></i></span></div></section>";}
+ function loadingMarkup(){return root.VibrancyLoading.markup();}
  async function openPurposeDashboard(onNavigate,experienceId='purpose'){
   openPurposeDashboard.clearEntrance?.();openPurposeDashboard.clearDials?.();
  const dialog=document.querySelector('#detail'),content=document.querySelector('#detail-content');dialog.classList.add('purpose-dialog');
-  content.innerHTML=loadingMarkup();if(!dialog.open)dialog.showModal();
+  const loader=root.VibrancyLoading.show(content);if(!dialog.open)dialog.showModal();
   const requestId=Symbol();openPurposeDashboard.requestId=requestId;
-  const loading=content.querySelector('.vibrancy-loading-progress');const advance=step=>{if(openPurposeDashboard.requestId!==requestId||!dialog.open)return;loading?.setAttribute('aria-valuenow',String(step*20));loading?.setAttribute('aria-valuetext',step===5?'Dashboard ready':'Accessing the Vibrancy Database');loading?.querySelectorAll('[data-loading-step]').forEach((el,i)=>{el.classList.toggle('is-complete',i<step);el.classList.toggle('is-current',i===step);});};advance(0);
+  const advance=step=>{if(openPurposeDashboard.requestId===requestId&&dialog.open)loader.update(step);};advance(0);
   let data,source='live';try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{const response=await fetch(SHEET_URL+'&_='+Date.now(),{signal:controller.signal,credentials:'omit',cache:'no-store'});if(!response.ok)throw Error('Sheet unavailable');data=records(parseCSV(await response.text()));}finally{clearTimeout(timer);}}
   catch(error){source='snapshot';try{const response=await fetch('data/learning-purpose.json',{cache:'no-store'});if(!response.ok)throw Error('Snapshot unavailable');const snapshot=await response.json();data=records([snapshot.headers,...snapshot.rows]);}catch{if(openPurposeDashboard.requestId===requestId&&dialog.open)content.innerHTML='<h2 id="detail-title">Learning evidence is unavailable</h2><p>Please close this window and try again.</p>';return;}}
   if(openPurposeDashboard.requestId!==requestId||!dialog.open||!dialog.classList.contains('purpose-dialog'))return;
@@ -185,7 +186,7 @@
    const link=root.evidenceLinks(row||{}).find(link=>link.slot===Number(button.dataset.evidenceSlot));if(link)root.openEvidence(link,button);
   }));openPurposeDashboard.clearEntrance=animateEntrance(content,dialog);openPurposeDashboard.clearDials=animateDials(content,dialog);}
   dialog.addEventListener('close',()=>{openPurposeDashboard.clearEntrance?.();openPurposeDashboard.clearDials?.();},{once:true});
-  draw();if(openPurposeDashboard.focusIndicator){const target=[...content.querySelectorAll('[data-indicator-id]')].find(el=>el.dataset.indicatorId===openPurposeDashboard.focusIndicator);if(target){target.tabIndex=-1;target.focus();target.scrollIntoView({block:'start'});}openPurposeDashboard.focusIndicator=null;}
+  loader.stop();draw();if(openPurposeDashboard.focusIndicator){const target=[...content.querySelectorAll('[data-indicator-id]')].find(el=>el.dataset.indicatorId===openPurposeDashboard.focusIndicator);if(target){target.tabIndex=-1;target.focus();target.scrollIntoView({block:'start'});}openPurposeDashboard.focusIndicator=null;}
  }
  root.VibrancyDashboard={loadingMarkup,markup,reportingHome,dialSweepFrames,animateDials,applyAlignment,mergeDefinitions,applyPublishedWording,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
  root.openPurposeDashboard=openPurposeDashboard;
