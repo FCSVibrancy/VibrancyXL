@@ -13,3 +13,5 @@ header{padding:.7rem 2vw}main{padding:1rem 2vw}.page-heading .eyebrow{display:no
 .preview-toolbar .professional-toggle{display:flex;align-items:center;gap:8px;font-size:14px}.professional-toggle input{width:18px;height:18px;margin:0}
 
 .format-bold{align-self:flex-start;font:700 12px/1.4 Arial;padding:6px 10px;margin:6px 0 2px;border:1px solid #c5b473;border-radius:5px;background:#fff8e3;color:#403716;cursor:pointer}
+
+.format-bold{min-height:44px;min-width:44px;font-size:14px;padding:10px 12px;touch-action:manipulation;white-space:normal;text-align:left}

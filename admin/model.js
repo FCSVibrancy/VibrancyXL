@@ -14,5 +14,6 @@
  return list.map((r,i)=>{const visibility=local.find(x=>x.selector==='@visibility:'+r.key),order=local.find(x=>x.selector==='@order:'+r.key),tile=local.find(x=>x._row===r.row);return {...r,visible:! /^(false|no|0)$/i.test(visibility?.visible||tile?.visible||''),order:order&&order.value.trim()&&Number.isFinite(Number(order.value))?Number(order.value):i+1,index:i};}).sort((a,b)=>a.order-b.order||a.index-b.index);
  }
  const termContexts={...names,...Object.fromEntries(Object.entries(areas).map(([id,name])=>['area-'+id,name+' · indicators']))};
- const api={termContexts,tileList,names,areas,newAreaIndicator,code,records,experience,alignmentRow,numeric};root.VibrancyEditorModel=api;if(typeof module!=='undefined')module.exports=api;
+ function boldSelection(value,start,end){value=String(value);if(!Number.isInteger(start)||!Number.isInteger(end)||start<0||end>value.length||start>=end)return null;const selected=value.slice(start,end);if(selected.startsWith('**')&&selected.endsWith('**'))return {value,start:start+2,end:end-2};if(value.slice(Math.max(0,start-2),start)==='**'&&value.slice(end,end+2)==='**')return {value,start,end};return {value:value.slice(0,start)+'**'+selected+'**'+value.slice(end),start:start+2,end:end+2};}
+ const api={boldSelection,termContexts,tileList,names,areas,newAreaIndicator,code,records,experience,alignmentRow,numeric};root.VibrancyEditorModel=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);
