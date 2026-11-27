@@ -15,3 +15,7 @@ test('descriptions and reasons use selective safe emphasis without rewriting com
  assert.equal(D.emphasize('Use **a new phrase** safely <img onerror=bad>','new-indicator'),'Use <strong>a new phrase</strong> safely &lt;img onerror=bad&gt;');assert.ok(!D.emphasize('**<script>bad</script>**','new').includes('<script>'));
  const html=D.markup(rows,'current','purpose');assert.ok(html.includes('<strong>enough time to learn, practice, and demonstrate</strong>'));assert.ok(html.includes('<strong>consistent learning expectations across schools</strong>'));
 });
+test('Why It Matters is a separate labelled callout, with wrapping emphasis instead of highlight pills',()=>{
+ const html=D.markup(D.records([s.headers,...s.rows]),'current','purpose');assert.equal((html.match(/class="purpose-why-label"/g)||[]).length,4);assert.ok(html.includes('<section class="purpose-why" aria-label="Why It Matters"><h4'));assert.ok(!html.includes('<p class="purpose-why"><strong>'));
+ const css=require('fs').readFileSync(require('path').join(__dirname,'../styles.css'),'utf8');assert.ok(css.includes('white-space:normal;background:none'));assert.ok(!/\.purpose-why strong\{[^}]*white-space:nowrap/.test(css));
+});
