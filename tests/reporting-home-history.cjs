@@ -11,7 +11,7 @@ test('moved self-check keeps its original term key and all term evidence in one 
  const data=D.applyTermResults(D.mergeDefinitions(D.records(sheet),D.records([s.headers,...s.rows])),T.savedRecords(site));
  const purpose=D.markup(data,'current','purpose'),feedback=D.markup(data,'current','feedback');
  assert.ok(!purpose.includes('data-indicator-id="scales-self-check"'));assert.equal((feedback.match(/data-indicator-id="scales-self-check"/g)||[]).length,1);
- assert.equal((purpose.match(/class="purpose-dial"/g)||[]).length,12);assert.equal((feedback.match(/class="purpose-dial"/g)||[]).length,3);
+ assert.equal((purpose.match(/class="purpose-dial"/g)||[]).length,12);assert.equal((feedback.match(/class="purpose-dial"/g)||[]).length,9);
  assert.ok(purpose.includes('Two 100% commitments'));assert.ok(feedback.includes('One 100% commitment'));
  for(const n of [1,2,3])assert.ok(feedback.includes(values[`term_${n}_notes`]));
  for(let slot=1;slot<=6;slot++)assert.ok(feedback.includes(`https://example.org/bridge/${slot}`));

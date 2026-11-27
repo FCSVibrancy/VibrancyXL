@@ -3,7 +3,7 @@ require('../evidence-viewer.js');
 const {records,markup,applyAlignment}=require('../purpose-dashboard.js');
 const snapshot=JSON.parse(fs.readFileSync('data/learning-purpose.json'));
 const data=records([snapshot.headers,...snapshot.rows]);
-const expected={purpose:4,thinking:2,voice:3,work:3,feedback:1,support:3,thriving:5};
+const expected={purpose:4,thinking:3,voice:3,work:3,feedback:3,support:3,thriving:5};
 for(const [id,count] of Object.entries(expected)){
  const html=markup(data,'current',id);
  assert.equal((html.match(/<article /g)||[]).length,count,id);
