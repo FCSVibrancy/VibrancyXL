@@ -1,6 +1,6 @@
 /* Shared raised icon treatment; dimensions remain controlled by each tile layout. */
 .purpose-icon,
-.pathway>.icon,
+:is(.pathway>.icon,.dashboard-medallion),
 .custom-tile-frame.medallion,
 .custom-tile-frame.tile-icon{
  position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;
@@ -10,16 +10,16 @@
  text-shadow:0 1px 0 #ffffff8c,0 2px 2px #00000026;
 }
 .purpose-icon::after,
-.pathway>.icon::after,
+:is(.pathway>.icon,.dashboard-medallion)::after,
 .custom-tile-frame.medallion::after,
 .custom-tile-frame.tile-icon::after{
  content:"";position:absolute;inset:3px;border:1px solid #ffffff52;
  border-radius:inherit;pointer-events:none;z-index:2;
 }
-.purpose-icon svg,.pathway>.icon svg{
+.purpose-icon svg,:is(.pathway>.icon,.dashboard-medallion) svg{
  filter:drop-shadow(0 1px 0 #ffffff73) drop-shadow(0 2px 1px #00000024);
 }
-.pathway>.icon{
+:is(.pathway>.icon,.dashboard-medallion){
  color:#edda8c;border-color:#b9a052;
  background-color:#292d23;
  background-image:linear-gradient(145deg,#776b3b 0%,#35382a 48%,#161c15 100%);
@@ -27,8 +27,8 @@
 }
 .custom-tile-frame.medallion{border-width:2px}
 @media(forced-colors:active){
- .purpose-icon,.pathway>.icon,.custom-tile-frame.medallion,.custom-tile-frame.tile-icon{border:2px solid ButtonText;box-shadow:none}
- .purpose-icon::after,.pathway>.icon::after,.custom-tile-frame.medallion::after,.custom-tile-frame.tile-icon::after{display:none}
+ .purpose-icon,:is(.pathway>.icon,.dashboard-medallion),.custom-tile-frame.medallion,.custom-tile-frame.tile-icon{border:2px solid ButtonText;box-shadow:none}
+ .purpose-icon::after,:is(.pathway>.icon,.dashboard-medallion)::after,.custom-tile-frame.medallion::after,.custom-tile-frame.tile-icon::after{display:none}
 }
 
-.purpose-icon-image{display:block;width:100%;height:100%;object-fit:contain;padding:8px;border-radius:inherit}.purpose-icon-symbol{font-size:30px;line-height:1}.pathway>.icon>img,.custom-tile-frame.medallion>img{object-fit:contain;padding:6px}@media(max-width:760px){.purpose-icon-image{padding:6px}.purpose-icon-symbol{font-size:25px}}
+.purpose-icon-image{display:block;width:100%;height:100%;object-fit:contain;padding:8px;border-radius:inherit}.purpose-icon-symbol{font-size:30px;line-height:1}:is(.pathway>.icon,.dashboard-medallion)>img,.custom-tile-frame.medallion>img{object-fit:contain;padding:6px}@media(max-width:760px){.purpose-icon-image{padding:6px}.purpose-icon-symbol{font-size:25px}}
