@@ -313,3 +313,7 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .accountability-maturity>.maturity-indicator-focus,.accountability-maturity>.maturity-indicator-focus{margin:0 0 18px;font:400 14px/1.6 Arial,Helvetica,sans-serif;color:#4a4e40;overflow-wrap:anywhere}
 
 .maturity-path-current{top:3px;font:700 13px/1 Arial,Helvetica,sans-serif}.maturity-current-note>span{font:700 12px/1 Arial,Helvetica,sans-serif}
+
+.intro .subtitle.learning-description{max-width:1120px;margin-top:20px;color:#393f34;font:400 17px/1.65 Arial,Helvetica,sans-serif;letter-spacing:normal}
+.learning-description>p{margin:0 0 18px}.learning-description>p:last-child{margin-bottom:0}.learning-description strong{font-weight:700;color:#20281e}
+@media(max-width:760px){.intro .subtitle.learning-description{font-size:16px;line-height:1.65;margin-top:18px}.learning-description>p{margin-bottom:16px}}
