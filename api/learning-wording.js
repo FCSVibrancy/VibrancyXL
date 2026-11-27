@@ -9,6 +9,6 @@ module.exports=async(req,res)=>{
   let data=D.mergeDefinitions(D.records(sheet.values||[]),D.records([snapshot.headers,...snapshot.rows]));
   const table=alignment.values||[];
   if(table.slice(1).some(row=>row[1]?.trim()))data=D.applyAlignment(data,table);
-  return res.json({indicators:data.filter(r=>['kpi','overview'].includes(r.type)).map(r=>Object.fromEntries(['type','id','experience_id','reporting_window','title','description'].map(k=>[k,r[k]||''])))});
+  return res.json({indicators:data.filter(r=>['kpi','overview'].includes(r.type)).map(r=>Object.fromEntries(['type','id','experience_id','reporting_window','title','description','icon'].map(k=>[k,r[k]||''])))});
  }catch{return res.status(503).json({error:'Published indicator wording is temporarily unavailable.'});}
 };

@@ -48,6 +48,7 @@ async function encodeImage(file){
 }
 function uploadControl(r){
  let field,photoSelector;
+ if(tab==='AreaIndicators'||tab==='Sheet1'&&r.type==='kpi')field='icon';
  if(tab==='Homepage'&&r.type==='image')field='url';
  if(tab==='Homepage'&&r.type==='tile')field='icon';
  if(tab==='SiteContent'){

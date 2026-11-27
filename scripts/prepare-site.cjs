@@ -20,7 +20,7 @@ function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
   sharedHeader=header.replace('<a class="site-header-home" href="/home.html">Vibrancy Home</a>',`<div class="site-header-tools"><span>PRIVATE CONTROL BOARD</span>${logout}</div>`);
  }
  html=oldHeader?html.replace(oldHeader,sharedHeader):html.replace(/<body\b[^>]*>/i,match=>match+'\n'+sharedHeader);
- if(!html.includes('/shared/medallions.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/shared/medallions.css?v=20261127-dimensional">\n</head>');
+ if(!html.includes('/shared/medallions.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/shared/medallions.css?v=20261127-icon-replacements">\n</head>');
  if(!html.includes('/shared/header.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/shared/header.css">\n</head>');
  const old=html.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0]||'';
  const review=old.match(/<button\b[^>]*id=["']review["'][\s\S]*?<\/button>/i)?.[0];

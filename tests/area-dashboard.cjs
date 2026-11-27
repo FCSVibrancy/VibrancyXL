@@ -14,6 +14,7 @@ test('new indicators in every component inherit the shared dial renderer and ton
   const terms=items.map(r=>({id:`area:${area}:${r.id}`,term_1_percent:'0',term_2_percent:'50',term_3_percent:'100'}));
   const html=markup(A.dashboardData(items,area,'',terms),'current',area);
   assert.equal((html.match(/class="purpose-dial"/g)||[]).length,15);
+  assert.equal((html.match(/class="purpose-icon"/g)||[]).length,5);
   for(let i=0;i<5;i++)assert.ok(html.includes(`class="purpose-kpi purpose-tone-${i%4}" data-indicator-id="indicator-new-${i}"`));
   for(const n of [0,50,100])assert.equal((html.match(new RegExp(`aria-valuenow="${n}"`,'g'))||[]).length,5);
  }

@@ -13,6 +13,7 @@ test('new nested pages inherit shared branding and repeated builds preserve cont
   const run=()=>execFileSync(process.execPath,[path.join(root,'scripts/prepare-site.cjs')]);run();const html=fs.readFileSync(page,'utf8');
   assert.ok(html.includes('/assets/fcs-measures-of-quality-header.jpg'));
   assert.ok(html.includes('/shared/header.css'));
+  assert.ok(html.includes('/shared/medallions.css?v=20261127-icon-replacements'));
   assert.ok(html.includes('VIBRANCY 5.0'));
   assert.ok(html.includes('id="review"'));
   assert.ok(fs.readFileSync(admin,'utf8').includes('id="logout" hidden'));

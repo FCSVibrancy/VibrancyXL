@@ -65,10 +65,10 @@
   live=homeRows(live);saved=homeRows(saved);
   const fields=['status','percent','maturity','note',...Array.from({length:6},(_,i)=>[`evidence_${i+1}_label`,`evidence_${i+1}_url`]).flat(),'baseline','baseline_numerator','baseline_denominator','numerator','denominator','coverage','learner_outcomes','what_numerator','why_numerator','what_baseline','why_baseline'];
   const result=saved.map(def=>{if(def.type==='qualification')return {...def,...live.find(r=>r.type==='qualification'&&r.id===def.id&&r.reporting_window===def.reporting_window)};if(def.type==='overview')return {...def,...live.find(r=>r.type==='overview'&&r.id===def.id)};if(def.type!=='kpi')return def;const current=live.find(r=>r.type==='kpi'&&r.id===def.id&&r.reporting_window===def.reporting_window);if(!current||['feedback-1','feedback-2'].includes(def.id)||(['standards','scales'].includes(def.id)&&current.description!==def.description))return def;return {...def,...Object.fromEntries(fields.filter(k=>current[k]!==undefined&&current[k]!=='').map(k=>[k,current[k]]))};});
-  return [...result,...live.filter(r=>!saved.some(d=>d.type===r.type&&d.id===r.id&&d.reporting_window===r.reporting_window))].map(r=>{const current=live.find(c=>c.type==='kpi'&&r.type==='kpi'&&c.id===r.id&&(c.experience_id||'purpose')===(r.experience_id||'purpose')&&c.reporting_window===r.reporting_window);return {...r,...(current?Object.fromEntries(['title','description','_row'].filter(k=>current[k]!==undefined).map(k=>[k,current[k]])):{}),status:/^Awaiting (data|evidence)$/i.test(r.status)?'Awaiting Evidence':r.status,maturity:/^Awaiting evidence$/i.test(r.maturity)?'Awaiting Evidence':r.maturity};});
+  return [...result,...live.filter(r=>!saved.some(d=>d.type===r.type&&d.id===r.id&&d.reporting_window===r.reporting_window))].map(r=>{const current=live.find(c=>c.type==='kpi'&&r.type==='kpi'&&c.id===r.id&&(c.experience_id||'purpose')===(r.experience_id||'purpose')&&c.reporting_window===r.reporting_window);return {...r,...(current?Object.fromEntries(['title','description','icon','_row'].filter(k=>current[k]!==undefined).map(k=>[k,current[k]])):{}),status:/^Awaiting (data|evidence)$/i.test(r.status)?'Awaiting Evidence':r.status,maturity:/^Awaiting evidence$/i.test(r.maturity)?'Awaiting Evidence':r.maturity};});
  }
  function applyPublishedWording(data,indicators){
-  return data.map(row=>{const wording=indicators.find(r=>['kpi','overview'].includes(row.type)&&(r.type||'kpi')===row.type&&r.id===row.id&&(r.experience_id||'purpose')===(row.experience_id||'purpose')&&(r.reporting_window||'')===(row.reporting_window||''));return wording?{...row,title:String(wording.title??''),description:String(wording.description??'')}:row;});
+  return data.map(row=>{const wording=indicators.find(r=>['kpi','overview'].includes(row.type)&&(r.type||'kpi')===row.type&&r.id===row.id&&(r.experience_id||'purpose')===(row.experience_id||'purpose')&&(r.reporting_window||'')===(row.reporting_window||''));return wording?{...row,title:String(wording.title??''),description:String(wording.description??''),...(Object.hasOwn(wording,'icon')?{icon:String(wording.icon??'')}: {})}:row;});
  }
  function applyBeliefs(data,beliefs){
   const rows=Array.isArray(beliefs?.[0])?beliefs.slice(1).map((row,i)=>({...Object.fromEntries(beliefs[0].map((key,j)=>[key,row[j]])),_beliefRow:i+1})):beliefs;
@@ -79,7 +79,13 @@
   return result;
  }
  const icons={heart:'<path d="M40 67 13 40C-3 22 20 4 40 24 60 4 83 22 67 40Z"/>',book:'<path d="M10 18q14-7 27 0v39q-13-7-27 0zm27 0q13-7 27 0v39q-13-7-27 0z"/><path d="M5 22v41h57M16 22v29m43-29v24"/><circle cx="58" cy="56" r="15"/><path d="m65 49-5 10-10 5 5-10z"/>',target:'<circle cx="38" cy="40" r="26"/><circle cx="38" cy="40" r="16"/><circle cx="38" cy="40" r="5"/><path d="m38 40 29-29m-10 0 10-1-1 10"/>',checklist:'<rect x="13" y="9" width="51" height="62" rx="3"/><path d="m21 24 4 4 7-8m7 5h17M21 40l4 4 7-8m7 5h17M21 56l4 4 7-8m7 5h17"/>',steps:'<path d="M9 66V49h20V33h20V17h21v49z"/>'};
- function icon(name){return `<svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">${icons[name]||icons.book}</svg>`;}
+ function icon(name){
+  const value=String(name||'');let src='';
+  if(value.length<=45000&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value))src=value;
+  else if(/^(https:\/\/|\/?assets\/)/.test(value)){try{const u=new URL(value,'https://vibrancyxl.vercel.app/');if(u.protocol==='https:'&&!u.username&&!u.password)src=value;}catch{}}
+  if(src)return `<img class="purpose-icon-image" src="${escape(src)}" alt="" aria-hidden="true">`;
+  if(value&&!icons[value]&&[...value].length<=8)return `<span class="purpose-icon-symbol" aria-hidden="true">${escape(value)}</span>`;
+  return `<svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">${icons[name]||icons.book}</svg>`;}
  function termRecords(input){
   if(!Array.isArray(input))return [];
   const rows=Array.isArray(input[0])?input.slice(1).map((row,i)=>({...Object.fromEntries(input[0].map((h,j)=>[h,row[j]])),_row:i+1})):input;

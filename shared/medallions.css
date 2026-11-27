@@ -30,3 +30,5 @@
  .purpose-icon,.pathway>.icon,.custom-tile-frame.medallion,.custom-tile-frame.tile-icon{border:2px solid ButtonText;box-shadow:none}
  .purpose-icon::after,.pathway>.icon::after,.custom-tile-frame.medallion::after,.custom-tile-frame.tile-icon::after{display:none}
 }
+
+.purpose-icon-image{display:block;width:100%;height:100%;object-fit:contain;padding:8px;border-radius:inherit}.purpose-icon-symbol{font-size:30px;line-height:1}.pathway>.icon>img,.custom-tile-frame.medallion>img{object-fit:contain;padding:6px}@media(max-width:760px){.purpose-icon-image{padding:6px}.purpose-icon-symbol{font-size:25px}}
