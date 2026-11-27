@@ -186,7 +186,7 @@ if(typeof module==='object'&&module.exports)require('./shared/loading.js');
    const link=root.evidenceLinks(row||{}).find(link=>link.slot===Number(button.dataset.evidenceSlot));if(link)root.openEvidence(link,button);
   }));openPurposeDashboard.clearEntrance=animateEntrance(content,dialog);openPurposeDashboard.clearDials=animateDials(content,dialog);}
   dialog.addEventListener('close',()=>{openPurposeDashboard.clearEntrance?.();openPurposeDashboard.clearDials?.();},{once:true});
-  loader.stop();draw();if(openPurposeDashboard.focusIndicator){const target=[...content.querySelectorAll('[data-indicator-id]')].find(el=>el.dataset.indicatorId===openPurposeDashboard.focusIndicator);if(target){target.tabIndex=-1;target.focus();target.scrollIntoView({block:'start'});}openPurposeDashboard.focusIndicator=null;}
+  await loader.ready;if(openPurposeDashboard.requestId!==requestId||!dialog.open||!dialog.classList.contains('purpose-dialog'))return;loader.stop();draw();if(openPurposeDashboard.focusIndicator){const target=[...content.querySelectorAll('[data-indicator-id]')].find(el=>el.dataset.indicatorId===openPurposeDashboard.focusIndicator);if(target){target.tabIndex=-1;target.focus();target.scrollIntoView({block:'start'});}openPurposeDashboard.focusIndicator=null;}
  }
  root.VibrancyDashboard={loadingMarkup,markup,reportingHome,dialSweepFrames,animateDials,applyAlignment,mergeDefinitions,applyPublishedWording,applyBeliefs,reportingTerm,indicatorRows,termDial,termRecords,applyTermResults};
  root.openPurposeDashboard=openPurposeDashboard;
