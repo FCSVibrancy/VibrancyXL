@@ -6,3 +6,10 @@
 .vibrancy-loading-segment.is-current i{animation:none;opacity:1;transform:none}.vibrancy-loading-segment i{transition:width 180ms linear}
 
 @media(prefers-reduced-motion:reduce){.vibrancy-loading-segment i{transition:none}}
+
+/* Homepage entry uses the same quote, logo, progress segments, and modal geometry as Learning experiences. */
+dialog.learning-entry-dialog{box-sizing:border-box;max-width:1320px;width:calc(100vw - 28px);max-height:96dvh;margin:auto;padding:10px 16px 16px;border:1px solid #dbd9ce;border-radius:16px;background:#fff;color:#10120f;box-shadow:0 25px 90px #0004;overflow:auto;overscroll-behavior:contain}
+.learning-entry-dialog::backdrop{background:#080a08b3;backdrop-filter:blur(4px)}
+.learning-entry-close{position:sticky;display:block;top:4px;z-index:3;margin:0 0 -44px auto;width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font:27px/1 Arial,sans-serif;box-shadow:0 0 0 1px #aaa;cursor:pointer}
+.learning-entry-close:focus-visible{outline:3px solid #8a7019;outline-offset:3px}
+@media(max-width:760px){dialog.learning-entry-dialog{padding:8px 10px 16px;width:calc(100vw - 16px)}}

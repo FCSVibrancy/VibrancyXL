@@ -9,7 +9,35 @@
  for(const [id,selector] of [['eyebrow','.eyebrow'],['district','.district-name'],['closing','.closing p']]){const item=find('label',id);if(item)document.querySelector(selector).textContent=item.title;}
  const image=find('image','header'),src=safeURL(image?.url);if(src){const img=document.querySelector('.hero img');img.src=src.endsWith('assets/vibrancy-header.png')?'assets/vibrancy-home-banner-4k.jpg':src;img.alt=image.title;}
  const tiles=data.filter(r=>r.type==='tile'&&!['FALSE','0','NO'].includes(r.visible.trim().toUpperCase())).sort((a,b)=>(Number(a.sort_order)||999)-(Number(b.sort_order)||999));const nav=document.querySelector('.pathways');nav.replaceChildren();for(const tile of tiles){const url=safeURL(tile.url);if(!url)continue;const a=document.createElement('a');a.className='pathway';a.href=url;const icon=document.createElement('span');icon.className='icon';if(VibrancyMedia.source(tile.icon))VibrancyMedia.image(icon,tile.icon);else if(icons[tile.icon])icon.innerHTML=icons[tile.icon];else icon.textContent=tile.icon||'✦';const h=document.createElement('h3');h.textContent=tile.title;const p=document.createElement('p');p.textContent=tile.description;const action=document.createElement('span');action.className='explore';action.textContent=tile.button||'Explore this area';a.append(icon,h,p,action);nav.append(a);}styleTiles(ready);}
- document.querySelector('.pathways').addEventListener('click',event=>{if(event.target.closest('[aria-disabled="true"]'))event.preventDefault();});
+ let learningEntry,entryLoader,entryRequest;
+ function cancelEntry(){entryRequest=null;entryLoader?.stop();entryLoader=null;}
+ function entryWindow(){
+  if(learningEntry)return learningEntry;
+  learningEntry=document.createElement('dialog');learningEntry.className='learning-entry-dialog';learningEntry.setAttribute('aria-labelledby','learning-entry-title');
+  const close=document.createElement('button');close.type='button';close.className='learning-entry-close';close.setAttribute('aria-label','Cancel opening Vibrant Learning');close.textContent='×';close.autofocus=true;close.addEventListener('click',()=>learningEntry.close());
+  const content=document.createElement('div');content.className='learning-entry-content';learningEntry.append(close,content);document.body.append(learningEntry);
+  learningEntry.addEventListener('cancel',cancelEntry);
+  learningEntry.addEventListener('close',()=>{cancelEntry();document.querySelector('.pathways .pathway-featured')?.focus({preventScroll:true});});
+  learningEntry.addEventListener('click',event=>{if(event.target!==learningEntry)return;const rect=learningEntry.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)learningEntry.close();});
+  return learningEntry;
+ }
+ async function enterLearning(destination){
+  const dialog=entryWindow();if(dialog.open)return;
+  const request=Symbol();entryRequest=request;
+  entryLoader=VibrancyLoading.show(dialog.querySelector('.learning-entry-content'),{quote:VibrancyLoading.defaultQuote,titleId:'learning-entry-title',usePublishedQuote:false});
+  dialog.showModal();entryLoader.update(5);
+  await entryLoader.ready;
+  if(entryRequest!==request||!dialog.open)return;
+  entryLoader.stop();location.assign(destination.href);
+ }
+ document.querySelector('.pathways').addEventListener('click',event=>{
+  if(event.target.closest('[aria-disabled="true"]')){event.preventDefault();return;}
+  const link=event.target.closest('a[href]');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||link.hasAttribute('download')||(link.target&&link.target!=='_self'))return;
+  const destination=new URL(link.href,document.baseURI);
+  if(destination.origin!==location.origin||!destination.pathname.endsWith('/learning.html')||!window.VibrancyLoading)return;
+  event.preventDefault();enterLearning(destination);
+ });
+ window.addEventListener('pagehide',()=>{cancelEntry();if(learningEntry?.open)learningEntry.close();});
  styleTiles(new Set(['learning']));
  async function availability(){
  const ready=new Set(['learning']);

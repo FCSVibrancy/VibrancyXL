@@ -20,3 +20,9 @@ test('private previews use the full shared reading-time animation before complet
  t.mock.timers.tick(4000);await Promise.resolve();assert.equal(ready,false);assert.ok(Number(attrs['aria-valuenow'])>0&&Number(attrs['aria-valuenow'])<100);
  t.mock.timers.tick(5000);await loader.ready;assert.equal(attrs['aria-valuenow'],'100');loader.stop();
 });
+
+test('the homepage entry can pin the requested quote without replacing it from the published quote endpoint',async t=>{
+ t.mock.timers.enable({apis:['Date','setInterval']});let requests=0;const oldFetch=global.fetch;global.fetch=async()=>{requests++;return {ok:true,json:async()=>({quote:'A different published quote.'})};};
+ const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}})),attrs={};const bar={setAttribute(k,v){attrs[k]=v;},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(){return bar;}};
+ try{const loader=UI.show(host,{quote:UI.defaultQuote,usePublishedQuote:false,titleId:'learning-entry-title'});loader.update(5);assert.ok(host.innerHTML.includes(UI.defaultQuote));assert.ok(host.innerHTML.includes('id="learning-entry-title"'));assert.equal(requests,0);let ready=false;loader.ready.then(()=>ready=true);t.mock.timers.tick(1000);await Promise.resolve();assert.equal(ready,false);t.mock.timers.tick(UI.readingDuration(UI.defaultQuote));await loader.ready;assert.equal(attrs['aria-valuenow'],'100');assert.equal(requests,0);loader.stop();}finally{global.fetch=oldFetch;}
+});
