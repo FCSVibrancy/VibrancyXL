@@ -4,7 +4,7 @@ module.exports=async(req,res)=>{
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
  if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
  try{
-  const tables=await Promise.all(["'Sheet1'!A1:Z250","'Alignment'!A4:D100","'SiteContent'!A1:F200","'AreaIndicators'!A1:Z200"].map(range=>sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=UNFORMATTED_VALUE')));
+  const tables=await Promise.all(["'Sheet1'!A:Z","'Alignment'!A4:D","'SiteContent'!A:F","'AreaIndicators'!A:Z"].map(range=>sheets('/values/'+encodeURIComponent(range)+'?valueRenderOption=UNFORMATTED_VALUE')));
   const sections=R.assemble(snapshot,W.project(tables[0].values||[],tables[1].values||[]),T.savedRecords(tables[2].values||[]),A.published(tables[3].values||[]));
   const date=new Date(),buffer=await PDF.generate(sections,{date});const stamp=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
   res.setHeader('Content-Type','application/pdf');res.setHeader('Content-Disposition',`attachment; filename="Vibrant-Learning-Report-${stamp}.pdf"`);res.setHeader('Content-Length',buffer.length);return res.end(buffer);
