@@ -26,7 +26,7 @@
     },
     {
       "source": "/vibrant-learning-report.pdf",
-      "destination": "/api/learning-report.js"
+      "destination": "/api/learning-report"
     }
   ],
   "headers": [
