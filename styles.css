@@ -271,3 +271,6 @@ dialog.purpose-dialog{max-height:96dvh}
 .accountability-maturity .maturity-details-button{color:#4e431e}
 @media(max-width:600px){.purpose-kpi>.accountability-maturity{padding:16px 15px 15px;border-radius:11px}.purpose-kpi>.accountability-maturity .maturity-footer-heading{gap:12px}.purpose-dialog .maturity-footer-heading h4,.maturity-footer-heading h4{font-size:16px}.accountability-medallion{flex-basis:44px;width:44px;height:44px}.accountability-medallion svg{width:24px;height:24px}}
 @media(forced-colors:active){.purpose-kpi>.accountability-maturity,.accountability-medallion{border:2px solid ButtonText;background:Canvas;color:CanvasText;box-shadow:none}.accountability-medallion:after{display:none}}
+
+.maturity-profile-header>div{flex:1;min-width:0}.maturity-profile-header>.accountability-medallion{margin-top:2px}.maturity-profile-header{gap:16px}
+@media(max-width:600px){.maturity-profile-header{gap:10px}.maturity-profile-header>.accountability-medallion{flex-basis:40px;width:40px;height:40px}.maturity-profile-header>.accountability-medallion svg{width:23px;height:23px}}
