@@ -274,3 +274,8 @@ dialog.purpose-dialog{max-height:96dvh}
 
 .maturity-profile-header>div{flex:1;min-width:0}.maturity-profile-header>.accountability-medallion{margin-top:2px}.maturity-profile-header{gap:16px}
 @media(max-width:600px){.maturity-profile-header{gap:10px}.maturity-profile-header>.accountability-medallion{flex-basis:40px;width:40px;height:40px}.maturity-profile-header>.accountability-medallion svg{width:23px;height:23px}}
+
+.accountability-maturity>.maturity-current-description{margin-top:13px;padding:14px 16px;border:1px solid #d7cda9;border-radius:11px;background:#fffdf8;box-shadow:inset 0 1px 3px #5d4e1810}
+.purpose-dialog .maturity-current-description p,.maturity-current-description p{margin:0;font:400 15px/1.6 Arial,Helvetica,sans-serif;color:#34392c;overflow-wrap:anywhere}.maturity-current-description strong{font-weight:700;white-space:normal;background:none}
+@media(max-width:600px){.accountability-maturity>.maturity-current-description{padding:12px 13px;border-radius:9px}}
+@media(forced-colors:active){.accountability-maturity>.maturity-current-description{border:1px solid CanvasText;background:Canvas;box-shadow:none}}
