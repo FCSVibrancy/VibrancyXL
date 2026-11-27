@@ -23,6 +23,10 @@
     {
       "source": "/api/learning-wording",
       "destination": "/api/learning-wording.js"
+    },
+    {
+      "source": "/vibrant-learning-report.pdf",
+      "destination": "/api/learning-report.js"
     }
   ],
   "headers": [
@@ -81,5 +85,11 @@
     }
   ],
   "buildCommand": "node scripts/prepare-site.cjs",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "functions": {
+    "api/learning-report.js": {
+      "includeFiles": "node_modules/pdfkit/js/data/**",
+      "maxDuration": 30
+    }
+  }
 }
