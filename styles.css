@@ -251,3 +251,23 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .maturity-profile-stage .maturity-advance,.maturity-profile-stage .maturity-advance{margin-top:10px;font-size:14px;line-height:1.6}
 
 .purpose-legend .maturity-2,.maturity-2{color:#10120f}
+
+/* A raised foundation makes accountability a consistent destination on every card. */
+.purpose-kpi>.accountability-maturity{
+ position:relative;margin-top:auto;padding:18px 20px 17px;border:1px solid #b7a467;border-top:3px solid #a48b3b;border-bottom:3px solid #b5a16a;border-radius:13px;
+ background:linear-gradient(145deg,#fffdf5 0%,#f6f0da 62%,#e9dfbd 100%);
+ box-shadow:inset 0 1px 0 #fff,inset 0 -1px 2px #75622416,0 4px 0 #c1b184,0 8px 14px #2926191a;
+}
+.purpose-kpi>.accountability-maturity:before{display:none}
+.purpose-kpi>.accountability-maturity{margin-top:22px}
+.purpose-kpi>.accountability-maturity:last-child{margin-top:auto}
+.purpose-kpi>.accountability-maturity .maturity-footer-heading{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.purpose-dialog .maturity-footer-heading h4,.maturity-footer-heading h4{font:750 17px/1.3 Arial,Helvetica,sans-serif;letter-spacing:-.15px;color:#393720;margin:0}
+.accountability-medallion{position:relative;isolation:isolate;display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;box-sizing:border-box;border:1px solid #9c8439;border-radius:50%;color:#f2dc8b;background:linear-gradient(145deg,#80713f 0%,#3c3e2b 48%,#1e271b 100%);box-shadow:inset 0 2px 2px #fff6c57a,inset 0 -3px 4px #0005,0 3px 0 #807044,0 6px 9px #282b2029}
+.accountability-medallion:after{content:"";position:absolute;inset:4px;border:1px solid #e4d28c70;border-radius:inherit;pointer-events:none}
+.accountability-medallion svg{width:26px;height:26px;filter:drop-shadow(0 1px 0 #0005)}
+.accountability-maturity .maturity-actions{gap:7px 16px}
+.accountability-maturity .maturity-stage{box-shadow:inset 0 1px 0 #ffffff38,0 2px 3px #302b171a}
+.accountability-maturity .maturity-details-button{color:#4e431e}
+@media(max-width:600px){.purpose-kpi>.accountability-maturity{padding:16px 15px 15px;border-radius:11px}.purpose-kpi>.accountability-maturity .maturity-footer-heading{gap:12px}.purpose-dialog .maturity-footer-heading h4,.maturity-footer-heading h4{font-size:16px}.accountability-medallion{flex-basis:44px;width:44px;height:44px}.accountability-medallion svg{width:24px;height:24px}}
+@media(forced-colors:active){.purpose-kpi>.accountability-maturity,.accountability-medallion{border:2px solid ButtonText;background:Canvas;color:CanvasText;box-shadow:none}.accountability-medallion:after{display:none}}
