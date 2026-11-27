@@ -21,5 +21,6 @@ test('moved self-check keeps its original term key and all term evidence in one 
 test('BRIDGE criteria and three reporting dimensions are explicit without conflating scores',()=>{
  const data=D.records([s.headers,...s.rows]);const thinking=D.markup(data,'current','thinking'),thriving=D.markup(data,'current','thriving');
  assert.ok(thinking.includes('distinct evidence within the artifact'));assert.ok(thinking.includes('Learner experience'));assert.ok(thriving.includes('Learner outcomes'));
- const dial=D.termDial({percent:'50',maturity:'Developing'},1,'Fixture');assert.ok(dial.includes('Implementation maturity:</strong> Developing'));assert.ok(dial.includes('aria-valuenow="50"'));
+ const dial=D.termDial({percent:'50',maturity:'Developing'},1,'Fixture');assert.ok(!dial.includes('Implementation maturity:')); // Maturity is now a single reviewed card badge.
+ assert.ok(dial.includes('aria-valuenow="50"'));
 });

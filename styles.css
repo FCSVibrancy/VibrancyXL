@@ -221,3 +221,18 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .purpose-kpi .purpose-why p{font-size:16px;line-height:1.6;margin:0;color:#252a25}
 .purpose-dialog .purpose-kpi .purpose-why strong{display:inline;font-size:inherit;font-weight:750;line-height:inherit;letter-spacing:normal;white-space:normal;background:none;border:0;border-radius:0;padding:0;box-shadow:none}
 @media(max-width:600px){.purpose-dialog .purpose-kpi .purpose-why{margin-top:15px;padding:13px 14px}.purpose-dialog .purpose-kpi .purpose-why p{font-size:16px}.purpose-dialog .purpose-kpi .purpose-why-label{font-size:12px}}
+
+/* Indicator maturity: one badge and one native keyboard-accessible disclosure. */
+.maturity-badge{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px!important;margin:8px 0 14px!important;font-size:13px!important;color:#43463e;line-height:1.5}
+.maturity-badge strong{display:inline-block;padding:3px 10px;border:1px solid #b9b7a6;border-radius:6px;background:#f4f2e9;color:#30382d;font-size:13px}
+.maturity-details{margin:18px 0;border:1px solid #d1d0c4;border-radius:8px;background:#fff;color:#30382d}
+.maturity-details summary{cursor:pointer;padding:13px 16px;min-height:44px;box-sizing:border-box;font-size:15px;font-weight:600}
+.maturity-details summary:focus-visible{outline:3px solid #76661f;outline-offset:3px;border-radius:6px}
+.maturity-content{padding:0 16px 16px;overflow-wrap:anywhere;line-height:1.6}
+.maturity-content h4{font-size:16px;margin:20px 0 8px}.maturity-content h5{font-size:15px;margin:0 0 6px}
+.maturity-content p,.maturity-content li,.maturity-content dd{font-size:15px;line-height:1.6}
+.maturity-content strong{font-weight:700;white-space:normal;background:none}
+.maturity-metadata{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.maturity-metadata dt{font-size:13px;font-weight:600}.maturity-metadata dd{margin:4px 0 0}
+.maturity-rubric{list-style:none;padding:0;margin:12px 0}.maturity-rubric>li{padding:14px 0;border-top:1px solid #e1dfd4}.maturity-rubric>li.is-current{border-left:3px solid #76661f;padding-left:12px}.maturity-rubric p{margin:0}
+.maturity-review-flag{border-left:3px solid #76661f;padding-left:12px}
+@media(max-width:600px){.maturity-metadata{grid-template-columns:1fr;gap:10px}.maturity-content{padding:0 12px 12px}.maturity-badge{align-items:flex-start}}

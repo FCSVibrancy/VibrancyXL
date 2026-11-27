@@ -21,6 +21,7 @@ function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
  }
  html=oldHeader?html.replace(oldHeader,sharedHeader):html.replace(/<body\b[^>]*>/i,match=>match+'\n'+sharedHeader);
  if(!html.includes('/shared/loading.js'))html=html.replace(/<head>/i,'<head><link rel="stylesheet" href="/shared/loading.css?v=20261127-reading-time"><script src="/shared/loading.js?v=20261127-reading-time" defer></script>');
+ if(html.includes('purpose-dashboard.js')&&!html.includes('maturity-rubrics.js'))html=html.replace(/(<script src="[^"]*purpose-dashboard\.js[^"]*" defer><\/script>)/,'<script src="/maturity-rubrics.js?v=20261127" defer></script>$1');
  if(!html.includes('/shared/medallions.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/shared/medallions.css?v=20261127-icon-replacements">\n</head>');
  if(!html.includes('/shared/header.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/shared/header.css">\n</head>');
  const old=html.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0]||'';
