@@ -41,3 +41,9 @@ test('the current-rating arrow matches each reviewed stage and stays absent when
  for(const [index,label] of M.stages.entries()){const row=fixture(label,label==='Sustaining and Advancing'?{priorPeriods:['previous'],improvement:'Revised prompts',followUp:'Checked student explanations'}:{});const html=M.details(row,[row]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">↓/g)||[]).length,1);assert.match(html,new RegExp('data-maturity-step="'+index+'"[^>]+aria-current="step"'));assert.match(html,/maturity-current-note/);}
  const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">↓/g)||[]).length,0);assert.match(html,/Current rating · Not Yet Rated/);
 });
+
+test('all 24 reporting indicators explain their own accountability maturity below the heading',()=>{
+ const rows=data().filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id));assert.equal(Object.keys(M.focusDescriptions).length,24);assert.equal(new Set(Object.values(M.focusDescriptions)).size,24);
+ for(const row of rows){assert.ok(M.focusDescriptions[row.id],row.id);const html=M.details(row,data());assert.ok(html.indexOf('maturity-indicator-focus')>html.indexOf('<h4>Accountability Maturity</h4>'));assert.ok(html.indexOf('maturity-indicator-focus')<html.indexOf('<ol class="maturity-pathway"'));}
+ assert.match(M.focusDescriptions['work-1'],/every instructional week in every course/);assert.match(M.focusDescriptions['work-3'],/scheduled Presentations/);assert.match(M.focusDescriptions.scales,/before their first demonstration/);assert.match(M.focusDescriptions['scales-self-check'],/own unfinished work/);assert.match(M.focusDescriptions['feedback-4'],/before-and-after work/);
+});

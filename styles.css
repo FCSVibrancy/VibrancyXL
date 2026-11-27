@@ -309,3 +309,5 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .maturity-path-legend>.maturity-current-note,.maturity-path-legend>.maturity-current-note{display:flex;align-items:center;gap:6px;margin:0;color:#67571c;font:500 12px/1.4 Arial,Helvetica,sans-serif}
 .maturity-current-note>span{font:700 19px/1 Arial,Helvetica,sans-serif}
 .purpose-dialog .maturity-path-legend>.maturity-expectation-note,.maturity-path-legend>.maturity-expectation-note{display:table;margin:0 0 0 auto;padding:6px 12px;border:1px dotted #88752c;border-radius:7px;background:#fffdf580;color:#67571c;font:500 12px/1.4 Arial,Helvetica,sans-serif}
+
+.purpose-dialog .accountability-maturity>.maturity-indicator-focus,.accountability-maturity>.maturity-indicator-focus{margin:0 0 18px;font:400 14px/1.6 Arial,Helvetica,sans-serif;color:#4a4e40;overflow-wrap:anywhere}
