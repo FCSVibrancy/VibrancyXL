@@ -16,6 +16,9 @@ test('new nested pages inherit shared branding and repeated builds preserve cont
   assert.ok(html.includes('/shared/medallions.css?v=20261127-icon-replacements'));
   assert.ok(html.includes('VIBRANCY 5.0'));
   assert.ok(html.includes('id="review"'));
+  assert.ok(html.includes('/assets/fcs-footer-logo.png'));
+  assert.ok(html.indexOf('site-footer-district')<html.indexOf('site-footer-logo'));
+  assert.ok(html.indexOf('site-footer-logo')<html.indexOf('site-footer-network'));
   assert.ok(fs.readFileSync(admin,'utf8').includes('id="logout" hidden'));
   run();assert.equal(fs.readFileSync(page,'utf8'),html);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
