@@ -88,7 +88,7 @@
   "outputDirectory": ".",
   "functions": {
     "api/learning-report.js": {
-      "includeFiles": "node_modules/pdfkit/js/data/**",
+      "includeFiles": "{node_modules/pdfkit/js/data/**,assets/fcs-district-report-logo.png}",
       "maxDuration": 30
     }
   }

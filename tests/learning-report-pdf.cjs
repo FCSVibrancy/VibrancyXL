@@ -15,3 +15,11 @@ test('direct download returns a dated PDF attachment using read-only published s
  try{await handler({method:'GET'},res);assert.equal(reads,4);assert.equal(res.code,200);assert.equal(res.headers['Content-Type'],'application/pdf');assert.equal(res.headers['Cache-Control'],'no-store');assert.match(res.headers['Content-Disposition'],/^attachment; filename="Vibrant-Learning-Report-\d{4}-\d{2}-\d{2}\.pdf"$/);assert.ok(Buffer.isBuffer(res.body));assert.equal(res.headers['Content-Length'],res.body.length);}
  finally{entry.exports=prior;}
 });
+test('single bar chooses the latest scored term, preserves zero, and skips pending evidence',()=>{
+ const indicator={terms:[{percent:'35'},{percent:'0'},{percent:''}]},before=JSON.stringify(indicator);
+ assert.deepEqual(R.latestResult(indicator),{term:2,percent:0,label:'0%'});
+ assert.equal(JSON.stringify(indicator),before);
+ assert.equal(R.latestResult({terms:[{percent:'35'},{percent:'80',status:'pending'},{}]}).term,1);
+ assert.deepEqual(R.latestResult({terms:[{},{},{}]}),{term:null,percent:null,label:'Awaiting Evidence'});
+ assert.equal(R.latestResult(indicator,false).label,'Results unavailable');
+});
