@@ -13,12 +13,12 @@ test('public quote changes only after authenticated publication, with term evide
  assert.equal(writes,1);assert.equal(published.body.values[1][2],draft[1][2]);const after=response();await publicQuote({method:'GET'},after);assert.equal(after.body.quote,draft[1][2]);assert.equal(after.headers['Cache-Control'],'no-store');assert.deepEqual(saved[1],site[1]);
  }finally{entry.exports=prior;if(env===undefined)delete process.env.GOOGLE_CLIENT_ID;else process.env.GOOGLE_CLIENT_ID=env;for(const name of ['../api/control.js','../api/loading.js'])delete require.cache[require.resolve(name)];}
 });
-test('shared loaders allow reading time for both short and longer quotes',()=>{assert.equal(UI.readingDuration('A short quote.'),9000);assert.ok(UI.readingDuration('A longer quote '.repeat(15))>9000);assert.equal(UI.readingDuration('word '.repeat(2000)),20000);});
+test('shared loaders allow reading time for both short and longer quotes',()=>{assert.equal(UI.readingDuration('A short quote.'),12000);assert.ok(UI.readingDuration('A longer quote '.repeat(15))>9000);assert.ok(UI.readingDuration('word '.repeat(2000))>900000);assert.ok(UI.readingDuration(UI.experienceQuotes.work)>=21000);assert.ok(UI.readingDuration(UI.experienceQuotes.thriving)>=27000);});
 test('private previews use the full shared reading-time animation before completion',async t=>{
  t.mock.timers.enable({apis:['Date','setInterval']});const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}})),attrs={};const bar={setAttribute(k,v){attrs[k]=v;},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(){return bar;}};
  const loader=UI.show(host,{quote:'Read this short quote.',preview:true});let ready=false;loader.ready.then(()=>ready=true);
  t.mock.timers.tick(4000);await Promise.resolve();assert.equal(ready,false);assert.ok(Number(attrs['aria-valuenow'])>0&&Number(attrs['aria-valuenow'])<100);
- t.mock.timers.tick(5000);await loader.ready;assert.equal(attrs['aria-valuenow'],'100');loader.stop();
+ t.mock.timers.tick(8000);await loader.ready;assert.equal(attrs['aria-valuenow'],'100');loader.stop();
 });
 
 test('the homepage entry can pin the requested quote without replacing it from the published quote endpoint',async t=>{
@@ -40,4 +40,14 @@ test('all seven learning experiences use the exact approved quote alignment, sep
  assert.deepEqual(UI.experienceQuotes,expected);assert.equal(new Set(Object.values(UI.experienceQuotes)).size,7);
  for(const [id,quote] of Object.entries(expected)){assert.equal(UI.quoteForExperience(id),quote);assert.ok(UI.markup(quote).includes(quote));assert.notEqual(quote,UI.defaultQuote);}
  assert.equal(UI.quoteForExperience('unknown'),UI.defaultQuote);assert.equal(UI.quoteForExperience('toString'),UI.defaultQuote);assert.match(UI.defaultQuote,/lose sight of the shoreline/);
+});
+
+test('Enter Indicators releases only the reading delay and progress still follows data readiness',async t=>{
+ t.mock.timers.enable({apis:['Date','setInterval']});let click;const button={disabled:false,textContent:'Enter Indicators',addEventListener(type,handler){assert.equal(type,'click');click=handler;},setAttribute(){}};
+ const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}})),attrs={};const bar={setAttribute(k,v){attrs[k]=v;},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(selector){return selector==='[role=progressbar]'?bar:button;}};
+ const loader=UI.show(host,{quote:UI.experienceQuotes.thriving,usePublishedQuote:false,allowContinue:true});assert.ok(host.innerHTML.includes('Enter Indicators'));loader.update(2);t.mock.timers.tick(1000);click();await loader.ready;assert.equal(button.disabled,true);assert.equal(button.textContent,'Opening…');assert.equal(attrs['aria-valuenow'],'40');loader.update(5);assert.equal(attrs['aria-valuenow'],'100');loader.stop();
+});
+test('long experience quotes retain their full reading time unless the reader continues',async t=>{
+ t.mock.timers.enable({apis:['Date','setInterval']});const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}}));const bar={setAttribute(){},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(){return bar;}};
+ const duration=UI.readingDuration(UI.experienceQuotes.thriving),loader=UI.show(host,{quote:UI.experienceQuotes.thriving,usePublishedQuote:false});loader.update(5);let ready=false;loader.ready.then(()=>ready=true);t.mock.timers.tick(20000);await Promise.resolve();await Promise.resolve();assert.equal(ready,false);t.mock.timers.tick(duration-20000);await loader.ready;assert.equal(ready,true);loader.stop();
 });

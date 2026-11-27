@@ -24,7 +24,7 @@
  async function enterLearning(destination){
   const dialog=entryWindow();if(dialog.open)return;
   const request=Symbol();entryRequest=request;
-  entryLoader=VibrancyLoading.show(dialog.querySelector('.learning-entry-content'),{quote:VibrancyLoading.defaultQuote,titleId:'learning-entry-title',usePublishedQuote:false});
+  entryLoader=VibrancyLoading.show(dialog.querySelector('.learning-entry-content'),{quote:VibrancyLoading.defaultQuote,titleId:'learning-entry-title',usePublishedQuote:false,allowContinue:true,continueLabel:'Enter Vibrant Learning'});
   dialog.showModal();entryLoader.update(5);
   await entryLoader.ready;
   if(entryRequest!==request||!dialog.open)return;

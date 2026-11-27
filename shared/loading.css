@@ -13,3 +13,7 @@ dialog.learning-entry-dialog{box-sizing:border-box;max-width:1320px;width:calc(1
 .learning-entry-close{position:sticky;display:block;top:4px;z-index:3;margin:0 0 -44px auto;width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font:27px/1 Arial,sans-serif;box-shadow:0 0 0 1px #aaa;cursor:pointer}
 .learning-entry-close:focus-visible{outline:3px solid #8a7019;outline-offset:3px}
 @media(max-width:760px){dialog.learning-entry-dialog{padding:8px 10px 16px;width:calc(100vw - 16px)}}
+
+.vibrancy-loading-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.vibrancy-loading-continue{min-height:44px;padding:11px 20px;border:1px solid #9b8030;border-radius:8px;background:#eee1b6;color:#302b18;font:700 15px/1.4 Arial,Helvetica,sans-serif;cursor:pointer;box-shadow:inset 0 1px 0 #fff9,0 2px 4px #5b4c1f12}
+.vibrancy-loading-continue:hover{background:#e5d393}.vibrancy-loading-continue:focus-visible{outline:3px solid #8a7019;outline-offset:3px}.vibrancy-loading-continue:disabled{cursor:progress;background:#e9e5d8;color:#4c513e;border-color:#b4ae99;box-shadow:none}
