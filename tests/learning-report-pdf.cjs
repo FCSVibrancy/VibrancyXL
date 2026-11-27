@@ -1,10 +1,10 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
 require('../purpose-dashboard.js');const A=require('../area-indicators.js');require('../experiences.js');
 const R=require('../learning-report.js'),P=require('../lib/learning-report-pdf.cjs'),s=require('../data/learning-purpose.json');
-test('community report generates a two-page Letter PDF without changing source results',async()=>{
+test('community report generates a three-page Letter PDF without changing source results',async()=>{
  const terms=[{id:'learning:purpose:standards',term_1_percent:'0',term_2_percent:'52',term_3_percent:''}],before=JSON.stringify({s,terms});
  const buffer=await P.generate(R.assemble(s,[],terms),{date:new Date('2026-11-27T15:00:00Z')});assert.ok(buffer.subarray(0,5).equals(Buffer.from('%PDF-')));
- assert.equal((buffer.toString('latin1').match(/\/Type \/Page\b/g)||[]).length,2);assert.ok(buffer.toString('latin1').includes('/MediaBox [0 0 612 792]'));assert.equal(JSON.stringify({s,terms}),before);
+ assert.equal((buffer.toString('latin1').match(/\/Type \/Page\b/g)||[]).length,3);assert.ok(buffer.toString('latin1').includes('/MediaBox [0 0 612 792]'));assert.equal(JSON.stringify({s,terms}),before);
 });
 test('direct download returns a dated PDF attachment using read-only published sources',async()=>{
  const C=require('../lib/control.cjs'),entry=require.cache[require.resolve('../lib/control.cjs')],prior=entry.exports;
@@ -40,6 +40,6 @@ test('successive PDF downloads read newly published titles, descriptions, additi
   const res=response();await handler({method:'GET'},res);assert.equal(reads,8);assert.equal(res.headers['Cache-Control'],'no-store');
   const rows=captured.find(s=>s.id==='purpose').indicators,existing=rows.find(r=>r.id==='standards'),added=rows.find(r=>r.id==='future-report');
   assert.equal(existing.title,'Published revised title');assert.equal(existing.summary,'Published revised description.');assert.deepEqual(existing.terms.map(r=>R.result(r)),['0%','83%','Awaiting Evidence']);assert.equal(R.latestResult(added).percent,61);
-  const actual=await oldPdf.generate(captured);assert.equal((actual.toString('latin1').match(/\/Type \/Page\b/g)||[]).length,2);assert.ok(actual.toString('latin1').includes('/Subtype /Image'));
+  const actual=await oldPdf.generate(captured);assert.equal((actual.toString('latin1').match(/\/Type \/Page\b/g)||[]).length,3);assert.ok(actual.toString('latin1').includes('/Subtype /Image'));
  }finally{control.exports=oldControl;pdf.exports=oldPdf;delete require.cache[require.resolve('../api/learning-report.js')];}
 });
