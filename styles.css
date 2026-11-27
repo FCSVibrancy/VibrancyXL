@@ -222,17 +222,32 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .purpose-kpi .purpose-why strong{display:inline;font-size:inherit;font-weight:750;line-height:inherit;letter-spacing:normal;white-space:normal;background:none;border:0;border-radius:0;padding:0;box-shadow:none}
 @media(max-width:600px){.purpose-dialog .purpose-kpi .purpose-why{margin-top:15px;padding:13px 14px}.purpose-dialog .purpose-kpi .purpose-why p{font-size:16px}.purpose-dialog .purpose-kpi .purpose-why-label{font-size:12px}}
 
-/* Indicator maturity: one badge and one native keyboard-accessible disclosure. */
-.maturity-badge{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px!important;margin:8px 0 14px!important;font-size:13px!important;color:#43463e;line-height:1.5}
-.maturity-badge strong{display:inline-block;padding:3px 10px;border:1px solid #b9b7a6;border-radius:6px;background:#f4f2e9;color:#30382d;font-size:13px}
-.maturity-details{margin:18px 0;border:1px solid #d1d0c4;border-radius:8px;background:#fff;color:#30382d}
-.maturity-details summary{cursor:pointer;padding:13px 16px;min-height:44px;box-sizing:border-box;font-size:15px;font-weight:600}
-.maturity-details summary:focus-visible{outline:3px solid #76661f;outline-offset:3px;border-radius:6px}
-.maturity-content{padding:0 16px 16px;overflow-wrap:anywhere;line-height:1.6}
-.maturity-content h4{font-size:16px;margin:20px 0 8px}.maturity-content h5{font-size:15px;margin:0 0 6px}
-.maturity-content p,.maturity-content li,.maturity-content dd{font-size:15px;line-height:1.6}
-.maturity-content strong{font-weight:700;white-space:normal;background:none}
-.maturity-metadata{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.maturity-metadata dt{font-size:13px;font-weight:600}.maturity-metadata dd{margin:4px 0 0}
-.maturity-rubric{list-style:none;padding:0;margin:12px 0}.maturity-rubric>li{padding:14px 0;border-top:1px solid #e1dfd4}.maturity-rubric>li.is-current{border-left:3px solid #76661f;padding-left:12px}.maturity-rubric p{margin:0}
-.maturity-review-flag{border-left:3px solid #76661f;padding-left:12px}
-@media(max-width:600px){.maturity-metadata{grid-template-columns:1fr;gap:10px}.maturity-content{padding:0 12px 12px}.maturity-badge{align-items:flex-start}}
+/* Accountability maturity uses the same stage palette as the page legend. */
+.accountability-maturity{border-top:1px solid #c9c7b9;padding-top:18px;margin-top:22px}
+.purpose-dialog .accountability-maturity>h4{font-size:16px;line-height:1.4;margin:0 0 10px;font-weight:700}
+.maturity-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px 18px}
+.maturity-stage,.maturity-stage-label{border:1px solid transparent;border-radius:20px;padding:9px 18px;font:700 14px/1.4 Arial,Helvetica,sans-serif;white-space:normal;text-align:center}
+.maturity-stage{cursor:pointer;min-height:44px}
+.maturity-0{background:#242424;color:#fff}.maturity-1{background:#646464;color:#fff}.maturity-2{background:#929292;color:#fff}.maturity-3{background:#bca745;color:#10120f}.maturity-4{background:#edda7e;color:#10120f}.maturity-unrated{background:#f4f2e9;color:#30382d;border-color:#b9b7a6}
+.maturity-details-button{background:none;border:0;padding:10px 0;min-height:44px;color:#383f34;font:600 14px/1.5 Arial,Helvetica,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.maturity-stage:focus-visible,.maturity-details-button:focus-visible,.maturity-profile-close:focus-visible{outline:3px solid #76661f;outline-offset:3px}
+ dialog.maturity-profile{box-sizing:border-box;width:min(760px,calc(100vw - 28px));max-width:760px;max-height:88dvh;margin:auto;padding:0;border:1px solid #bcb8a5;border-radius:16px;background:#fff;color:#22281f;box-shadow:0 20px 80px #0005;overflow:auto;font:16px/1.6 Arial,Helvetica,sans-serif}
+.maturity-profile::backdrop{background:rgb(12 17 12 / 62%)}
+.maturity-profile-header{display:flex;align-items:flex-start;gap:20px;padding:22px 24px 16px;border-bottom:1px solid #e0ded3;background:#fff}
+.purpose-dialog .maturity-profile-header p,.maturity-profile-header p{font-size:12px;line-height:1.5;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin:0 0 5px;color:#626557}
+.purpose-dialog .maturity-profile-header h2,.maturity-profile-header h2{font:700 23px/1.25 Arial,Helvetica,sans-serif;letter-spacing:-.3px;margin:0;color:#22281f}
+.maturity-profile-close{flex-shrink:0;margin-left:auto;display:grid;place-items:center;width:44px;height:44px;border:1px solid #d8d6cb;border-radius:50%;background:#f7f6f1;color:#30382d;font:26px/1 Arial;cursor:pointer}
+.maturity-profile-stages{list-style:none;padding:18px 24px 24px;margin:0;display:grid;gap:12px}
+.maturity-profile-stage{padding:15px 18px;border:1px solid #e4e2d9;border-radius:10px;background:#fafaf7;color:#696d63;overflow-wrap:anywhere}
+.purpose-dialog .maturity-profile-stage h3,.maturity-profile-stage h3{font:700 16px/1.4 Arial,Helvetica,sans-serif;letter-spacing:0;margin:0 0 8px;color:inherit}
+.purpose-dialog .maturity-profile-stage p,.maturity-profile-stage p{font:400 15px/1.6 Arial,Helvetica,sans-serif;margin:0;color:inherit}
+.maturity-profile-stage strong{font-weight:700;white-space:normal;background:none}
+.maturity-profile-stage.is-current{border:2px solid #88752c;background:#fffbed;color:#252c20;padding:18px 17px;box-shadow:0 2px 8px #473c1110}
+.maturity-profile-stage .maturity-stage-label{display:inline-block;padding:5px 13px;font-size:15px}
+.purpose-dialog .maturity-profile-stage .maturity-current-label,.maturity-profile-stage .maturity-current-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#67571c;margin:0 0 10px}
+@media(max-width:600px){.maturity-profile-header{padding:18px 16px;gap:12px}.purpose-dialog .maturity-profile-header h2,.maturity-profile-header h2{font-size:20px}.maturity-profile-stages{padding:14px 14px 18px}.maturity-profile-stage{padding:14px}.maturity-profile-stage.is-current{padding:16px 13px}.maturity-actions{gap:6px 16px}}
+
+.purpose-kpi{display:flex;flex-direction:column}.purpose-kpi>.accountability-maturity{margin-top:auto}.purpose-kpi>.accountability-maturity:before{content:"";display:block;height:4px}
+.purpose-dialog .maturity-profile-stage .maturity-advance,.maturity-profile-stage .maturity-advance{margin-top:10px;font-size:14px;line-height:1.6}
+
+.purpose-legend .maturity-2,.maturity-2{color:#10120f}

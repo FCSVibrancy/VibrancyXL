@@ -174,7 +174,13 @@
  const aliases={'feedback-1':'scales','feedback-2':'scales-self-check'};
  const rubrics=Object.fromEntries(Object.entries(definitions).map(([id,[practice,settings,preparation,consistent,improvement]])=>{
  const cycle=id==='work-1'?'Recurring use means dated writing in repeated instructional weeks; consistency means every instructional week in every course reviewed.':id==='work-3'?'Recurring use means portfolio selection and presentations in repeated scheduled cycles; consistency means every scheduled cycle and applicable grade 3–12 setting reviewed. Record the district schedule; do not substitute a weekly expectation.':id==='scales'?'Recurring use means analysis on repeated Priority Standards before the first demonstration; consistency means this timing and student explanation on every applicable standard and classroom reviewed.':id==='scales-self-check'?'Recurring use means self-checks on repeated Priority Standards; consistency means at least one check during instruction on every applicable standard in every classroom reviewed.':'Recurring use means the practice is documented on more than one applicable opportunity in the indicator’s actual learning or assessment cycle. Consistency means the practice and learner experience are verified across all applicable settings and opportunities in the approved review sample.';
- return [id,{settings,cycle,sampling:'District review needed: approve sample size, selection, coverage, cycle dates, and any decision thresholds before assigning a stage. Record exceptions and exclusions; a sample does not establish district-wide implementation.',stages:[
+ return [id,{settings,cycle,advancement:[
+ `To reach Establishing: ${preparation}, then begin an **initial student trial**.`,
+ `To reach Developing: verify that students **repeatedly ${practice}**, using their explanations or work as evidence.`,
+ `To reach Implementing: verify this experience **consistently across the applicable settings and opportunities reviewed**: ${consistent.charAt(0).toLowerCase()+consistent.slice(1)}.`,
+ `To reach Sustaining and Advancing: verify the Implementing practice **across reporting periods**; ${improvement}, with the improvement and follow-up finding recorded.`,
+ `To continue advancing: keep checking this practice **across reporting periods** and use the findings to ${improvement}.`
+ ],sampling:'District review needed: approve sample size, selection, coverage, cycle dates, and any decision thresholds before assigning a stage. Record exceptions and exclusions; a sample does not establish district-wide implementation.',stages:[
  `A completed review confirms that students have **yet to begin to ${practice}** in the ${settings} reviewed.`,
  `Teams **${preparation}**, or students try the practice in an **initial trial**. Reviewers have yet to verify recurring student use.`,
  `Students **repeatedly ${practice}**, with student explanations or work documenting their experience. **Use or quality varies** across the ${settings} reviewed.`,
@@ -207,10 +213,31 @@
   }
   return {id,rubric,review:complete?review:null,stage,label:stages[stage]||'Not Yet Rated',issue};
  }
- function badge(row,data){const r=assess(row,data);return `<p class="maturity-badge"><span>Implementation maturity</span><strong>${esc(r.label)}</strong></p>`;}
- function details(row,data){const r=assess(row,data),v=r.review,b=r.rubric;
- const needed=b?`A completed review needs **observations, student explanations, or work** showing whether students ${definitions[r.id][0]}. Record the period, date, scope, approved sample, and evidence references; assign the highest stage whose full criteria are supported.`:'An indicator-specific rubric and completed evidence review are needed before a stage can be assigned.';
- return `<details class="maturity-details"><summary>View maturity details</summary><div class="maturity-content"><h4>Why we assigned this stage</h4><p>${rich(r.stage>=0?v.finding:'Evidence is **insufficient to assign a stage**, or a completed review has not been published.')}</p>${r.issue?`<p class="maturity-review-flag">${esc(r.issue)}</p>`:''}<dl class="maturity-metadata"><div><dt>Reporting period</dt><dd>${esc(v?.period||row.reporting_window||'Not supplied')}</dd></div><div><dt>Review date</dt><dd>${esc(v?.date||'Review not completed')}</dd></div><div><dt>Scope</dt><dd>${esc(v?.scope||'Settings reviewed have not been documented')}</dd></div></dl>${!v?'<h4>Evidence reviewed</h4><p>No completed evidence review has been published for this indicator.</p>':''}${v&&r.stage<0?`<p>Review status: the proposed stage is withheld pending district review.</p>`:''}${v?`<p>Reviewer: ${esc(v.reviewer)}</p><h4>Evidence reviewed</h4><ul>${v.evidence.map(e=>`<li>${esc(e.label)} — ${esc(e.reference)}</li>`).join('')}</ul><p>Sampling: ${esc(v.sampling)}</p>`:''}<h4>${r.stage===4?'What Fleming will continue to monitor or improve':'What the next stage looks like'}</h4><p>${rich(r.stage<0?needed:r.stage===4?`Continue verifying **${definitions[r.id][3]}** across periods; ${v.improvement}. Follow-up: ${v.followUp}.`:b.stages[r.stage+1])}</p><h4>Full maturity rubric</h4><p>Assign the highest stage whose full criteria are supported. Maturity describes implementation and the intended learner experience; progress percentages are reported separately.</p>${b?`<p><strong>Review settings:</strong> ${esc(b.settings)}.</p><p>${esc(b.cycle)}</p><p>${esc(b.sampling)}</p><ol class="maturity-rubric">${stages.map((label,i)=>`<li${r.stage===i?' class="is-current"':''}><h5>${label}${r.stage===i?' · Current stage':''}</h5><p>${rich(b.stages[i])}</p></li>`).join('')}</ol>`:'<p>District review needed: define this indicator’s five-stage rubric.</p>'}<p><strong>Not Yet Rated</strong> is a reporting status outside the five stages: evidence is insufficient to assign a stage, or a review has yet to be completed.</p></div></details>`;
+ function badge(row,data){const r=assess(row,data);return `<button type="button" class="maturity-stage maturity-${r.stage<0?'unrated':r.stage}" data-maturity-open aria-haspopup="dialog">${esc(r.label)}</button>`;}
+ function details(row,data){
+  const r=assess(row,data),id='maturity-profile-'+[row.experience_id,row.id,row.reporting_window].map(value=>encodeURIComponent(value||'current')).join('-');
+  const entry=(label,description,current,advancement='')=>`<li class="maturity-profile-stage${current?' is-current':''}"${current?' aria-current="step"':''}>${current?'<p class="maturity-current-label">Current Maturity Profile Rating</p>':''}<h3><span${current?` class="maturity-stage-label maturity-${r.stage<0?'unrated':r.stage}"`:''}>${esc(label)}</span></h3><p>${rich(description)}</p>${advancement?`<p class="maturity-advance">${rich(advancement)}</p>`:''}</li>`;
+  return `<section class="accountability-maturity" aria-label="Accountability Maturity"><h4>Accountability Maturity</h4><div class="maturity-actions">${badge(row,data)}<button type="button" class="maturity-details-button" data-maturity-open aria-haspopup="dialog">View Maturity Details</button></div><dialog class="maturity-profile" aria-labelledby="${id}"><header class="maturity-profile-header"><div><p>Accountability Maturity</p><h2 id="${id}">${esc(row.title||'Indicator')} · Maturity Profile</h2></div><button type="button" class="maturity-profile-close" data-maturity-close aria-label="Close maturity profile" autofocus>×</button></header><ol class="maturity-profile-stages">${r.stage<0?entry('Not Yet Rated','Evidence is **insufficient to assign a stage**, or a review has yet to be completed.',true):''}${r.rubric?(r.stage<0?stages.map((_,i)=>i):[r.stage,...stages.map((_,i)=>i).filter(i=>i!==r.stage)]).map(i=>entry(stages[i],r.rubric.stages[i],r.stage===i,r.rubric.advancement[i])).join(''):'<li>Indicator-specific descriptions are awaiting district review.</li>'}</ol></dialog></section>`;
  }
+ // Keep keyboard activation inside editor cards from selecting the outer card.
+ if(root.document)root.document.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.composedPath().some(el=>el?.matches?.('[data-maturity-open],[data-maturity-close]')))event.stopPropagation();},true);
+ // Capture composed events so the same controls work inside area shadow roots and editor previews.
+ if(root.document)root.document.addEventListener('click',event=>{
+  const path=event.composedPath();
+  const control=path.find(el=>el?.matches?.('[data-maturity-open],[data-maturity-close]'));
+  if(control){
+   event.preventDefault();event.stopPropagation();
+   const dialog=control.closest('.accountability-maturity')?.querySelector('.maturity-profile');
+   if(!dialog)return;
+   if(control.hasAttribute('data-maturity-close'))dialog.close();
+   else if(!dialog.open)dialog.showModal();
+   return;
+  }
+  const dialog=path[0];
+  if(dialog?.matches?.('dialog.maturity-profile')&&dialog.open){
+   const bounds=dialog.getBoundingClientRect();
+   if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)dialog.close();
+  }
+ },true);
  const api={stages,rubrics,reviews,assess,badge,details};root.VibrancyMaturity=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof window==='object'?window:globalThis);
