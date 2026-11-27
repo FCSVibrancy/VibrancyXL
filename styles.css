@@ -180,10 +180,10 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:20px 0 10px}
 .purpose-term{min-width:0;text-align:center;padding:0 12px}.purpose-term+.purpose-term{border-left:1px solid #c8c9c5}
 .purpose-dialog .purpose-term h4{font:700 15px/1.4 Arial,Helvetica,sans-serif;margin:0 0 8px}
-.purpose-dialog{--dial-size:176px}
+.purpose-dialog{--dial-size:132px}
 .purpose-dial{max-width:var(--dial-size);margin:auto}.purpose-dial svg{display:block;width:100%;height:auto;overflow:visible}
 .dial-track,.dial-value{fill:none;stroke-width:13;stroke-linecap:round}.dial-track{stroke:#d5d8dc}.dial-value{stroke:var(--dial-accent,#94751f)}.dial-tick{fill:none;stroke:#6b6d65;stroke-width:1.3}
-.dial-marker{font:400 20px Arial,Helvetica,sans-serif;fill:#55584f}.dial-number{font:500 30px Arial,Helvetica,sans-serif;fill:#171910}.dial-pending{font:500 20px Arial,Helvetica,sans-serif;fill:#55584f}
+.dial-marker{font:400 16px Arial,Helvetica,sans-serif;fill:#55584f}.dial-number{font:500 32px Arial,Helvetica,sans-serif;fill:#171910}.dial-pending{font:500 22px Arial,Helvetica,sans-serif;fill:#55584f}
 .purpose-dialog .purpose-term-maturity{font-size:13px;line-height:1.4;margin:3px 0}.purpose-dialog .purpose-term-note{font-size:13px;line-height:1.4;margin:5px 0}.purpose-dialog .purpose-indicator-note,.purpose-dialog .purpose-term-reference{font-size:14px;line-height:1.5;margin:12px 0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:600px){.purpose-term{padding:0 8px}.purpose-dialog .purpose-term h4{font-size:14px}.purpose-terms{margin-top:18px}}
@@ -204,3 +204,5 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-scales-overview{grid-column:1/-1;padding:20px 22px 6px;border-top:2px solid #b49a3f;color:#171910}.purpose-dialog .purpose-scales-overview h3{font:700 24px/1.25 Arial,Helvetica,sans-serif;margin:0 0 10px}.purpose-scales-overview p{font-size:17px;line-height:1.6;margin:0 0 10px;max-width:100ch}.purpose-scales-overview .scales-commitment-intro{font-size:14px;font-weight:700;color:#645016;margin-top:14px}@media(max-width:760px){.purpose-scales-overview{padding:18px 4px 4px}.purpose-scales-overview p{font-size:16px}}
 
 .purpose-related{font-size:14px!important;line-height:1.6!important;margin:14px 0 0!important}.purpose-related-link{background:none;border:0;color:#344f64;text-decoration:underline;text-underline-offset:3px;padding:5px 2px;min-height:44px;text-align:left;font:inherit;white-space:normal}.purpose-finding-kind{font-size:14px!important;font-weight:700;margin:16px 0 0!important}.purpose-legacy{margin:20px 0;padding:16px;border:1px solid #d8d5ca;border-radius:10px}.purpose-legacy summary{font-weight:700;cursor:pointer}.purpose-legacy section{margin-top:14px;padding-top:12px;border-top:1px solid #d8d5ca}
+
+.purpose-dial[aria-valuenow="0"] .dial-value{opacity:0}
