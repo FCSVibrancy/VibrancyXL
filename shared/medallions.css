@@ -1,0 +1,32 @@
+/* Shared raised icon treatment; dimensions remain controlled by each tile layout. */
+.purpose-icon,
+.pathway>.icon,
+.custom-tile-frame.medallion,
+.custom-tile-frame.tile-icon{
+ position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;
+ border:1px solid #8d793d;
+ background-image:linear-gradient(145deg,#ffffffa8 0%,#ffffff14 43%,#00000020 100%);
+ box-shadow:inset 0 2px 2px #ffffffa6,inset 0 -3px 4px #00000026,0 3px 0 #8b794d,0 7px 12px #181b142b;
+ text-shadow:0 1px 0 #ffffff8c,0 2px 2px #00000026;
+}
+.purpose-icon::after,
+.pathway>.icon::after,
+.custom-tile-frame.medallion::after,
+.custom-tile-frame.tile-icon::after{
+ content:"";position:absolute;inset:3px;border:1px solid #ffffff52;
+ border-radius:inherit;pointer-events:none;z-index:2;
+}
+.purpose-icon svg,.pathway>.icon svg{
+ filter:drop-shadow(0 1px 0 #ffffff73) drop-shadow(0 2px 1px #00000024);
+}
+.pathway>.icon{
+ color:#edda8c;border-color:#b9a052;
+ background-color:#292d23;
+ background-image:linear-gradient(145deg,#776b3b 0%,#35382a 48%,#161c15 100%);
+ box-shadow:inset 0 2px 2px #f8e8ac66,inset 0 -3px 4px #00000059,0 3px 0 #514625,0 7px 12px #00000038;
+}
+.custom-tile-frame.medallion{border-width:2px}
+@media(forced-colors:active){
+ .purpose-icon,.pathway>.icon,.custom-tile-frame.medallion,.custom-tile-frame.tile-icon{border:2px solid ButtonText;box-shadow:none}
+ .purpose-icon::after,.pathway>.icon::after,.custom-tile-frame.medallion::after,.custom-tile-frame.tile-icon::after{display:none}
+}

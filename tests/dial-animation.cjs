@@ -49,3 +49,41 @@ test('animation changes only the visual arc for both pending and zero',()=>{
  try{global.matchMedia=()=>({matches:false});global.IntersectionObserver=undefined;D.animateDials({querySelectorAll:()=>dials})();assert.equal(calls.length,2);assert.equal(calls[0].selector,'.dial-demo');assert.equal(calls[1].selector,'.dial-value');for(const c of calls){assert.equal(c.options.fill,'none');assert.equal(c.frames.at(-1).strokeDasharray,'0 100');}assert.equal(dials[0].getAttribute('aria-valuenow'),null);assert.equal(dials[1].getAttribute('aria-valuenow'),'0');}
  finally{Object.assign(global,prior);}
 });
+test('pending gauges animate for existing and new indicators across every component without changing input records',()=>{
+ const s=require('../data/learning-purpose.json'),A=require('../area-indicators.js'),M=require('../admin/model.js');
+ const source=D.records([s.headers,...s.rows]),before=JSON.stringify(source);
+ const terms=source.filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id)).map(r=>({id:`learning:${r.id==='scales-self-check'?'purpose':r.experience_id||'purpose'}:${r.id}`,term_1_percent:'',term_2_percent:'',term_3_percent:''}));
+ const termBefore=JSON.stringify(terms),data=D.applyTermResults(source,terms),htmls=Object.keys(M.names).map(home=>D.markup(data,'current',home));
+ for(const area of Object.keys(A.areas)){
+  const draft={...M.newAreaIndicator(area,'indicator-pending-new',1),title:'New pending indicator',description:'Evidence has not been collected.'};
+  const table=[A.headers,A.headers.map(h=>draft[h]||'')],published=A.published(table);
+  const previewHtml=D.markup(A.dashboardData(A.records(table),area),'current',area),publicHtml=D.markup(A.dashboardData(published,area),'current',area);
+  assert.equal(previewHtml,publicHtml);htmls.push(publicHtml);
+ }
+ const prior={matchMedia:global.matchMedia,IntersectionObserver:global.IntersectionObserver};let animations=0,expected=0;
+ try{
+  global.matchMedia=()=>({matches:false});global.IntersectionObserver=undefined;
+  for(const html of htmls){
+   const count=(html.match(/class="purpose-dial"/g)||[]).length;assert.ok(count>0);
+   assert.equal((html.match(/class="dial-demo"/g)||[]).length,count);assert.equal((html.match(/data-dial-state="pending"/g)||[]).length,count);assert.ok(!html.includes('aria-valuenow'));
+   expected+=count;const dials=Array.from({length:count},()=>Object.freeze({getAttribute:k=>k==='data-dial-state'?'pending':null,querySelector:selector=>{assert.equal(selector,'.dial-demo');return {animate(frames){animations++;assert.equal(frames[1].strokeDasharray,'100 100');assert.equal(frames.at(-1).opacity,0);return {cancel(){}};}};}}));
+   D.animateDials({querySelectorAll:()=>dials})();
+  }
+  assert.equal(animations,expected);assert.equal(JSON.stringify(source),before);assert.equal(JSON.stringify(terms),termBefore);
+ }finally{Object.assign(global,prior);}
+});
+test('reopening the same dashboard replays every gauge and cancels the previous session without changing values',()=>{
+ const prior={matchMedia:global.matchMedia,IntersectionObserver:global.IntersectionObserver},observers=[];let plays=0,cancels=0,disconnects=0;
+ const values=Object.freeze([null,'0','47']);
+ const dials=values.map(value=>Object.freeze({getAttribute:k=>k==='aria-valuenow'?value:k==='data-dial-state'&&value===null?'pending':null,querySelector:()=>({animate(){plays++;return {cancel(){cancels++;}};}})}));
+ const container={querySelectorAll:()=>dials};
+ try{
+  global.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
+  global.IntersectionObserver=class{constructor(fn){this.fn=fn;observers.push(this);}observe(){}unobserve(){}disconnect(){disconnects++;}};
+  D.animateDials(container);observers[0].fn(dials.map(target=>({target,isIntersecting:true})));assert.equal(plays,3);
+  const stop=D.animateDials(container);assert.equal(cancels,3);assert.equal(disconnects,1);
+  observers[0].fn(dials.map(target=>({target,isIntersecting:true})));assert.equal(plays,3);
+  observers[1].fn(dials.map(target=>({target,isIntersecting:true})));assert.equal(plays,6);
+  stop();assert.equal(cancels,6);assert.deepEqual(dials.map(d=>d.getAttribute('aria-valuenow')),[null,'0','47']);
+ }finally{Object.assign(global,prior);}
+});
