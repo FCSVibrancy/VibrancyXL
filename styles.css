@@ -279,3 +279,26 @@ dialog.purpose-dialog{max-height:96dvh}
 .purpose-dialog .maturity-current-description p,.maturity-current-description p{margin:0;font:400 15px/1.6 Arial,Helvetica,sans-serif;color:#34392c;overflow-wrap:anywhere}.maturity-current-description strong{font-weight:700;white-space:normal;background:none}
 @media(max-width:600px){.accountability-maturity>.maturity-current-description{padding:12px 13px;border-radius:9px}}
 @media(forced-colors:active){.accountability-maturity>.maturity-current-description{border:1px solid CanvasText;background:Canvas;box-shadow:none}}
+
+/* Shared five-stage maturity pathway; stage 4 is the expectation, not a result. */
+.maturity-pathway{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));list-style:none;padding:0;margin:8px 0 16px;gap:6px}
+.maturity-pathway>li{position:relative;min-width:0}
+.maturity-pathway>li:before{content:"";position:absolute;top:35px;left:calc(-50% - 3px);width:calc(100% + 6px);height:3px;background:#d8d3bf}
+.maturity-pathway>li:first-child:before{display:none}
+.maturity-path-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;width:100%;min-height:110px;padding:23px 2px 7px;box-sizing:border-box;border:0;border-radius:8px;background:transparent;color:#62665b;font:500 12px/1.4 Arial,Helvetica,sans-serif;cursor:pointer}
+.maturity-path-step:hover{background:#fffdf880;color:#292c22}
+.maturity-path-step:focus-visible{outline:3px solid #76661f;outline-offset:2px}
+.maturity-path-dot{position:relative;z-index:1;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;font:700 12px/1 Arial,Helvetica,sans-serif;box-sizing:border-box}
+.maturity-path-step[aria-current="step"]{color:#292c22;font-weight:700}
+.maturity-path-step[aria-current="step"] .maturity-path-dot{outline:3px solid #a48b3b;outline-offset:3px;box-shadow:0 2px 5px #54451326}
+.maturity-path-current{position:absolute;top:0;font:700 11px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#67571c;white-space:nowrap}
+.maturity-path-current[hidden]{display:none}
+.maturity-path-label{hyphens:manual}
+.maturity-expectation .maturity-path-dot{outline:1px dotted #88752c;outline-offset:3px}
+.purpose-dialog .accountability-maturity>.maturity-expectation-note,.accountability-maturity>.maturity-expectation-note{display:table;margin:-2px 0 16px auto;padding:6px 12px;border:1px dotted #88752c;border-radius:7px;background:#fffdf580;color:#67571c;font:500 12px/1.4 Arial,Helvetica,sans-serif}
+.purpose-dialog .maturity-current-description h5,.maturity-current-description h5{font:700 15px/1.4 Arial,Helvetica,sans-serif;margin:0 0 8px;color:#34392c}
+.accountability-maturity>.maturity-current-description{min-height:175px}
+@media(max-width:480px){.maturity-pathway{gap:4px}.maturity-path-step{font-size:11px;min-height:125px}.maturity-path-current{letter-spacing:0}.accountability-maturity>.maturity-current-description{min-height:215px}}
+@media(forced-colors:active){.maturity-path-dot{background:ButtonFace;color:ButtonText;border:1px solid ButtonText}.maturity-pathway>li:before{background:CanvasText}.maturity-path-step[aria-current="step"] .maturity-path-dot{outline-color:Highlight}.maturity-expectation .maturity-path-dot,.accountability-maturity>.maturity-expectation-note{outline-color:ButtonText;border-color:ButtonText}}
+
+.maturity-path-step.maturity-expectation[aria-current="step"] .maturity-path-dot{outline:1px dotted #88752c;outline-offset:7px;box-shadow:0 0 0 3px #a48b3b}

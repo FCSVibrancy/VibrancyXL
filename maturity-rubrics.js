@@ -215,32 +215,34 @@
  }
  // The chart glyph matches Vibrant Accountability on the homepage.
  const accountabilityMedallion='<span class="accountability-medallion" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18h17M8 16v-4m5 4V8m5 8V4"/></svg></span>';
- function badge(row,data){const r=assess(row,data);return `<button type="button" class="maturity-stage maturity-${r.stage<0?'unrated':r.stage}" data-maturity-open aria-haspopup="dialog">${esc(r.label)}</button>`;}
+ const notRatedDescription='Evidence is **insufficient to assign a stage**, or a review has yet to be completed.';
+ const pathwayLabels=['Not<br>Started','Estab&shy;lishing','Devel&shy;oping','Imple&shy;menting','Sus&shy;taining and Ad&shy;vancing'];
  function details(row,data){
-  const r=assess(row,data),id='maturity-profile-'+[row.experience_id,row.id,row.reporting_window].map(value=>encodeURIComponent(value||'current')).join('-');
-  const currentDescription=r.stage<0?'Evidence is **insufficient to assign a stage**, or a review has yet to be completed.':r.rubric.stages[r.stage];
-  const entry=(label,description,current,advancement='')=>`<li class="maturity-profile-stage${current?' is-current':''}"${current?' aria-current="step"':''}>${current?'<p class="maturity-current-label">Current Maturity Profile Rating</p>':''}<h3><span${current?` class="maturity-stage-label maturity-${r.stage<0?'unrated':r.stage}"`:''}>${esc(label)}</span></h3><p>${rich(description)}</p>${advancement?`<p class="maturity-advance">${rich(advancement)}</p>`:''}</li>`;
-  return `<section class="accountability-maturity" aria-label="Accountability Maturity"><div class="maturity-footer-heading">${accountabilityMedallion}<h4>Accountability Maturity</h4></div><div class="maturity-actions">${badge(row,data)}<button type="button" class="maturity-details-button" data-maturity-open aria-haspopup="dialog">View Maturity Details</button></div><div class="maturity-current-description" aria-label="Current maturity description"><p>${rich(currentDescription)}</p></div><dialog class="maturity-profile" aria-labelledby="${id}"><header class="maturity-profile-header">${accountabilityMedallion}<div><p>Accountability Maturity</p><h2 id="${id}">${esc(row.title||'Indicator')} · Maturity Profile</h2></div><button type="button" class="maturity-profile-close" data-maturity-close aria-label="Close maturity profile" autofocus>×</button></header><ol class="maturity-profile-stages">${r.stage<0?entry('Not Yet Rated',currentDescription,true):''}${r.rubric?(r.stage<0?stages.map((_,i)=>i):[r.stage,...stages.map((_,i)=>i).filter(i=>i!==r.stage)]).map(i=>entry(stages[i],r.rubric.stages[i],r.stage===i,r.rubric.advancement[i])).join(''):'<li>Indicator-specific descriptions are awaiting district review.</li>'}</ol></dialog></section>`;
+  const r=assess(row,data),id='maturity-description-'+[row.experience_id,row.id,row.reporting_window].map(value=>encodeURIComponent(value||'current')).join('-');
+  const currentDescription=r.stage<0?notRatedDescription:r.rubric.stages[r.stage];
+  const currentHeading=esc(r.label)+(r.stage<0?'':' · Current stage')+(r.stage===3?' · Expectation':'');
+  const currentContent=`<h5>${currentHeading}</h5><p>${rich(currentDescription)}</p>`;
+  return `<section class="accountability-maturity" aria-label="Accountability Maturity" data-current-stage="${r.stage}"><div class="maturity-footer-heading">${accountabilityMedallion}<h4>Accountability Maturity</h4></div><ol class="maturity-pathway" aria-label="Five maturity stages; hover, focus, or tap a step to preview its description">${stages.map((label,i)=>`<li><button type="button" class="maturity-path-step${i===3?' maturity-expectation':''}" data-maturity-step="${i}" data-stage-name="${esc(label)}" data-stage-description="${esc(rich(r.rubric?.stages[i]||'Indicator-specific descriptions are awaiting district review.'))}" aria-controls="${id}"${r.stage===i?' aria-current="step"':''}><span class="maturity-path-current"${r.stage===i?'':' hidden'}>Current</span><span class="maturity-path-dot maturity-${i}" aria-hidden="true">${i+1}</span><span class="maturity-path-label">${pathwayLabels[i]}</span></button></li>`).join('')}</ol><p class="maturity-expectation-note">Expectation · Level 4: Implementing</p><div id="${id}" class="maturity-current-description" aria-label="Maturity stage description" aria-live="polite" aria-atomic="true">${currentContent}</div><template class="maturity-default-description">${currentContent}</template></section>`;
  }
- // Keep keyboard activation inside editor cards from selecting the outer card.
- if(root.document)root.document.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.composedPath().some(el=>el?.matches?.('[data-maturity-open],[data-maturity-close]')))event.stopPropagation();},true);
- // Capture composed events so the same controls work inside area shadow roots and editor previews.
- if(root.document)root.document.addEventListener('click',event=>{
-  const path=event.composedPath();
-  const control=path.find(el=>el?.matches?.('[data-maturity-open],[data-maturity-close]'));
-  if(control){
-   event.preventDefault();event.stopPropagation();
-   const dialog=control.closest('.accountability-maturity')?.querySelector('.maturity-profile');
-   if(!dialog)return;
-   if(control.hasAttribute('data-maturity-close'))dialog.close();
-   else if(!dialog.open)dialog.showModal();
-   return;
-  }
-  const dialog=path[0];
-  if(dialog?.matches?.('dialog.maturity-profile')&&dialog.open){
-   const bounds=dialog.getBoundingClientRect();
-   if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)dialog.close();
-  }
- },true);
- const api={stages,rubrics,reviews,assess,badge,details};root.VibrancyMaturity=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const bound=new WeakSet(),handled=new WeakSet();
+ function bind(scope){
+  if(bound.has(scope))return;bound.add(scope);
+  const stepFor=event=>event.composedPath().find(el=>el?.matches?.('[data-maturity-step]'));
+  function show(button){const section=button.closest('.accountability-maturity'),index=Number(button.dataset.maturityStep),target=section.querySelector('.maturity-current-description');target.querySelector('h5').textContent=button.dataset.stageName+(Number(section.dataset.currentStage)===index?' · Current stage':'')+(index===3?' · Expectation':'');target.querySelector('p').innerHTML=button.dataset.stageDescription;}
+  function restore(button){const section=button.closest('.accountability-maturity'),active=button.getRootNode().activeElement;if(active?.matches?.('[data-maturity-step]')&&active.closest('.accountability-maturity')===section){show(active);return;}section.querySelector('.maturity-current-description').replaceChildren(section.querySelector('.maturity-default-description').content.cloneNode(true));}
+  for(const type of ['pointerover','pointerout','focusin','focusout','click','keydown'])scope.addEventListener(type,event=>{
+   if(handled.has(event))return;const button=stepFor(event);if(!button)return;handled.add(event);
+   if(type==='keydown'){if(['Enter',' '].includes(event.key))event.stopPropagation();return;}
+   if(type==='click'){event.preventDefault();event.stopPropagation();show(button);return;}
+   if(type==='pointerover'){if(event.pointerType!=='touch'&&!button.contains(event.relatedTarget))show(button);return;}
+   if(type==='focusin'){show(button);return;}
+   if(button.contains(event.relatedTarget))return;
+   const next=event.relatedTarget?.closest?.('[data-maturity-step]');
+   if(next?.closest('.accountability-maturity')===button.closest('.accountability-maturity'))return;
+   if(type==='focusout'){const section=button.closest('.accountability-maturity');section.querySelector('.maturity-current-description').replaceChildren(section.querySelector('.maturity-default-description').content.cloneNode(true));}
+   else restore(button);
+  },true);
+ }
+ if(root.document)bind(root.document);
+ const api={stages,rubrics,reviews,assess,details,bind};root.VibrancyMaturity=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof window==='object'?window:globalThis);
