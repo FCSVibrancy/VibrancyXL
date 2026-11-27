@@ -13,3 +13,4 @@ test('public quote changes only after authenticated publication, with term evide
  assert.equal(writes,1);assert.equal(published.body.values[1][2],draft[1][2]);const after=response();await publicQuote({method:'GET'},after);assert.equal(after.body.quote,draft[1][2]);assert.equal(after.headers['Cache-Control'],'no-store');assert.deepEqual(saved[1],site[1]);
  }finally{entry.exports=prior;if(env===undefined)delete process.env.GOOGLE_CLIENT_ID;else process.env.GOOGLE_CLIENT_ID=env;for(const name of ['../api/control.js','../api/loading.js'])delete require.cache[require.resolve(name)];}
 });
+test('shared loaders allow reading time for both short and longer quotes',()=>{assert.equal(UI.readingDuration('A short quote.'),9000);assert.ok(UI.readingDuration('A longer quote '.repeat(15))>9000);assert.equal(UI.readingDuration('word '.repeat(2000)),20000);});

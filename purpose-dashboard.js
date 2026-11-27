@@ -163,7 +163,7 @@ if(typeof module==='object'&&module.exports)require('./shared/loading.js');
  async function openPurposeDashboard(onNavigate,experienceId='purpose'){
   openPurposeDashboard.clearEntrance?.();openPurposeDashboard.clearDials?.();
  const dialog=document.querySelector('#detail'),content=document.querySelector('#detail-content');dialog.classList.add('purpose-dialog');
-  const loader=root.VibrancyLoading.show(content);if(!dialog.open)dialog.showModal();
+  const loader=root.VibrancyLoading.show(content);dialog.addEventListener('close',()=>loader.stop(),{once:true});if(!dialog.open)dialog.showModal();
   const requestId=Symbol();openPurposeDashboard.requestId=requestId;
   const advance=step=>{if(openPurposeDashboard.requestId===requestId&&dialog.open)loader.update(step);};advance(0);
   let data,source='live';try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{const response=await fetch(SHEET_URL+'&_='+Date.now(),{signal:controller.signal,credentials:'omit',cache:'no-store'});if(!response.ok)throw Error('Sheet unavailable');data=records(parseCSV(await response.text()));}finally{clearTimeout(timer);}}
