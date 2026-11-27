@@ -1,5 +1,15 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
 require('../evidence-viewer.js');const D=require('../purpose-dashboard.js'),snapshot=require('../data/learning-purpose.json');
+test('editable scales overview precedes two separately measured commitments',()=>{
+ const saved=D.records([snapshot.headers,...snapshot.rows]),overview=saved.find(r=>r.type==='overview');
+ const edited={...overview,title:'Edited scales overview',description:'Use scales throughout learning.',_row:77};
+ for(const rows of [D.mergeDefinitions([edited],saved),D.applyPublishedWording(saved,[edited])]){
+  const html=D.markup(rows,'current','purpose');
+  assert.ok(html.includes('Use scales throughout learning.'));assert.ok(html.includes('Two separate 100% commitments'));
+  assert.ok(html.indexOf('Edited scales overview')<html.indexOf('data-indicator-id="scales"'));
+  for(const id of ['scales','scales-self-check']){const card=html.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];assert.equal((card.match(/class="purpose-dial"/g)||[]).length,3);}
+ }
+});
 test('published and draft wording overrides saved definitions without changing term evidence',()=>{
  const saved=D.records([snapshot.headers,...snapshot.rows]);
  for(const def of saved.filter(r=>r.type==='kpi')){

@@ -21,7 +21,14 @@ test('publish, reload, activate, edit, hide, and stale-write checks work through
   let result=await call(control,{method:'POST',body:{tab:'AreaIndicators',revision:current.body.revision,additions:[row(area)],changes:[]},headers:{}});assert.equal(result.code,200);
   let live=await call(publicAPI,{method:'GET'});assert.equal(live.body.indicators.length,1);assert.equal(live.body.indicators[0].area_id,area);assert.equal(live.headers['Cache-Control'],'no-store');
   const stale=await call(control,{method:'POST',body:{tab:'AreaIndicators',revision:current.body.revision,changes:[{row:1,col:7,value:'FALSE'}]},headers:{}});assert.equal(stale.code,409);
-  const edited=await call(control,{method:'POST',body:{tab:'AreaIndicators',revision:result.body.revision,changes:[{row:1,col:2,value:'Updated indicator'}]},headers:{}});assert.equal(edited.code,200);assert.equal((await call(publicAPI,{method:'GET'})).body.indicators[0].title,'Updated indicator');
+  const title='Updated '+area+' indicator',description='Students explain their new '+area+' learning through evidence.';
+  const edited=await call(control,{method:'POST',body:{tab:'AreaIndicators',revision:result.body.revision,changes:[{row:1,col:2,value:title},{row:1,col:3,value:description}]},headers:{}});assert.equal(edited.code,200);
+  const published=(await call(publicAPI,{method:'GET'})).body.indicators[0];assert.equal(published.title,title);assert.equal(published.description,description);
+  const reloaded=await call(control,{method:'GET',query:{tab:'AreaIndicators'},headers:{}}),preview=A.records(reloaded.body.values)[0];
+  assert.equal(preview.title,published.title);assert.equal(preview.description,published.description);
+  require('../evidence-viewer.js');const D=require('../purpose-dashboard.js');
+  const publicMarkup=D.markup(A.dashboardData([published],area),'current',area),previewMarkup=D.markup(A.dashboardData([preview],area),'current',area);
+  assert.equal(previewMarkup,publicMarkup);assert.ok(publicMarkup.includes(title));assert.ok(publicMarkup.includes(description));
   const hidden=await call(control,{method:'POST',body:{tab:'AreaIndicators',revision:edited.body.revision,changes:[{row:1,col:7,value:'FALSE'}]},headers:{}});assert.equal(hidden.code,200);assert.deepEqual((await call(publicAPI,{method:'GET'})).body.indicators,[]);
  }
  authorized=false;assert.equal((await call(control,{method:'GET',query:{tab:'AreaIndicators'},headers:{}})).code,401);authorized=true;

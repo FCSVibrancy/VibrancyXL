@@ -200,3 +200,5 @@ dialog.purpose-dialog{max-height:96dvh}
 
 /* Cool neutral tiles use slate arcs; warm tiles retain a deeper Vegas Gold. */
 .purpose-tone-2,.purpose-tone-3{--dial-accent:#344f64}
+
+.purpose-scales-overview{grid-column:1/-1;padding:20px 22px 6px;border-top:2px solid #b49a3f;color:#171910}.purpose-dialog .purpose-scales-overview h3{font:700 24px/1.25 Arial,Helvetica,sans-serif;margin:0 0 10px}.purpose-scales-overview p{font-size:17px;line-height:1.6;margin:0 0 10px;max-width:100ch}.purpose-scales-overview .scales-commitment-intro{font-size:14px;font-weight:700;color:#645016;margin-top:14px}@media(max-width:760px){.purpose-scales-overview{padding:18px 4px 4px}.purpose-scales-overview p{font-size:16px}}
