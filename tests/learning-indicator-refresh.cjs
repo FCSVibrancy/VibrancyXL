@@ -10,3 +10,8 @@ test('24 reporting indicators include three new findings with no invented result
  for(const id of ['thinking-3','feedback-3','feedback-4']){const r=rows.find(r=>r.id===id);assert.equal(r.percent,'');assert.equal(r.status,'Awaiting Evidence');assert.ok(r.why_it_matters);assert.equal(r.evidence_1_url,'');}
  assert.equal(D.reportingHome('scales-self-check','purpose'),'feedback');assert.ok(rows.find(r=>r.id==='feedback-1'));assert.ok(rows.find(r=>r.id==='feedback-2'));
 });
+test('descriptions and reasons use selective safe emphasis without rewriting community language',()=>{
+ const rows=D.records([s.headers,...s.rows]);for(const row of rows.filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id)))for(const field of ['description','why_it_matters']){const html=D.emphasize(row[field],row.id,field);assert.ok(html.includes('<strong>'),row.id+' '+field);assert.equal(html.replace(/<\/?strong>/g,'').replace(/&#39;/g,"'").replace(/&amp;/g,'&').replace(/&quot;/g,'"'),row[field]);}
+ assert.equal(D.emphasize('Use **a new phrase** safely <img onerror=bad>','new-indicator'),'Use <strong>a new phrase</strong> safely &lt;img onerror=bad&gt;');assert.ok(!D.emphasize('**<script>bad</script>**','new').includes('<script>'));
+ const html=D.markup(rows,'current','purpose');assert.ok(html.includes('<strong>enough time to learn, practice, and demonstrate</strong>'));assert.ok(html.includes('<strong>consistent learning expectations across schools</strong>'));
+});
