@@ -19,3 +19,10 @@ test('Why It Matters is a separate labelled callout, with wrapping emphasis inst
  const html=D.markup(D.records([s.headers,...s.rows]),'current','purpose');assert.equal((html.match(/class="purpose-why-label"/g)||[]).length,4);assert.ok(html.includes('<section class="purpose-why" aria-label="Why It Matters"><h4'));assert.ok(!html.includes('<p class="purpose-why"><strong>'));
  const css=require('fs').readFileSync(require('path').join(__dirname,'../styles.css'),'utf8');assert.ok(css.includes('white-space:normal;background:none'));assert.ok(!/\.purpose-why strong\{[^}]*white-space:nowrap/.test(css));
 });
+test('new indicators in every component inherit the same labelled callout and safe bold formatting',()=>{
+ const A=require('../area-indicators.js');for(const area of Object.keys(A.areas)){
+  const item={id:'future-'+area,area_id:area,title:'New indicator',description:'Students **explain their thinking** in familiar language.',why_it_matters:'Families see **what students can do** with their learning.',visible:'TRUE'};
+  for(const preview of [false,true]){const html=D.markup(A.dashboardData([item],area,'',[]),'current',area,{preview});assert.ok(html.includes('<section class="purpose-why" aria-label="Why It Matters"><h4 class="purpose-why-label">'));assert.ok(html.includes('<strong>explain their thinking</strong>'));assert.ok(html.includes('<strong>what students can do</strong>'));assert.ok(!html.includes('**'));}
+ }
+ const source=require('fs').readFileSync(require('path').join(__dirname,'../area-indicators.js'),'utf8');assert.ok(source.includes('/styles.css?v=20261127-why-callout'));
+});
