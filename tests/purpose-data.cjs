@@ -10,7 +10,7 @@ assert.throws(()=>records([['wrong'],['headers']]));
 const snapshot=JSON.parse(fs.readFileSync('data/learning-purpose.json','utf8'));
 const data=records([snapshot.headers,...snapshot.rows]);
 const html=markup(data,'current');
-assert.equal((html.match(/<article /g)||[]).length,5);
+assert.equal((html.match(/<article /g)||[]).length,4);
 assert.equal((html.match(/role="progressbar"/g)||[]).length,0);
 assert.ok(html.includes('Awaiting Evidence'));
 assert.ok(html.includes('100% commitment'));

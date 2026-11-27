@@ -5,7 +5,7 @@ test('editing or clearing every term metadata field stays isolated for existing 
  const sheet=[snapshot.headers,...snapshot.rows];sheet.push(snapshot.headers.map(h=>({type:'kpi',id:'indicator-new-learning',experience_id:'thinking',title:'New learning indicator',reporting_window:'current'}[h]||'')));
  const area=[A.headers,...['indicator-existing','indicator-new'].map(id=>A.headers.map(h=>({id,area_id:'ecosystem',title:id,description:'Fixture indicator',reporting_window:'current',visible:'TRUE'}[h]||'')))];
  const site=[['page','selector','value','description','url','visible']];
- const keys=['learning:purpose:standards','learning:thinking:indicator-new-learning','area:ecosystem:indicator-existing','area:ecosystem:indicator-new'];
+ const keys=['learning:purpose:scales','learning:purpose:scales-self-check','learning:purpose:standards','learning:thinking:indicator-new-learning','area:ecosystem:indicator-existing','area:ecosystem:indicator-new'];
  const apply=changes=>{const table=T.project(site,sheet,area);T.validate(changes,table);for(const update of T.writes(site,table,changes)){const [,col,row]=update.range.match(/!([A-Z])(\d+)$/);const i=Number(row)-1;site[i]??=[];update.values[0].forEach((v,j)=>site[i][col.charCodeAt(0)-65+j]=v);}};
  for(const key of keys){const table=T.project(site,sheet,area),row=table.findIndex(r=>r[0]===key);const changes=T.resultFields.map(field=>({row,col:T.headers.indexOf(field),value:field.endsWith('_percent')?'50':field.endsWith('_url')?'https://example.org/'+key+'/'+field:key+' '+field}));apply(changes);}
  for(const key of keys)for(const field of T.resultFields){

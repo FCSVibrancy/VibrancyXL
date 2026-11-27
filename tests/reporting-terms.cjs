@@ -2,8 +2,8 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 require('../evidence-viewer.js');const D=require('../purpose-dashboard.js');const s=require('../data/learning-purpose.json');const data=D.records([s.headers,...s.rows]);
 test('each indicator has three distinct term dials without a reporting dropdown',()=>{
  const html=D.markup(data,'current','purpose');assert.ok(!html.includes('id="purpose-window"'));assert.ok(!html.includes('class="purpose-meter"'));
- assert.equal((html.match(/class="purpose-terms"/g)||[]).length,5);
- for(const id of ['standards','scales','scales-self-check']){const card=html.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];for(const term of [1,2,3])assert.ok(card.includes(`Reporting Term ${term}`));assert.equal((card.match(/class="purpose-dial"/g)||[]).length,3);}
+ assert.equal((html.match(/class="purpose-terms"/g)||[]).length,4);
+ for(const id of ['standards','scales']){const card=html.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];for(const term of [1,2,3])assert.ok(card.includes(`Reporting Term ${term}`));assert.equal((card.match(/class="purpose-dial"/g)||[]).length,3);}
 });
 test('term percentages are independent, zero is real, and legacy current values remain unassigned',()=>{
  const def=data.find(r=>r.id==='standards'&&r.type==='kpi');const rows=[{...def,percent:'87',reporting_window:'current'},...[[1,'0'],[2,'50'],[3,'100']].map(([term,percent])=>({...def,reporting_window:'term-'+term,percent,status:''}))];
@@ -12,7 +12,7 @@ test('term percentages are independent, zero is real, and legacy current values 
 });
 test('pending results never show numeric completion; feedback does not duplicate commitments',()=>{
  const pending=D.termDial({percent:'75',status:'Awaiting Evidence'},1,'Test');assert.ok(pending.includes('Awaiting Evidence'));assert.ok(!pending.includes('aria-valuenow'));assert.ok(!pending.includes('75%'));
- const feedback=D.markup(data,'current','feedback');assert.ok(!feedback.includes('class="purpose-dial"'));assert.ok(feedback.includes('reported once'));
+ const feedback=D.markup(data,'current','feedback');assert.equal((feedback.match(/class="purpose-dial"/g)||[]).length,3);assert.ok(feedback.includes('One 100% commitment'));
 });
 test('evidence links retain their reporting term identity',()=>{
  const row={...data.find(r=>r.type==='kpi'&&r.id==='scales'),reporting_window:'term-2',percent:'50',status:'',evidence_1_label:'Term 2 draft',evidence_1_url:'https://drive.google.com/file/d/term2/view'};

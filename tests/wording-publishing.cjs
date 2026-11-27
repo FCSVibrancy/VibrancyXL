@@ -5,9 +5,33 @@ test('editable scales overview precedes two separately measured commitments',()=
  const edited={...overview,title:'Edited scales overview',description:'Use scales throughout learning.',_row:77};
  for(const rows of [D.mergeDefinitions([edited],saved),D.applyPublishedWording(saved,[edited])]){
   const html=D.markup(rows,'current','purpose');
-  assert.ok(html.includes('Use scales throughout learning.'));assert.ok(html.includes('Two separate 100% commitments'));
+  assert.ok(html.includes('Use scales throughout learning.'));assert.ok(html.includes('Analyze Examples is reported here'));
   assert.ok(html.indexOf('Edited scales overview')<html.indexOf('data-indicator-id="scales"'));
-  for(const id of ['scales','scales-self-check']){const card=html.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];assert.equal((card.match(/class="purpose-dial"/g)||[]).length,3);}
+  for(const id of ['scales','scales-self-check']){const homeHtml=D.markup(rows,'current',id==='scales'?'purpose':'feedback');const card=homeHtml.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];assert.equal((card.match(/class="purpose-dial"/g)||[]).length,3);}
+ }
+});
+test('overview-only edits preserve both commitments and all three terms of results, notes and six evidence links',()=>{
+ const saved=D.records([snapshot.headers,...snapshot.rows]);
+ const terms=['scales','scales-self-check'].map(id=>{
+  const r={id:'learning:purpose:'+id};
+  for(const n of [1,2,3]){r[`term_${n}_percent`]=['0','57',''][n-1];r[`term_${n}_notes`]=`${id} term ${n} notes`;
+   for(let slot=1;slot<=6;slot++){r[`term_${n}_evidence_${slot}_label`]=`${id} term ${n} source ${slot}`;r[`term_${n}_evidence_${slot}_url`]=`https://example.org/${id}/${n}/${slot}`;}
+  }return r;
+ });
+ const before=D.applyTermResults(saved,terms),commitments=rows=>rows.filter(r=>r.type==='kpi'&&['scales','scales-self-check'].includes(r.id));
+ const baseline=commitments(before);
+ const overview=saved.find(r=>r.type==='overview');
+ for(const description of ['Revised overview for ongoing learning.','']){
+  const edit={...overview,title:'Updated overview title',description};
+  for(const rows of [D.applyTermResults(D.mergeDefinitions([edit],saved),terms),D.applyPublishedWording(before,[edit])]){
+   assert.deepEqual(commitments(rows),baseline);
+   const html=D.markup(rows,'current','purpose');assert.ok(html.includes('Updated overview title'));
+   for(const id of ['scales','scales-self-check']){
+    const card=text=>text.split(`data-indicator-id="${id}"`)[1].split('</article>')[0];
+    const home=id==='scales'?'purpose':'feedback';assert.equal(card(D.markup(rows,'current',home)),card(D.markup(before,'current',home)));
+   }
+   assert.equal(rows.find(r=>r.type==='overview').description,description);
+  }
  }
 });
 test('published and draft wording overrides saved definitions without changing term evidence',()=>{
