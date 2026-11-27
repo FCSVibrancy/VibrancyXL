@@ -26,3 +26,9 @@ test('new indicators in every component inherit the same labelled callout and sa
  }
  const source=require('fs').readFileSync(require('path').join(__dirname,'../area-indicators.js'),'utf8');assert.ok(source.includes('/styles.css?v=20261127-why-callout'));
 });
+test('future edited emphasis survives published learning data and new component previews without altering evidence',()=>{
+ const A=require('../area-indicators.js'),C=require('../lib/control.cjs'),base=D.records([s.headers,...s.rows]),edited=structuredClone(base);const r=edited.find(r=>r.id==='curriculum');r.description='Students **practice essential learning** and explain their work.';r.why_it_matters='Families see **clear expectations** and progress.';
+ const table=[s.headers,...edited.map(r=>s.headers.map(h=>r[h]||''))];C.validate([{row:table.findIndex(row=>row[1]==='curriculum'),col:s.headers.indexOf('description'),value:r.description}],table);
+ const published=W.project(table,[]),before=JSON.stringify(base);for(const rows of [D.mergeDefinitions(edited,base),D.applyPublishedWording(base,published)]){const html=D.markup(rows,'current','purpose');assert.ok(html.includes('<strong>practice essential learning</strong>'));assert.ok(html.includes('<strong>clear expectations</strong>'));assert.ok(html.includes('class="purpose-why-label"'));assert.ok(!html.includes('**practice'));}assert.equal(JSON.stringify(base),before);
+ for(const area of Object.keys(A.areas)){const item={id:'new-edit-'+area,area_id:area,title:'New indicator',description:r.description,why_it_matters:r.why_it_matters,visible:'TRUE',percent:'0',note:'Retained note',evidence_url:'https://example.org/work'};const raw=JSON.stringify(item);const html=D.markup(A.dashboardData([item],area,'',[]),'current',area);assert.ok(html.includes('<strong>clear expectations</strong>'));assert.ok(html.includes('class="purpose-why-label"'));assert.equal(JSON.stringify(item),raw);}
+});
