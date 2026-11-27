@@ -14,3 +14,9 @@ test('public quote changes only after authenticated publication, with term evide
  }finally{entry.exports=prior;if(env===undefined)delete process.env.GOOGLE_CLIENT_ID;else process.env.GOOGLE_CLIENT_ID=env;for(const name of ['../api/control.js','../api/loading.js'])delete require.cache[require.resolve(name)];}
 });
 test('shared loaders allow reading time for both short and longer quotes',()=>{assert.equal(UI.readingDuration('A short quote.'),9000);assert.ok(UI.readingDuration('A longer quote '.repeat(15))>9000);assert.equal(UI.readingDuration('word '.repeat(2000)),20000);});
+test('private previews use the full shared reading-time animation before completion',async t=>{
+ t.mock.timers.enable({apis:['Date','setInterval']});const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}})),attrs={};const bar={setAttribute(k,v){attrs[k]=v;},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(){return bar;}};
+ const loader=UI.show(host,{quote:'Read this short quote.',preview:true});let ready=false;loader.ready.then(()=>ready=true);
+ t.mock.timers.tick(4000);await Promise.resolve();assert.equal(ready,false);assert.ok(Number(attrs['aria-valuenow'])>0&&Number(attrs['aria-valuenow'])<100);
+ t.mock.timers.tick(5000);await loader.ready;assert.equal(attrs['aria-valuenow'],'100');loader.stop();
+});
