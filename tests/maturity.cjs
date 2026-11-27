@@ -38,8 +38,8 @@ test('every profile explicitly explains the next-level requirement for its indic
 });
 
 test('the current-rating arrow matches each reviewed stage and stays absent when unrated',()=>{
- for(const [index,label] of M.stages.entries()){const row=fixture(label,label==='Sustaining and Advancing'?{priorPeriods:['previous'],improvement:'Revised prompts',followUp:'Checked student explanations'}:{});const html=M.details(row,[row]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">↓/g)||[]).length,1);assert.match(html,new RegExp('data-maturity-step="'+index+'"[^>]+aria-current="step"'));assert.match(html,/maturity-current-note/);}
- const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">↓/g)||[]).length,0);assert.match(html,/Current rating · Not Yet Rated/);
+ for(const [index,label] of M.stages.entries()){const row=fixture(label,label==='Sustaining and Advancing'?{priorPeriods:['previous'],improvement:'Revised prompts',followUp:'Checked student explanations'}:{});const html=M.details(row,[row]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,1);assert.match(html,new RegExp('data-maturity-step="'+index+'"[^>]+aria-current="step"'));assert.match(html,/maturity-current-note/);}
+ const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,0);assert.match(html,/Current rating · Not Yet Rated/);
 });
 
 test('all 24 reporting indicators explain their own accountability maturity below the heading',()=>{
