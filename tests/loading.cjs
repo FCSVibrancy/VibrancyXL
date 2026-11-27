@@ -26,3 +26,18 @@ test('the homepage entry can pin the requested quote without replacing it from t
  const cells=Array.from({length:5},()=>({classList:{toggle(){}},querySelector(){return this.fill;},fill:{style:{}}})),attrs={};const bar={setAttribute(k,v){attrs[k]=v;},querySelectorAll(){return cells;}};const host={isConnected:true,innerHTML:'',contains(el){return el===bar;},querySelector(){return bar;}};
  try{const loader=UI.show(host,{quote:UI.defaultQuote,usePublishedQuote:false,titleId:'learning-entry-title'});loader.update(5);assert.ok(host.innerHTML.includes(UI.defaultQuote));assert.ok(host.innerHTML.includes('id="learning-entry-title"'));assert.equal(requests,0);let ready=false;loader.ready.then(()=>ready=true);t.mock.timers.tick(1000);await Promise.resolve();assert.equal(ready,false);t.mock.timers.tick(UI.readingDuration(UI.defaultQuote));await loader.ready;assert.equal(attrs['aria-valuenow'],'100');assert.equal(requests,0);loader.stop();}finally{global.fetch=oldFetch;}
 });
+
+test('all seven learning experiences use the exact approved quote alignment, separate from the homepage horizon quote',()=>{
+ const expected={
+  "purpose": "In Fleming County Schools, we believe every student should be able to say what they are learning, why it matters, and where they can use it.",
+  "thinking": "In Fleming County Schools, we believe real problems bring out big thinking when students ask their own questions, draw on what they know across subjects, and test solutions that could make a difference.",
+  "voice": "In Fleming County Schools, we believe students take ownership of their learning when their ideas shape what they explore, how they work, and what they create.",
+  "work": "In Fleming County Schools, we believe great learning should leave behind compelling evidence. Students should have the chance to show what they know, use it in a new situation, and explain the thinking behind their work.",
+  "feedback": "In Fleming County Schools, we believe feedback moves learning forward when students can see what is working, decide what to improve, and put that advice to use.",
+  "support": "In Fleming County Schools, we believe every student deserves someone who sees what they are capable of and gives them the support to take on the next challenge with confidence.",
+  "thriving": "In Fleming County Schools, we believe students thrive when they are healthy, feel supported, and can say with confidence, 'I can see how I have grown. I know what I can do. I am ready for what comes next, and I have a say in where I go.'"
+};
+ assert.deepEqual(UI.experienceQuotes,expected);assert.equal(new Set(Object.values(UI.experienceQuotes)).size,7);
+ for(const [id,quote] of Object.entries(expected)){assert.equal(UI.quoteForExperience(id),quote);assert.ok(UI.markup(quote).includes(quote));assert.notEqual(quote,UI.defaultQuote);}
+ assert.equal(UI.quoteForExperience('unknown'),UI.defaultQuote);assert.equal(UI.quoteForExperience('toString'),UI.defaultQuote);assert.match(UI.defaultQuote,/lose sight of the shoreline/);
+});
