@@ -3,199 +3,271 @@
  const stages=['Not Started','Establishing','Developing','Implementing','Sustaining and Advancing'];
  const definitions={
   "curriculum": [
-    "receive shared essential grade-level instruction, assessment, and time to practice",
-    "schools, grades, courses, and essential learning sequences",
-    "align curriculum maps and plan learning time",
-    "Students receive the shared essential learning and show work from instruction, practice, and assessment with enough time for each",
-    "adjust pacing after reviewing unfinished essential learning, then check whether students have the time needed"
+    "receive the shared required curriculum with sufficient instruction, practice, review and support",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan guaranteed and viable curriculum, its evidence and review cycle",
+    "Teachers use a shared curriculum aligned to all required Kentucky Academic Standards. Priority Standards focus essential learning without excluding other required standards. Teams plan sufficient time for instruction, practice, review and additional support across classrooms and schools",
+    "use evidence to refine guaranteed and viable curriculum, then check whether the intended learner experience and learning improve"
   ],
   "standards": [
-    "explain both what a Priority Standard asks them to learn and why it matters",
-    "classrooms and the start of instruction on each Priority Standard",
-    "identify Priority Standards and model student-friendly WHAT and WHY explanations",
-    "Students explain both the expected learning and a meaningful use or connection in their own words at the start of instruction",
-    "refine WHAT and WHY prompts, then check whether students explain both more independently"
+    "explain WHAT they are learning, WHY it matters and a meaningful use in their own words",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan kentucky priority standards: learning and purpose, its evidence and review cycle",
+    "At the start of instruction on each Priority Standard, teachers establish the learning and its purpose. Students explain WHAT they are learning, WHY it matters and where they can use it, in their own words, and connect their work to that purpose",
+    "use evidence to refine kentucky priority standards: learning and purpose, then check whether the intended learner experience and learning improve"
   ],
   "scales": [
-    "use aligned Proficiency Scales to study examples before their first demonstration of proficiency",
-    "classrooms and Priority Standards with an aligned scale",
-    "select examples and model comparing their features with the aligned scale",
-    "Students analyze examples before their first demonstration of proficiency and point to specific features that match the scale",
-    "refine examples or prompts using student explanations, then check whether students explain the connection to the scale more independently"
+    "use aligned scales to compare examples before their first demonstration of proficiency and explain features of quality",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan proficiency scales: exemplar review and discussion, its evidence and review cycle",
+    "Before their first demonstration of proficiency on each Priority Standard with a scale, students compare and discuss examples of different quality using the aligned scale. They identify specific features that meet the criteria and explain what to apply in their own work",
+    "use evidence to refine proficiency scales: exemplar review and discussion, then check whether the intended learner experience and learning improve"
   ],
   "expectations": [
-    "do grade-level thinking with clear expectations and support as needed",
-    "grades, courses, classrooms, and grade-level tasks",
-    "align tasks to grade-level expectations and plan supports",
-    "Student work shows the knowledge and thinking the grade-level standard requires, and students explain their own reasoning rather than having it supplied for them",
-    "revise a task or support, then check whether students do more of the required thinking themselves"
+    "do the standard's grade-level thinking with accessible materials and appropriate supports",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan grade-level expectations, its evidence and review cycle",
+    "Tasks and assessments match the standard's knowledge, skills and level of thinking. Teachers provide accessible materials, models and scaffolds while maintaining the learning expectation. Students explain their reasoning and do the thinking themselves, with approved accommodations as needed",
+    "use evidence to refine grade-level expectations, then check whether the intended learner experience and learning improve"
   ],
   "thinking-1": [
-    "weigh possible responses to a real problem and justify a decision with evidence",
-    "courses, classrooms, and real-world problem-solving tasks",
-    "design a real-world problem and model weighing options",
-    "Students compare possible responses, justify a solution or recommendation, and explain how evidence shaped their decision",
-    "revise a problem or reasoning prompt, then check whether students justify decisions with more relevant evidence"
+    "apply learning to authentic problems and justify decisions with evidence",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan real-world learning connections, its evidence and review cycle",
+    "Students apply grade-level knowledge and skills to an authentic problem, need or decision connected to life, community or work. They explain who is affected, compare possible responses and justify a solution or recommendation with evidence",
+    "use evidence to refine real-world learning connections, then check whether the intended learner experience and learning improve"
   ],
   "thinking-2": [
-    "bring knowledge from multiple subjects together to address a real problem",
-    "courses and real-world tasks that call for more than one subject",
-    "plan a problem that needs contributions from multiple subjects",
-    "Students use knowledge from the relevant subjects together and explain what each subject helped them understand or do",
-    "adjust subject connections in a task, then check whether students explain how the subjects work together"
+    "use learning from two or more disciplines in one coherent task and explain each contribution",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan interdisciplinary learning, its evidence and review cycle",
+    "When a problem requires multiple subjects, students use learning from two or more disciplines in one coherent task. Teachers identify and assess the relevant standards in each discipline. Students explain what each subject contributes to their understanding or solution",
+    "use evidence to refine interdisciplinary learning, then check whether the intended learner experience and learning improve"
   ],
   "thinking-3": [
-    "address a real challenge shaped by a family, community, or workforce partner",
-    "partner-designed challenges, courses, and participating classrooms",
-    "invite partners to help frame questions, information, or solution requirements",
-    "Design records show a partner contribution that shaped the challenge, and students identify how that contribution affects their work",
-    "revise how partners contribute to task design, then check whether students use that contribution in their responses"
+    "experience learning tasks shaped by documented family, community and workforce contributions",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan community partnerships in learning design, its evidence and review cycle",
+    "Teachers develop learning experiences in partnership with families, community members and local workforce partners. Partners help frame problems, contribute expertise or define authentic success criteria. Plans and student explanations show how partner input shaped the learning, with opportunities accessible to all students. Record each contributor group and its design contribution; audience attendance alone does not establish co-design. A single partnership finding does not establish all elements of a qualifying vibrant learning experience",
+    "use evidence to refine community partnerships in learning design, then check whether the intended learner experience and learning improve"
   ],
   "voice-1": [
-    "identify a learning decision shaped by their input and explain what changed",
-    "classrooms and decisions about questions, projects, or class routines",
-    "plan a way to gather student input and model how it can shape a decision",
-    "Decision records and student explanations connect student input to an actual change in the learning experience",
-    "change how student input is gathered or used, then check whether students can trace their input to decisions"
+    "identify an actual learning decision changed by their input",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan student voice, its evidence and review cycle",
+    "Students influence learning decisions. Teachers explain how student input was used, and students identify what changed because of their input. Evidence connects a student contribution to an actual decision about questions, learning experiences or classroom practice",
+    "use evidence to refine student voice, then check whether the intended learner experience and learning improve"
   ],
   "voice-2": [
-    "make a meaningful choice about their work and explain its effect",
-    "classrooms, courses, and tasks with a choice of investigation, approach, or demonstration",
-    "design meaningful choices tied to shared learning expectations",
-    "Students explain why they chose an investigation, approach, or demonstration and show how it shaped work that meets shared expectations",
-    "refine choice options or decision supports, then check whether students explain and use choices more thoughtfully"
+    "make consequential choices that meet shared learning expectations",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan student choice, its evidence and review cycle",
+    "Students make meaningful choices about questions, approaches or demonstrations of learning. They explain their reasons, how their choices shaped the work and how the work meets shared learning expectations",
+    "use evidence to refine student choice, then check whether the intended learner experience and learning improve"
   ],
   "voice-3": [
-    "connect a specific piece of work to an interest, strength, experience, or aspiration",
-    "classrooms, courses, and learning tasks with personal connections",
-    "plan invitations for students to connect work to their lives and aspirations",
-    "Students point to a specific piece of work and explain its connection to who they are, what matters to them, or what they want to explore",
-    "adjust invitations for personal connections, then check whether students describe more specific connections in their work"
+    "connect work to interests, passions, aspirations, skills, talents and lived experiences",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan interests, passions, aspirations, skills and talents, its evidence and review cycle",
+    "Students connect a specific task, product or investigation to their interests, passions, strengths, skills, talents, cultural knowledge, lived experiences or aspirations. They explain how that connection shaped their work and identify a further learning or career possibility to explore",
+    "use evidence to refine interests, passions, aspirations, skills and talents, then check whether the intended learner experience and learning improve"
+  ],
+  "voice-4": [
+    "generate questions, investigate possibilities, revise ideas and pursue further inquiry",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan exploration and discovery, its evidence and review cycle",
+    "Students generate questions, investigate ideas and test possibilities using appropriate sources, tools or experiences. They examine evidence, revise an explanation or approach, and describe what they discovered and what they want to investigate next. Teachers provide time and guidance for this inquiry",
+    "use evidence to refine exploration and discovery, then check whether the intended learner experience and learning improve"
   ],
   "work-1": [
-    "write to develop or communicate subject understanding weekly in every course",
-    "courses and instructional weeks",
-    "plan weekly subject-specific writing and model a purposeful response",
-    "Dated writing shows subject-purposeful writing every instructional week in every course reviewed, and students explain the understanding their writing communicates",
-    "adjust writing prompts using student work, then check whether the writing makes subject thinking clearer"
+    "write to explain reasoning or communicate subject knowledge weekly in every course",
+    "every instructional week in every course",
+    "plan writing across the content, its evidence and review cycle",
+    "Students write weekly in every course to explain reasoning, interpret evidence or communicate subject knowledge. Teachers give feedback on thinking and relevant writing criteria; dated samples show student-generated ideas",
+    "use evidence to refine writing across the content, then check whether the intended learner experience and learning improve"
   ],
   "work-2": [
-    "produce multiple pieces of evidence of grade-level learning and real-world application",
-    "courses, BRIDGE assessment cycles, Priority Standards, and BRIDGE Performance Indicators",
-    "design BRIDGE tasks and identify aligned criteria for judging work",
-    "Multiple products, presentations, or performances demonstrate application, and reviewers use the relevant Priority Standards and BRIDGE Performance Indicators to explain what each piece shows",
-    "revise a BRIDGE task or evidence set, then check whether it reveals students’ application of learning more clearly"
+    "apply learning in individual performances assessed with criteria shared in advance",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan performance-based assessments, its evidence and review cycle",
+    "Students apply standards through products, performances or explanations. Teachers share criteria in advance, assess each student's demonstrated learning and give feedback. Completion alone does not establish proficiency",
+    "use evidence to refine performance-based assessments, then check whether the intended learner experience and learning improve"
   ],
   "work-3": [
-    "select BPI portfolio evidence and explain it in Presentations of Learning",
-    "grades 3–12, portfolios, and scheduled Presentation of Learning cycles",
-    "plan portfolio selection and model an evidence-based presentation",
-    "During each scheduled cycle reviewed, students explain selected portfolio examples showing what they can do, their progress, and preparation for next steps",
-    "refine portfolio selection or presentation prompts, then check whether students explain progress with more specific evidence"
+    "use BPI portfolio evidence in Presentations of Learning to justify progress, capabilities and next steps",
+    "scheduled grade 3-12 portfolio and presentation cycles",
+    "plan bpi portfolios and presentations of learning, its evidence and review cycle",
+    "In grades 3-12, students use selected portfolio evidence to explain growth, mastery, readiness and BPI development. They justify claims, answer audience questions and identify next steps. Teachers provide preparation, accessible participation and feedback that students use to refine goals. Students select relevant BPI portfolio artifacts and explain what each demonstrates; record the district's presentation schedule",
+    "use evidence to refine bpi portfolios and presentations of learning, then check whether the intended learner experience and learning improve"
+  ],
+  "work-4": [
+    "learn through sustained inquiry, decisions, critique, revision and purposeful products",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan project-based learning, its evidence and review cycle",
+    "Students learn through sustained inquiry into a meaningful question or challenge. They apply standards, make decisions, use feedback and revision, and share a product or response with an audience connected to its purpose. Teachers check individual learning at project milestones",
+    "use evidence to refine project-based learning, then check whether the intended learner experience and learning improve"
+  ],
+  "work-5": [
+    "use explicitly taught BPI criteria to assess and improve their performance",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan bpi integration, its evidence and review cycle",
+    "Teachers plan, teach and assess BRIDGE Performance Indicators (BPIs) alongside academic standards. Students explain the BPI, use its criteria to assess and improve work, and show how their performance changed",
+    "use evidence to refine bpi integration, then check whether the intended learner experience and learning improve"
+  ],
+  "work-6": [
+    "maintain and explain BPI portfolio websites with dated, indicator-linked evidence and reflection",
+    "scheduled grade 3-12 website review cycles",
+    "plan bpi website usage, its evidence and review cycle",
+    "In grades 3-12, students maintain BPI portfolio websites with dated, indicator-linked evidence and reflection. They navigate their sites, explain what artifacts demonstrate and identify next steps. Teachers schedule updates and review; links work, access is supported and privacy is protected",
+    "use evidence to refine bpi website usage, then check whether the intended learner experience and learning improve"
+  ],
+  "work-7": [
+    "demonstrate their own learning and explain their contribution within collaborative work",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan individual learning in collaborative work, its evidence and review cycle",
+    "For collaborative work, teachers collect individual explanations, demonstrations or work samples. Each student explains their contribution and independently demonstrates the targeted learning, with required accommodations and supports",
+    "use evidence to refine individual learning in collaborative work, then check whether the intended learner experience and learning improve"
   ],
   "scales-self-check": [
-    "apply an aligned scale to their own unfinished work and identify a next step",
-    "classrooms and instruction on each Priority Standard with an aligned scale",
-    "model a scale-based check of unfinished work",
-    "At least once during instruction on each applicable Priority Standard, students locate where their own unfinished work meets the scale and identify a next step while time remains to act",
-    "refine self-check prompts, then check whether students identify more precise next steps in unfinished work"
+    "use aligned scales to check their own unfinished work and act on a specific next step",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan proficiency scales: check work in progress, its evidence and review cycle",
+    "Teachers provide aligned Proficiency Scales for Priority Standards. At least once during instruction on each Priority Standard, students use the scale to check their own unfinished work, cite evidence, identify a next step and act on it while time remains. Example analysis before first demonstration is reported separately under Learning with Purpose",
+    "use evidence to refine proficiency scales: check work in progress, then check whether the intended learner experience and learning improve"
   ],
   "feedback-3": [
-    "receive specific, aligned feedback while time remains to use it",
-    "classrooms, Priority Standards, and feedback opportunities before work is finished",
-    "plan feedback timing and model comments tied to work and learning criteria",
-    "Feedback points to something in student work and the Priority Standard or scale, arrives while time remains to use it, and students explain what to keep or improve",
-    "adjust feedback wording or timing, then check whether students explain a useful next step before the work is finished"
+    "receive specific, timely feedback against the standard or scale and explain their next step",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan timely feedback aligned to mastery, its evidence and review cycle",
+    "Teachers and peers provide specific feedback tied to the standard or scale while there is time to use it. Feedback identifies a feature of the work, what meets the expectation and what needs improvement. Students explain what they will do next",
+    "use evidence to refine timely feedback aligned to mastery, then check whether the intended learner experience and learning improve"
   ],
   "feedback-4": [
-    "revise in response to feedback and explain how the change improves learning or performance",
-    "classrooms, tasks, and feedback-and-revision opportunities",
-    "model a revision and plan time for students to act on feedback",
-    "Before-and-after work and student explanations identify a feedback-based change and how it strengthens reasoning, corrects a misunderstanding, or improves performance",
-    "refine revision supports using before-and-after work, then check whether students explain how their changes better meet the expectation"
+    "improve work in response to feedback and demonstrate the learning again",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan revision based on feedback, its evidence and review cycle",
+    "Students revise an explanation, solution, draft or performance in response to feedback and explain how the change better meets the criteria. Teachers provide time to act on feedback and reassess the targeted learning using revised work or a new demonstration. Before-and-after work and reassessment show how the targeted learning improved",
+    "use evidence to refine revision based on feedback, then check whether the intended learner experience and learning improve"
+  ],
+  "feedback-5": [
+    "receive assessment judgments checked through independent common scoring and resolution of differences",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan consistent assessment and scoring, its evidence and review cycle",
+    "Teacher teams independently score common student work with shared criteria, compare judgments and resolve differences using evidence. They refine examples and scoring guidance, then check agreement again so that the same quality of work receives a consistent judgment across classrooms",
+    "use evidence to refine consistent assessment and scoring, then check whether the intended learner experience and learning improve"
   ],
   "support-1": [
-    "use timely support to move forward on challenging grade-level work",
-    "classrooms, grade-level tasks, and occasions when students get stuck",
-    "plan guiding questions, conferences, or tools for challenging work",
-    "Students receive support when needed, explain what it helped them understand, and show how they moved forward while doing the challenging thinking themselves",
-    "adjust a support using student explanations, then check whether students move forward with greater independence"
+    "receive responsive teaching or extension based on current evidence of their learning",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan timely support and extension, its evidence and review cycle",
+    "Teachers use current checks of understanding to identify specific learning needs and respond during instruction. They provide targeted teaching, scaffolds or extension for students who already demonstrate mastery, while maintaining access to challenging grade-level learning",
+    "use evidence to refine timely support and extension, then check whether the intended learner experience and learning improve"
   ],
   "support-2": [
-    "contribute reasoning and build on a peer’s thinking",
-    "classrooms and collaborative learning tasks",
-    "plan collaborative tasks and model responding to a peer’s reasoning",
-    "Students contribute ideas and identify a peer question, explanation, or idea that helped them reconsider or strengthen their own understanding",
-    "revise discussion structures, then check whether students use peers’ reasoning to improve their own explanations"
+    "contribute reasoning, respond to peers and explain how collaboration improves understanding",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan student collaboration, its evidence and review cycle",
+    "Students contribute ideas, explain reasoning, listen and build on or question peer thinking toward a shared learning purpose. Each student explains their contribution, what they learned and how a peer's thinking improved their understanding or work. Teachers ensure equitable participation",
+    "use evidence to refine student collaboration, then check whether the intended learner experience and learning improve"
   ],
   "support-3": [
-    "look across earlier work or feedback and plan a specific next step",
-    "classrooms and reflection opportunities across tasks or units",
-    "model finding patterns in work and setting a goal with a strategy",
-    "Students identify a pattern across earlier work or feedback, set a specific goal for a future task or unit, and name a strategy or support",
-    "refine reflection prompts, then check whether students carry a useful strategy into the next task"
+    "set goals from patterns in work and feedback, then check progress in the next task or unit",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan reflection and next steps, its evidence and review cycle",
+    "Students review earlier work and feedback to identify a pattern in strengths or learning needs. They set a specific goal, name a strategy or support, and check progress during the next task or unit, adjusting their approach when needed",
+    "use evidence to refine reflection and next steps, then check whether the intended learner experience and learning improve"
+  ],
+  "support-4": [
+    "regularly access targeted tutoring with a provider, schedule, family communication and progress monitoring",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan strategic and systematic interventions, its evidence and review cycle",
+    "Teams identify who needs tutoring, the learning target, provider and schedule. Before-, during-, or after-school tutoring is available and attended regularly by identified students. Parents are notified and encouraged to support attendance. Staff address access barriers, monitor attendance and learning, and adjust support",
+    "use evidence to refine strategic and systematic interventions, then check whether the intended learner experience and learning improve"
+  ],
+  "support-5": [
+    "experience focused teaching, protected application, responsive conferences or groups, and reflection",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan workshop model, its evidence and review cycle",
+    "Instruction includes a focused mini-lesson or model, protected practice or application, responsive conferring or small groups, and reflection or sharing. Teachers use formative evidence to select the teaching focus and support. Students explain their learning goal and apply learning with increasing independence",
+    "use evidence to refine workshop model, then check whether the intended learner experience and learning improve"
+  ],
+  "support-6": [
+    "show follow-up learning evidence that informs whether intervention continues, changes, intensifies or concludes",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan intervention effectiveness and follow-up, its evidence and review cycle",
+    "Staff compare follow-up work with the specific learning need that prompted support. They document whether understanding, accuracy or independence improved and decide to continue, change, intensify or conclude support. Attendance alone does not demonstrate the intervention's effectiveness",
+    "use evidence to refine intervention effectiveness and follow-up, then check whether the intended learner experience and learning improve"
   ],
   "thriving-1": [
-    "compare earlier and later evidence tied to the same learning expectation",
-    "students, learning expectations, and paired assessment or work-sample cycles",
-    "select comparable earlier and later work and model explaining a change",
-    "Paired work or assessments directly show how learning changed, and students explain what helped and what needs attention next",
-    "improve how comparable evidence is selected, then check whether students and families can identify changes more precisely"
+    "show growth toward individual learning goals through comparable earlier and later evidence in every grade and content area",
+    "all grade levels and content areas, with coverage and findings recorded separately by grade and content area",
+    "plan growth across all grades and content areas, its evidence and review cycle",
+    "Growth is evaluated in all grade levels and all subjects and content areas, including and extending beyond reading and mathematics. Students and teachers compare earlier and later evidence against the same learning expectation and criteria. Students explain what improved and what helped. Teachers monitor individual learning goals, including for students already above expectations, and respond when progress is insufficient. Report separately the proportion with comparable evidence and the proportion demonstrating growth toward the documented goal; missing evidence does not establish no growth",
+    "use evidence to refine growth across all grades and content areas, then check whether the intended learner experience and learning improve"
   ],
   "thriving-2": [
-    "demonstrate Priority Standard expectations in aligned work or assessments",
-    "students, Priority Standards, and assessment opportunities",
-    "align assessments and model judging work against the standard",
-    "Aligned work or assessments directly demonstrate the expected knowledge, skills, and thinking; reviewers distinguish mastery from participation and use 3.0 as the expectation where a scale applies",
-    "refine an assessment or scoring process, then check whether judgments of demonstrated learning are clearer and consistent"
+    "demonstrate standards-aligned mastery through individual evidence in every grade and content area",
+    "all grade levels and content areas, with coverage and findings recorded separately by grade and content area",
+    "plan mastery across all grades and content areas, its evidence and review cycle",
+    "Mastery is expected and evaluated in all grade levels and all content areas. Students demonstrate the standard's expected knowledge, skills and thinking through aligned individual evidence and required accommodations. Teachers use shared criteria and sufficient evidence for the claim; 3.0 represents expected learning where scales apply. Effort, completion and group performance are reported separately from mastery",
+    "use evidence to refine mastery across all grades and content areas, then check whether the intended learner experience and learning improve"
   ],
   "thriving-3": [
-    "apply learning to a task that reflects the demands of their next step",
-    "students, transition tasks, and next grades, courses, pathways, or opportunities",
-    "identify next-step demands and plan a task that reflects them",
-    "Work directly demonstrates application to next-step demands, and students explain how specific evidence shows preparation for that grade, course, pathway, or opportunity",
-    "refine a transition task against next-step demands, then check whether work demonstrates the relevant preparation"
+    "demonstrate identified next-step demands in aligned tasks in every grade and content area",
+    "all grade levels and content areas, with coverage and findings recorded separately by grade and content area",
+    "plan readiness across all grades and content areas, its evidence and review cycle",
+    "Readiness is expected and evaluated in all grade levels and all content areas. Teachers identify the demands of the next grade, course, pathway or opportunity. Students demonstrate the relevant knowledge, skills and independence in aligned tasks, explain their evidence and identify gaps. Teachers provide targeted preparation and opportunities to apply learning in a new context",
+    "use evidence to refine readiness across all grades and content areas, then check whether the intended learner experience and learning improve"
   ],
   "thriving-agency": [
-    "set or adjust goals, decide how to proceed, and explain the effect using evidence",
-    "students and different learning experiences over time",
-    "model goal setting, decisions, and evidence-based reflection",
-    "Across different experiences, dated student decisions and work show increasing responsibility, and students use evidence to explain how their choices affected learning",
-    "adjust decision supports, then check whether students direct and adapt their learning with greater independence"
+    "set goals, make learning decisions, monitor and adjust their approach in every grade and content area",
+    "all grade levels and content areas, with coverage and findings recorded separately by grade and content area",
+    "plan student agency across all grades and content areas, its evidence and review cycle",
+    "Student agency is expected and evaluated in all grade levels and all content areas. Students use interests, passions, aspirations, skills and talents to set goals and shape learning decisions. They select strategies, seek support, monitor evidence and adjust their approach. Across experiences, students explain how their decisions affected learning and take increasing responsibility for next steps",
+    "use evidence to refine student agency across all grades and content areas, then check whether the intended learner experience and learning improve"
   ],
   "thriving-4": [
-    "describe belonging, self-understanding, and how they access help",
-    "students, schools, grades, and opportunities to hear student perspectives",
-    "plan student conversations and introduce relationships, routines, and resources for support",
-    "Student accounts directly describe belonging, self-understanding, and access to help, including specific relationships, routines, or resources supporting health and school participation",
-    "change a support in response to student accounts, then check whether students describe improved connection or access to help"
+    "experience safety and belonging, identify a trusted adult and access help that is followed up",
+    "classrooms, grades, courses and applicable learning cycles",
+    "plan student well-being, its evidence and review cycle",
+    "Students experience safety, belonging and supportive relationships, identify a trusted adult and know how to obtain help. Leaders use student feedback, attendance and participation to identify barriers and unmet social, emotional or physical needs, respond promptly and check whether support helped",
+    "use evidence to refine student well-being, then check whether the intended learner experience and learning improve"
   ]
 };
  const focusDescriptions={
-  "curriculum": "Maturity reflects how consistently students receive the shared essential learning for their grade or course, with aligned instruction and assessment and enough time to practice in the settings reviewed.",
-  "standards": "Maturity reflects how consistently students explain both what they are expected to learn and why it matters at the start of instruction on each Priority Standard reviewed.",
-  "scales": "Maturity reflects how consistently students use aligned Proficiency Scales to study examples before their first demonstration of proficiency and explain how specific features match the scale.",
-  "expectations": "Maturity reflects how consistently students do the grade-level thinking themselves, using clear expectations and support as needed across the tasks and classrooms reviewed.",
-  "thinking-1": "Maturity reflects how consistently students compare possible responses to a real problem, justify a decision with evidence, and explain how that evidence shaped their solution.",
-  "thinking-2": "Maturity reflects how consistently students bring learning from different subjects together when a real problem calls for it and explain what each subject contributes.",
-  "thinking-3": "Maturity reflects how consistently family, community, or workforce partners help shape learning challenges and students explain how those contributions affect their work.",
-  "voice-1": "Maturity reflects how consistently student input helps shape actual learning decisions and students can identify what changed because of their input.",
-  "voice-2": "Maturity reflects how consistently students make meaningful choices about their work, explain their reasons, and show how those choices support shared learning expectations.",
-  "voice-3": "Maturity reflects how consistently students connect specific work to their interests, strengths, experiences, or aspirations and explain why that connection matters to them.",
-  "work-1": "Maturity reflects how consistently students write to develop or communicate subject understanding every instructional week in every course reviewed. Reviewers look at dated writing and what it reveals about students’ thinking.",
-  "work-2": "Maturity reflects how consistently students produce multiple pieces of evidence of grade-level learning and real-world application through BRIDGE assessments, judged against the relevant Priority Standards and BRIDGE Performance Indicators.",
-  "work-3": "Maturity reflects how consistently students in grades 3–12 select BPI portfolio evidence and use it during scheduled Presentations of Learning to explain their capabilities, progress, and next steps.",
-  "scales-self-check": "Maturity reflects how consistently students use the aligned scale to check their own unfinished work at least once during instruction on each applicable Priority Standard and identify a next step while time remains to act.",
-  "feedback-3": "Maturity reflects how consistently students receive specific feedback tied to the standard or scale while they can still use it and explain what to keep doing or improve.",
-  "feedback-4": "Maturity reflects how consistently students make a change in response to feedback and use before-and-after work to explain how that change improves their understanding or performance.",
-  "support-1": "Maturity reflects how consistently students receive support when they get stuck on challenging grade-level work and show how it helps them move forward while doing the thinking themselves.",
-  "support-2": "Maturity reflects how consistently students contribute reasoning, build on a peer’s ideas, and explain how collaboration helped them reconsider or strengthen their understanding.",
-  "support-3": "Maturity reflects how consistently students identify patterns across earlier work or feedback and use those patterns to set a specific goal and choose a strategy for a future task.",
-  "thriving-1": "For Growth, maturity reflects consistent use of comparable earlier and later work or assessments to show how learning changed. Students explain those changes using direct evidence tied to the same learning expectation.",
-  "thriving-2": "For Mastery, maturity reflects consistent use of aligned work or assessments to establish what students have demonstrated against Priority Standards. Participation alone does not establish mastery.",
-  "thriving-3": "For Readiness, maturity reflects consistent use of tasks that match next-step demands and direct evidence of how students apply their learning to those demands.",
-  "thriving-agency": "For Agency, maturity reflects how consistently students direct and adjust their learning across experiences over time, using evidence to explain how their goals and decisions affected learning.",
-  "thriving-4": "For Student Well-being, maturity reflects consistent attention to students’ own accounts of belonging, self-understanding, and access to help, with direct evidence about relationships, routines, or resources that support participation and health."
+  "curriculum": "Maturity reflects how consistently students receive the shared required curriculum with sufficient instruction, practice, review and support across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "standards": "Maturity reflects how consistently students explain WHAT they are learning, WHY it matters and a meaningful use in their own words across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "scales": "Maturity reflects how consistently students use aligned scales to compare examples before their first demonstration of proficiency and explain features of quality across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "expectations": "Maturity reflects how consistently students do the standard's grade-level thinking with accessible materials and appropriate supports across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thinking-1": "Maturity reflects how consistently students apply learning to authentic problems and justify decisions with evidence across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thinking-2": "Maturity reflects how consistently students use learning from two or more disciplines in one coherent task and explain each contribution across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thinking-3": "Maturity reflects how consistently students experience learning tasks shaped by documented family, community and workforce contributions across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "voice-1": "Maturity reflects how consistently students identify an actual learning decision changed by their input across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "voice-2": "Maturity reflects how consistently students make consequential choices that meet shared learning expectations across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "voice-3": "Maturity reflects how consistently students connect work to interests, passions, aspirations, skills, talents and lived experiences across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "voice-4": "Maturity reflects how consistently students generate questions, investigate possibilities, revise ideas and pursue further inquiry across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-1": "Maturity reflects how consistently students write to explain reasoning or communicate subject knowledge weekly in every course across the applicable every instructional week in every course reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-2": "Maturity reflects how consistently students apply learning in individual performances assessed with criteria shared in advance across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-3": "Maturity reflects how consistently students use BPI portfolio evidence during scheduled Presentations of Learning to justify progress, capabilities and next steps across the applicable scheduled grade 3-12 portfolio and presentation cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-4": "Maturity reflects how consistently students learn through sustained inquiry, decisions, critique, revision and purposeful products across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-5": "Maturity reflects how consistently students use explicitly taught BPI criteria to assess and improve their performance across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-6": "Maturity reflects how consistently students maintain and explain BPI portfolio websites with dated, indicator-linked evidence and reflection across the applicable scheduled grade 3-12 website review cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-7": "Maturity reflects how consistently students demonstrate their own learning and explain their contribution within collaborative work across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "scales-self-check": "Maturity reflects how consistently students use aligned scales to check their own unfinished work at least once during instruction on each Priority Standard and act on a specific next step across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "feedback-3": "Maturity reflects how consistently students receive specific, timely feedback against the standard or scale and explain their next step across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "feedback-4": "Maturity reflects how consistently students improve work in response to feedback and demonstrate the learning again across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and before-and-after work and follow-up evidence separately from participation percentages or student attainment.",
+  "feedback-5": "Maturity reflects how consistently students receive assessment judgments checked through independent common scoring and resolution of differences across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-1": "Maturity reflects how consistently students receive responsive teaching or extension based on current evidence of their learning across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-2": "Maturity reflects how consistently students contribute reasoning, respond to peers and explain how collaboration improves understanding across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-3": "Maturity reflects how consistently students set goals from patterns in work and feedback, then check progress in the next task or unit across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-4": "Maturity reflects how consistently students regularly access targeted tutoring with a provider, schedule, family communication and progress monitoring across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-5": "Maturity reflects how consistently students experience focused teaching, protected application, responsive conferences or groups, and reflection across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "support-6": "Maturity reflects how consistently students show follow-up learning evidence that informs whether intervention continues, changes, intensifies or concludes across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thriving-1": "Maturity reflects how consistently students show growth toward individual learning goals through comparable earlier and later evidence in every grade and content area across the applicable all grade levels and content areas, with coverage and findings recorded separately by grade and content area reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thriving-2": "Maturity reflects how consistently students demonstrate standards-aligned mastery through individual evidence in every grade and content area across the applicable all grade levels and content areas, with coverage and findings recorded separately by grade and content area reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thriving-3": "Maturity reflects how consistently students demonstrate identified next-step demands in aligned tasks in every grade and content area across the applicable all grade levels and content areas, with coverage and findings recorded separately by grade and content area reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thriving-agency": "Maturity reflects how consistently students set goals, make learning decisions, monitor and adjust their approach in every grade and content area across the applicable all grade levels and content areas, with coverage and findings recorded separately by grade and content area reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "thriving-4": "Maturity reflects how consistently students experience safety and belonging, identify a trusted adult and access help that is followed up across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment."
 };
  const aliases={'feedback-1':'scales','feedback-2':'scales-self-check'};
  const rubrics=Object.fromEntries(Object.entries(definitions).map(([id,[practice,settings,preparation,consistent,improvement]])=>{

@@ -2,39 +2,48 @@
 (function(root){
  const D=root.VibrancyDashboard,A=root.VibrancyAreaIndicators,M=root.VibrancyMaturity;
  const short={
-  curriculum:'Every classroom teaches the same essential learning, with enough time for students to practice and show what they know.',
-  standards:'Students explain what they are learning and why it matters when a Priority Standard is introduced.',
-  scales:'Before showing proficiency, students use a Proficiency Scale to study examples and explain what makes the work successful.',
-  expectations:'Students understand the expectations and do grade-level thinking, with support that keeps the thinking in their hands.',
-  'thinking-1':'Students use grade-level learning to address a real problem and explain how evidence shaped their solution.',
-  'thinking-3':'Students tackle real challenges shaped by families, community members, or workforce partners and explain what their input changed.',
-  'feedback-3':'Students receive specific feedback tied to learning expectations and explain what to keep doing or improve while they have time to act.',
-  'feedback-4':'Students use feedback to improve their work and explain how their changes better meet the learning expectation.',
-  'thinking-2':'When a problem calls for it, students connect subjects and explain how those connections improved their response.',
-  'voice-1':'Students explain a decision their input helped shape and what changed because of their ideas.',
-  'voice-2':'Students make a meaningful choice about their work and explain how that choice shaped what they did.',
-  'voice-3':'Students connect learning to their interests, strengths, experiences, community knowledge, or hopes for the future.',
-  'work-1':'Students write weekly in every course to develop ideas or communicate understanding in that subject.',
-  'work-2':'Students apply learning through authentic work. Priority Standards and BRIDGE Performance Indicators provide the criteria for judging readiness.',
-  'work-3':'In grades 3–12, students select portfolio evidence and present what they can do, how they have progressed, and their next steps.',
-  'scales-self-check':'During instruction, students use a Proficiency Scale to check their work and name a specific improvement while they have time to act.',
-  'support-1':'Students receive timely help with challenging grade-level work and explain how it helped them move forward more independently.',
-  'support-2':'Students explain their ideas, build on peers’ thinking, and identify how collaboration strengthened their understanding.',
-  'support-3':'Students look for patterns in earlier work or feedback, set a learning goal, and choose a strategy or support.',
-  'thriving-1':'Students compare earlier and later evidence of the same learning, explain their progress, and identify what helped.',
-  'thriving-2':'Students show the learning expected for a Priority Standard. Reviewers use the aligned scale’s 3.0 target where available.',
-  'thriving-3':'Students apply learning in a setting that shows preparation for their next grade, course, pathway, or life beyond school.',
-  'thriving-agency':'Over time, students increasingly set goals, make decisions, and explain the results of directing their own learning.',
-  'thriving-4':'Students describe belonging, self-awareness, and support for social, emotional, and physical well-being.'
- };
+  "curriculum": "Shared grade/course expectations cover all required standards, with time for teaching, practice, review and support.",
+  "standards": "At the introduction of each Priority Standard, students explain WHAT they are learning, WHY it matters and its use.",
+  "scales": "Before first demonstrating proficiency, students compare examples with the aligned scale and explain specific features of quality.",
+  "expectations": "Students do the standard's grade-level thinking themselves, with accessible materials, scaffolds and required accommodations.",
+  "thinking-1": "Students apply grade-level knowledge to authentic problems, compare responses and justify decisions with evidence.",
+  "thinking-2": "Students integrate two or more disciplines in one task and explain each subject's contribution; relevant standards are assessed.",
+  "thinking-3": "Family, community and workforce contributions shape learning design; records identify the input and what changed.",
+  "voice-1": "Students identify a learning decision influenced by their input and explain what changed.",
+  "voice-2": "Students make consequential choices about learning and explain how their choices meet shared expectations.",
+  "voice-3": "Students connect work to personal interests, strengths, experiences or aspirations and identify a further opportunity to explore.",
+  "voice-4": "Students ask questions, investigate and test ideas, explain discoveries and identify what to explore next.",
+  "work-1": "Students write weekly in every course; teachers give feedback on subject thinking and relevant writing criteria.",
+  "work-2": "Students apply standards in authentic demonstrations; teachers assess each student with criteria shared in advance.",
+  "work-3": "In grades 3-12, students justify growth, mastery, readiness and BPI claims with portfolio evidence and answer audience questions.",
+  "work-4": "Sustained inquiry includes standards, decisions, critique, revision, an appropriate audience and checks of individual learning.",
+  "work-5": "Teachers plan, teach and assess BPIs; students use their criteria to evaluate and improve work.",
+  "work-6": "Grade 3-12 BPI websites contain dated, indicator-linked evidence and reflection that students can navigate and explain.",
+  "work-7": "Each student explains their contribution and demonstrates targeted learning; group completion does not establish individual mastery.",
+  "scales-self-check": "At least once during instruction on each Priority Standard, students use its scale to check and improve unfinished work.",
+  "feedback-3": "Feedback identifies evidence against the standard or scale and a usable next step while learning is underway.",
+  "feedback-4": "Students act on feedback and explain the improvement; teachers reassess the targeted learning.",
+  "feedback-5": "Teacher teams independently score common work, resolve differences with criteria and check agreement again.",
+  "support-1": "Current evidence triggers targeted teaching or extension while maintaining access to challenging grade-level learning.",
+  "support-2": "Students contribute reasoning, respond to peers and explain how collaboration improved their understanding; participation is equitable.",
+  "support-3": "Students identify patterns, set a specific goal and strategy, then check progress in the next task or unit.",
+  "support-4": "Targeted tutoring has a provider, schedule, regular attendance, parent communication, access support and progress monitoring.",
+  "support-5": "Workshops combine focused teaching, protected application, responsive conferences or small groups, and reflection.",
+  "support-6": "Follow-up work shows whether the targeted learning improved and informs continuation, change, intensification or conclusion of support.",
+  "thriving-1": "Growth is evaluated in every grade and content area using comparable earlier/later evidence and individual learning goals.",
+  "thriving-2": "Mastery is expected and evaluated in all grades and content areas; aligned individual evidence demonstrates expected learning.",
+  "thriving-3": "Readiness is expected and evaluated across all grades and content areas against identified next-step demands.",
+  "thriving-agency": "Agency is expected and evaluated across all grades and content areas through goals, decisions, monitoring and adjustment.",
+  "thriving-4": "Students experience safety, belonging and support, know a trusted adult and how to obtain help; leaders follow up."
+};
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function assemble(snapshot,wording,terms,area=[]){
   const saved=snapshot.rows.map(row=>Object.fromEntries(snapshot.headers.map((h,i)=>[h,String(row[i]??'')])));let data=D.applyPublishedWording(D.mergeDefinitions(saved,saved),wording);
   for(const r of wording)if(r.type==='kpi'&&!data.some(d=>d.type==='kpi'&&d.id===r.id))data.push({...r,sort_order:'999',percent:'',status:'Awaiting Evidence'});
   data=D.applyTermResults(data,terms);
   const sections=root.VibrancyExperiences.map(exp=>({...exp,kind:exp.id==='thriving'?'Learner outcomes':'Learner experience',indicators:D.indicatorRows(data,exp.id).map(r=>{
-   const original=saved.find(d=>d.type==='kpi'&&d.id===r.id),description=original?.description===r.description&&short[r.id]?short[r.id]:r.description;
-   return {...r,accountabilityMaturity:rating(r,data),summary:description,terms:[1,2,3].map(term=>data.find(d=>d.type==='kpi'&&d.id===r.id&&(d.experience_id||'purpose')===D.reportingHome(r.id,r.experience_id||'purpose')&&D.reportingTerm(d,data)===term))};
+   const original=saved.find(d=>d.type==='kpi'&&d.id===r.id),description=short[r.id]&&(!original||original.description===r.description)?short[r.id]:r.description;
+   return {...r,accountabilityMaturity:rating(r,data),summary:description.replace(/\*\*([^*]+)\*\*/g,'$1'),terms:[1,2,3].map(term=>data.find(d=>d.type==='kpi'&&d.id===r.id&&(d.experience_id||'purpose')===D.reportingHome(r.id,r.experience_id||'purpose')&&D.reportingTerm(d,data)===term))};
   })}));
   const items=area.filter(r=>r.area_id==='learning'&&A.populated(r));
   if(items.length){const extra=A.dashboardData(items,'learning','',terms);sections.push({id:'learning',title:'More Vibrant Learning indicators',question:'Additional published indicators from Fleming County Schools.',kind:'Learner experience',indicators:D.indicatorRows(extra,'learning').map(r=>({...r,accountabilityMaturity:rating(r,extra),summary:r.description,terms:[1,2,3].map(t=>extra.find(d=>d.type==='kpi'&&d.id===r.id&&D.reportingTerm(d,extra)===t))}))});}
@@ -43,7 +52,7 @@
  function rating(row,data){const review=M.assess(row,data);return {stage:review.stage,label:review.label,period:review.review?.period||null};}
  function maturity(indicator){return indicator.accountabilityMaturity||{stage:-1,label:'Not Yet Rated',period:null};}
  function maturityLabel(indicator){const value=maturity(indicator);return value.stage<0?value.label:`${value.stage+1} - ${value.label}`;}
- const pagePlan=[{title:'Vibrant Learning Report',columns:[['purpose'],['thinking']]},{title:'Voice, meaningful work, and support',columns:[['voice','support'],['work']]},{title:'Feedback and thriving learners',columns:[['feedback','learning'],['thriving']]}];
+ const pagePlan=[{title:'Vibrant Learning Report',columns:[['purpose'],['thinking','voice']]},{title:'Demonstrating learning and using feedback',columns:[['work'],['feedback','learning']]},{title:'Support and thriving learners',columns:[['support'],['thriving']]}];
  function pages(sections){return pagePlan.map(page=>({...page,columns:page.columns.map(ids=>ids.map(id=>sections.find(s=>s.id===id)).filter(Boolean))}));}
  function result(row,available=true){if(!available)return 'Results unavailable';const n=/^(awaiting|pending)/i.test(row?.status||'')?null:A.percentage(row?.percent);return n===null?'Awaiting Evidence':`${n}%`;}
  function latestResult(indicator,available=true){
@@ -61,7 +70,7 @@
   const maturityKey=`<section class="report-dimensions report-maturity-key"><h2>Understanding Accountability Maturity</h2><p>Maturity describes consistent practice and the intended learner experience within the settings reviewed. It is separate from term percentages.</p><ol><li>Not Started</li><li>Establishing</li><li>Developing</li><li><strong>Implementing - expectation</strong></li><li>Sustaining and Advancing</li></ol><p><strong>Not Yet Rated</strong> is outside these five stages: evidence is insufficient or a completed review has not been published. It does not mean Not Started.</p></section>`;
   const dimensions=`<section class="report-dimensions"><h2>Three different kinds of findings</h2><p>Priority Standards identify essential learning. Proficiency Scales describe successful learning. BRIDGE connects learning to authentic problems and demonstrations.</p><p><strong>Accountability Maturity</strong> describes implementation and the intended learner experience verified in the settings reviewed.</p><p><strong>Learner experience:</strong> what students experience in the first six areas.</p><p><strong>Learner outcomes:</strong> evidence of growth, mastery, readiness, agency, and well-being under Thriving Learner.</p></section>`;
   const evidenceNote='<p class="report-live-note">One student work sample can support several findings when each review identifies the distinct evidence and criteria used. Participation, quality of work, and growth are different claims.</p><p class="report-live-note">Explore the full dashboards for FCS Belief Statements, reporting-term notes, and Evidence of Practice links. This report summarizes the published indicators; it does not replace the evidence review.</p>';
-  return reportPages.map((page,index)=>`<section class="report-sheet" aria-label="Vibrant Learning Report page ${index+1}">${header}${index===0?`<h1 class="report-title">${escape(page.title)}</h1><p class="report-deck">What students experience, what they can demonstrate, and where evidence is still being gathered.</p><div class="report-key"><p><strong>Reading the results:</strong> Each bar shows the latest reported term; all three term values appear below. Results are dashboard findings, not student grades. <strong>Awaiting Evidence</strong> means no result has been reported. <strong>0%</strong> is a reported result.</p>${warning}</div>`:`<h2 class="report-continuation">${escape(page.title)}</h2>`}<div class="report-columns"><div>${page.columns[0].map(section).join('')}${index===2?evidenceNote:''}</div><div>${page.columns[1].map(section).join('')}${index===0?maturityKey:index===1?dimensions:''}</div></div>${footer(index+1,reportPages.length)}</section>`).join('');
+  return reportPages.map((page,index)=>`<section class="report-sheet" aria-label="Vibrant Learning Report page ${index+1}">${header}${index===0?`<h1 class="report-title">${escape(page.title)}</h1><p class="report-deck">What students experience, what they can demonstrate, and where evidence is still being gathered.</p><div class="report-key"><p><strong>Reading the results:</strong> Each bar shows the latest reported term; all three term values appear below. Results are dashboard findings, not student grades. <strong>Awaiting Evidence</strong> means no result has been reported. <strong>0%</strong> is a reported result.</p>${warning}</div>`:`<h2 class="report-continuation">${escape(page.title)}</h2>`}<div class="report-columns"><div>${page.columns[0].map(section).join('')}${index===0?dimensions:''}</div><div>${page.columns[1].map(section).join('')}${index===1?maturityKey:index===2?evidenceNote:''}</div></div>${footer(index+1,reportPages.length)}</section>`).join('');
  }
  async function load(){
   const status=document.querySelector('#report-status'),button=document.querySelector('#report-print'),surface=document.querySelector('#learning-report');button.disabled=true;surface.setAttribute('aria-busy','true');status.textContent='Loading published learning information…';

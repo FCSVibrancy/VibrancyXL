@@ -3,7 +3,7 @@ require('../evidence-viewer.js');
 const {records,markup,applyAlignment}=require('../purpose-dashboard.js');
 const snapshot=JSON.parse(fs.readFileSync('data/learning-purpose.json'));
 const data=records([snapshot.headers,...snapshot.rows]);
-const expected={purpose:4,thinking:3,voice:3,work:3,feedback:3,support:3,thriving:5};
+const expected={purpose:4,thinking:3,voice:4,work:7,feedback:4,support:6,thriving:5};
 for(const [id,count] of Object.entries(expected)){
  const html=markup(data,'current',id);
  assert.equal((html.match(/<article /g)||[]).length,count,id);
@@ -15,7 +15,7 @@ const edited=applyAlignment(data,[['Dashboard tile','KPI card title','What we ex
 assert.equal(edited.find(r=>r.id==='thinking-1').title,'Edited live title');
 assert.equal(edited.find(r=>r.id==='voice-1').description,'New voice definition');
 assert.equal(edited.find(r=>r.id==='curriculum').title,data.find(r=>r.id==='curriculum').title);
-assert.equal(edited.find(r=>r.id==='thriving-1').title,'Growth');
+assert.equal(edited.find(r=>r.id==='thriving-1').title,data.find(r=>r.id==='thriving-1').title);
 assert.throws(()=>applyAlignment(data,[['wrong headers']]));
 assert.throws(()=>applyAlignment(data,[['Dashboard tile','KPI card title']]));
 const future=[...data,{...data.find(r=>r.id==='voice-1'),reporting_window:'future',title:'Future voice only'}];

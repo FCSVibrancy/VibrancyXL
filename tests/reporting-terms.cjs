@@ -12,7 +12,7 @@ test('term percentages are independent, zero is real, and legacy current values 
 });
 test('pending results never show numeric completion; feedback does not duplicate commitments',()=>{
  const pending=D.termDial({percent:'75',status:'Awaiting Evidence'},1,'Test');assert.ok(pending.includes('Awaiting Evidence'));assert.ok(!pending.includes('aria-valuenow'));assert.ok(!pending.includes('75%'));
- const feedback=D.markup(data,'current','feedback');assert.equal((feedback.match(/class="purpose-dial"/g)||[]).length,9);assert.ok(feedback.includes('One 100% commitment'));
+ const feedback=D.markup(data,'current','feedback');assert.equal((feedback.match(/class="purpose-dial"/g)||[]).length,12);assert.ok(feedback.includes('One 100% commitment'));
 });
 test('evidence links retain their reporting term identity',()=>{
  const row={...data.find(r=>r.type==='kpi'&&r.id==='scales'),reporting_window:'term-2',percent:'50',status:'',evidence_1_label:'Term 2 draft',evidence_1_url:'https://drive.google.com/file/d/term2/view'};

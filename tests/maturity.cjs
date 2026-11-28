@@ -2,8 +2,8 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 require('../evidence-viewer.js');const D=require('../purpose-dashboard.js'),M=require('../maturity-rubrics.js'),s=require('../data/learning-purpose.json');
 const data=()=>D.records([s.headers,...s.rows]);
 function fixture(stage='Developing',extra={}){return {type:'kpi',id:'scales',experience_id:'purpose',reporting_window:'term-1',title:'Illustrative fixture',description:'Fixture',sort_order:'1',percent:'',maturity_review:{approved:true,reviewer:'Illustrative test reviewer',period:'term-1',date:'2026-11-20',scope:'Illustrative classrooms A and B; two Priority Standards',finding:'Students **repeatedly analyzed examples** in fixture classrooms A and B; timing varied.',evidence:[{label:'Illustrative walkthrough and student explanations',reference:'Fixture A, observations 1–4'}],samplingApproved:true,sampling:'Illustrative sample: both fixture classrooms, two standards each.',criteria:{[stage]:true},...extra}};}
-test('all 24 reporting indicators have five distinct specific observable stages and safe emphasis',()=>{
- const rows=data().filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id));assert.equal(rows.length,24);
+test('all 33 reporting indicators have five distinct specific observable stages and safe emphasis',()=>{
+ const rows=data().filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id));assert.equal(rows.length,33);
  for(const r of rows){const rubric=M.rubrics[r.id];assert.ok(rubric,r.id);assert.equal(rubric.stages.length,5);assert.equal(new Set(rubric.stages).size,5);assert.ok(rubric.stages.every(x=>x.includes('**')));assert.ok(rubric.settings&&rubric.cycle&&rubric.sampling);assert.equal(M.assess(r,data()).label,'Not Yet Rated');const h=M.details(r,data());assert.ok(h.includes('<strong>'));assert.ok(!h.includes('**'));assert.ok(!h.includes('<details open'));}
  assert.match(M.rubrics['work-1'].cycle,/every instructional week in every course/);assert.match(M.rubrics['work-3'].cycle,/scheduled cycle/);assert.match(M.rubrics.scales.stages[3],/before their first demonstration/);assert.match(M.rubrics['scales-self-check'].stages[3],/own unfinished work/);assert.match(M.rubrics['feedback-4'].stages[3],/Before-and-after/);
 });
@@ -42,8 +42,8 @@ test('the arrow marks reviewed stages and an explicitly unrated Level 1 starting
  const html=M.details({id:'scales',reporting_window:'current'},[]);assert.equal((html.match(/class="maturity-path-current" aria-hidden="true">▼/g)||[]).length,1);assert.match(html,/Current rating/);assert.ok(!html.includes('Starting point · Not Yet Rated'));assert.equal((html.match(/aria-current="step"/g)||[]).length,0);
 });
 
-test('all 24 reporting indicators explain their own accountability maturity below the heading',()=>{
- const rows=data().filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id));assert.equal(Object.keys(M.focusDescriptions).length,24);assert.equal(new Set(Object.values(M.focusDescriptions)).size,24);
+test('all 33 reporting indicators explain their own accountability maturity below the heading',()=>{
+ const rows=data().filter(r=>r.type==='kpi'&&!['feedback-1','feedback-2'].includes(r.id));assert.equal(Object.keys(M.focusDescriptions).length,33);assert.equal(new Set(Object.values(M.focusDescriptions)).size,33);
  for(const row of rows){assert.ok(M.focusDescriptions[row.id],row.id);const html=M.details(row,data());assert.ok(html.indexOf('maturity-indicator-focus')>html.indexOf('<h4>Accountability Maturity</h4>'));assert.ok(html.indexOf('maturity-indicator-focus')<html.indexOf('<ol class="maturity-pathway"'));}
  assert.match(M.focusDescriptions['work-1'],/every instructional week in every course/);assert.match(M.focusDescriptions['work-3'],/scheduled Presentations/);assert.match(M.focusDescriptions.scales,/before their first demonstration/);assert.match(M.focusDescriptions['scales-self-check'],/own unfinished work/);assert.match(M.focusDescriptions['feedback-4'],/before-and-after work/);
 });

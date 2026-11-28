@@ -2,7 +2,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 require('../purpose-dashboard.js');require('../area-indicators.js');require('../experiences.js');const R=require('../learning-report.js'),s=require('../data/learning-purpose.json');
 test('three report pages include seven experiences and every scored indicator exactly once',()=>{
  const sections=R.assemble(s,[],[]),html=R.markup(sections,{date:new Date('2026-11-27T15:00:00Z')});
- assert.equal(sections.length,7);assert.equal(sections.reduce((n,r)=>n+r.indicators.length,0),24);assert.equal((html.match(/class="report-sheet"/g)||[]).length,3);
+ assert.equal(sections.length,7);assert.equal(sections.reduce((n,r)=>n+r.indicators.length,0),33);assert.equal((html.match(/class="report-sheet"/g)||[]).length,3);
  for(const section of sections)for(const row of section.indicators)assert.equal(html.split(`data-report-indicator="${row.id}"`).length-1,1);
  assert.ok(html.includes('Two 100% commitments'));assert.ok(html.includes('One 100% commitment'));assert.ok(!html.includes('data-report-indicator="feedback-1"'));assert.ok(!html.includes('data-report-indicator="feedback-2"'));
 });
@@ -14,12 +14,12 @@ test('report uses published wording and assigned terms without turning blank int
 });
 test('new published learning indicators and component indicators are included automatically',()=>{
  const wording=[{type:'kpi',id:'new-purpose',experience_id:'purpose',reporting_window:'current',title:'New learning measure',description:'A new published finding.'}],area=[{id:'indicator-report-new',area_id:'learning',title:'Additional learning indicator',description:'New evidence.',percent:'',visible:'TRUE'}];
- const sections=R.assemble(s,wording,[],area),html=R.markup(sections);assert.equal(sections.reduce((n,r)=>n+r.indicators.length,0),26);assert.ok(html.includes('New learning measure'));assert.ok(html.includes('Additional learning indicator'));assert.equal((html.match(/class="report-sheet"/g)||[]).length,3);
+ const sections=R.assemble(s,wording,[],area),html=R.markup(sections);assert.equal(sections.reduce((n,r)=>n+r.indicators.length,0),35);assert.ok(html.includes('New learning measure'));assert.ok(html.includes('Additional learning indicator'));assert.equal((html.match(/class="report-sheet"/g)||[]).length,3);
 });
 
 test('every report indicator has an independently reviewed Accountability Maturity finding',()=>{
  const M=require('../maturity-rubrics.js'),sections=R.assemble(s,[],[]),rows=sections.flatMap(section=>section.indicators),html=R.markup(sections);
- assert.equal((html.match(/class="report-maturity"/g)||[]).length,24);for(const row of rows)assert.deepEqual(R.maturity(row),{stage:-1,label:'Not Yet Rated',period:null});assert.ok(html.includes('Implementing - expectation'));assert.ok(html.includes('It does not mean Not Started.'));
+ assert.equal((html.match(/class="report-maturity"/g)||[]).length,33);for(const row of rows)assert.deepEqual(R.maturity(row),{stage:-1,label:'Not Yet Rated',period:null});assert.ok(html.includes('Implementing - expectation'));assert.ok(html.includes('It does not mean Not Started.'));
  const prior=M.reviews.scales;
  try{
   M.reviews.scales={'term-1':{approved:true,reviewer:'Illustrative reviewer',period:'term-1',date:'2026-11-27',scope:'Illustrative classrooms',finding:'Recurring example analysis with variation.',evidence:[{label:'Illustrative student explanations',reference:'Fixture A'}],samplingApproved:true,sampling:'Illustrative bounded sample',criteria:{Developing:true}}};
