@@ -17,7 +17,7 @@
   "work-2": "Students apply standards in authentic demonstrations; teachers assess each student with criteria shared in advance.",
   "work-3": "In grades 3-12, students justify growth, mastery, readiness and BPI claims with portfolio evidence and answer audience questions.",
   "work-4": "Sustained inquiry includes standards, decisions, critique, revision, an appropriate audience and checks of individual learning.",
-  "work-5": "Teachers plan, teach and assess BPIs; students use their criteria to evaluate and improve work.",
+  "work-5": "BPI durable skills are seamlessly embedded in daily instruction across all grades and subjects; students apply criteria to improve work.",
   "work-6": "Grade 3-12 BPI websites contain dated, indicator-linked evidence and reflection that students can navigate and explain.",
   "work-7": "Each student explains their contribution and demonstrates targeted learning; group completion does not establish individual mastery.",
   "scales-self-check": "At least once during instruction on each Priority Standard, students use its scale to check and improve unfinished work.",

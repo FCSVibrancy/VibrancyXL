@@ -108,10 +108,10 @@
     "use evidence to refine project-based learning, then check whether the intended learner experience and learning improve"
   ],
   "work-5": [
-    "use explicitly taught BPI criteria to assess and improve their performance",
-    "classrooms, grades, courses and applicable learning cycles",
+    "apply BPI durable skills seamlessly within daily standards-aligned instruction in every grade and content area",
+    "all grade levels and subject/content areas",
     "plan bpi integration, its evidence and review cycle",
-    "Teachers plan, teach and assess BRIDGE Performance Indicators (BPIs) alongside academic standards. Students explain the BPI, use its criteria to assess and improve work, and show how their performance changed",
+    "Teachers model and seamlessly embed BRIDGE Performance Indicator (BPI) durable skills in daily instruction across all grades and content areas. Students apply these skills within academic content and use BPI criteria, feedback and reflection to improve work",
     "use evidence to refine bpi integration, then check whether the intended learner experience and learning improve"
   ],
   "work-6": [
@@ -250,7 +250,7 @@
   "work-2": "Maturity reflects how consistently students apply learning in individual performances assessed with criteria shared in advance across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
   "work-3": "Maturity reflects how consistently students use BPI portfolio evidence during scheduled Presentations of Learning to justify progress, capabilities and next steps across the applicable scheduled grade 3-12 portfolio and presentation cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
   "work-4": "Maturity reflects how consistently students learn through sustained inquiry, decisions, critique, revision and purposeful products across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
-  "work-5": "Maturity reflects how consistently students use explicitly taught BPI criteria to assess and improve their performance across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
+  "work-5": "Maturity reflects how consistently BPI durable skills are modeled, taught and applied seamlessly within daily academic instruction across all grades and content areas. Verify student application, BPI criteria, feedback and improvement in content work; a separate activity or BPI label alone does not establish integration.",
   "work-6": "Maturity reflects how consistently students maintain and explain BPI portfolio websites with dated, indicator-linked evidence and reflection across the applicable scheduled grade 3-12 website review cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
   "work-7": "Maturity reflects how consistently students demonstrate their own learning and explain their contribution within collaborative work across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
   "scales-self-check": "Maturity reflects how consistently students use aligned scales to check their own unfinished work at least once during instruction on each Priority Standard and act on a specific next step across the applicable classrooms, grades, courses and applicable learning cycles reviewed. Verify the intended experience and follow-up evidence separately from participation percentages or student attainment.",
